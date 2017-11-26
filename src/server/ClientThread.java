@@ -31,7 +31,7 @@ public class ClientThread extends Thread {
 	
 	public void broadcastMessageToGroup(String message)
 	{
-		this.server.broadcastMessage(message, currentGroup, this);
+		this.server.broadcastMessage(message, this.currentGroup, this);
 	}
 	
 	public synchronized void sendMessage(String message)

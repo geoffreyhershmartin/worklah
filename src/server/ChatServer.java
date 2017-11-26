@@ -46,6 +46,7 @@ public class ChatServer
 
 	public void broadcastMessage(String message, Group clientGroup, ClientThread sender) {
 		synchronized(this) {
+			System.out.print(message);
 			for (ClientThread c : clientGroup.groupMembers) {
 			    if (!c.equals(sender)) {
 			    		c.pw.println(message);
