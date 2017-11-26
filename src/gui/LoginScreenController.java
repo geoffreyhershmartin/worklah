@@ -27,13 +27,18 @@ import javafx.stage.Stage;
  * @author student
  */
 public class LoginScreenController implements Initializable {
+	
 	Stage prevStage;
+	
 	@FXML
 	private TextField Username;
+	
 	@FXML
 	private Button loginButton;
+	
 	protected ChatClient client;
 	protected String userID;
+	
 	/**
 	 * Initializes the controller class.
 	 */
@@ -53,16 +58,14 @@ public class LoginScreenController implements Initializable {
         client = new ChatClient(server, port);
 		Stage stage = new Stage();
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Screen2.fxml"));     
-
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChatScreen.fxml"));     
 		Parent root = (Parent) fxmlLoader.load();          
-		Screen2Controller controller = fxmlLoader.<Screen2Controller>getController();
+		ChatController controller = fxmlLoader.<ChatController>getController();
 		controller.setClient(client);
 		Scene scene = new Scene(root); 
-
-		stage.setScene(scene);    
-
-		stage.show();    
+		stage.setScene(scene);
+		stage.show();
+		
 	}
 
 
