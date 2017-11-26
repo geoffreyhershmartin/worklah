@@ -1,6 +1,9 @@
-package server;
+package client;
 
 import java.net.*;
+
+import server.ChatServer;
+
 import java.io.*;
 
 
