@@ -3,6 +3,8 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
+import client.ClientThread;
+
 public class ChatServer
 {
 	private ServerSocket servSock;

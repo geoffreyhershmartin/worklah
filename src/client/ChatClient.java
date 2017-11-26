@@ -15,8 +15,6 @@ public class ChatClient {
 	private String ip;
 	private int port;
 	private Socket connection;
-	private BufferedReader br;
-	private PrintWriter pw;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 	
@@ -27,8 +25,6 @@ public class ChatClient {
 		this.port = p;
 		try {
 			this.connection = new Socket(InetAddress.getByName(this.ip), port);
-			this.br = new BufferedReader(new InputStreamReader(this.connection.getInputStream()));
-			this.pw = new PrintWriter(this.connection.getOutputStream());
 	        out = new ObjectOutputStream(connection.getOutputStream());
 	        out.flush();
 	        in = new ObjectInputStream(connection.getInputStream());
@@ -113,8 +109,6 @@ public class ChatClient {
 	public void closeConnection()
 	{
 		try {
-			this.pw.close();
-			this.br.close();
 			this.connection.close();
 		} catch (IOException e) {
 			e.printStackTrace();
