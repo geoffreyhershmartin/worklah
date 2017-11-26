@@ -82,6 +82,7 @@ public class ChatController implements Initializable {
     private void enterPressedChat(ActionEvent event) {
     		client.sendMessageToServer(chatBox.getText());
 		append(chatBox.getText());
+                chatBox.setText("");
     }
     
     void append(String str) {
