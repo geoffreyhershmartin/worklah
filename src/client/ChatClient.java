@@ -10,11 +10,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Date;
 
-import javax.swing.table.DefaultTableModel;
-
-import com.socket.Message;
-import com.ui.ChatFrame;
-
 public class ChatClient {
 
 	private String ip;
@@ -133,7 +128,7 @@ public class ChatClient {
 	public static void main (String[] args)
 	{
 		ChatClient mc = new ChatClient("127.0.0.1", 8080);
-		mc.sendMessageToServer("HELLO");
+		mc.run("HELLO");
 		while(true)
 		{
 			
