@@ -27,129 +27,136 @@ import javafx.scene.control.CheckBox;
  * @author student
  */
 public class Screen2Controller implements Initializable {
-ScreensController myController;
-    @FXML
-    private Button exitButton;
-    @FXML
-    private Hyperlink logoutButton;
-    @FXML
-    private TextField searchUsers;
-    @FXML
-    private ListView<?> userList;
-    @FXML
-    private TextField searchTask;
-    @FXML
-    private ListView<?> taskList;
-    @FXML
-    private TextField chatBox;
-    @FXML
-    private Button attachButton;
-    @FXML
-    private MenuItem gifButton;
-    @FXML
-    private MenuItem attachmentButton;
-    @FXML
-    private Button sendButton;
-    @FXML
-    private MenuItem translateButton;
-    @FXML
-    private TextArea chatView;
-    public TextField primaryTextField;
-//private Client client;
-private boolean connected;
-    @FXML
-    private CheckBox Active;
-    @FXML
-    private TextArea nameView;
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+	ScreensController myController;
+	@FXML
+	private Button exitButton;
+	@FXML
+	private Hyperlink logoutButton;
+	@FXML
+	private TextField searchUsers;
+	@FXML
+	private ListView<?> userList;
+	@FXML
+	private TextField searchTask;
+	@FXML
+	private ListView<?> taskList;
+	@FXML
+	private TextField chatBox;
+	@FXML
+	private Button attachButton;
+	@FXML
+	private MenuItem gifButton;
+	@FXML
+	private MenuItem attachmentButton;
+	@FXML
+	private Button sendButton;
+	@FXML
+	private MenuItem translateButton;
+	@FXML
+	private TextArea chatView;
+	public TextField primaryTextField;
+	//private Client client;
+	private boolean connected;
 
-    @FXML
-    private void exitButtonPressed(ActionEvent event) {
-        System.exit(0);
-    }
+	String client;
+	@FXML
+	private CheckBox Active;
+	@FXML
+	private TextArea nameView;
+	/**
+	 * Initializes the controller class.
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		// TODO
+	}    
 
-    @FXML
-    private void logoutPressed(MouseEvent event) {
-    }
+	protected void setClient(String client) {
+		client = client;
+		System.out.print(client);
+	}
 
-    @FXML
-    private void logoutButtonPressed(ActionEvent event) {
-//        client.sendMessage(new ChatMessage(ChatMessage.LOGOUT, ""));
-          myController.setScreen(ChatAppFX.screen1ID);
-    }
+	@FXML
+	private void exitButtonPressed(ActionEvent event) {
+		System.exit(0);
+	}
 
-    @FXML
-    private void enterPressedUser(KeyEvent event) {
-    }
+	@FXML
+	private void logoutPressed(MouseEvent event) {
+	}
 
-    @FXML
-    private void userClicked(MouseEvent event) {
-    }
+	@FXML
+	private void logoutButtonPressed(ActionEvent event) {
+		//        client.sendMessage(new ChatMessage(ChatMessage.LOGOUT, ""));
+		myController.setScreen(ChatAppFX.screen1ID);
+	}
 
-    @FXML
-    private void enterPressedTask(KeyEvent event) {
-    }
+	@FXML
+	private void enterPressedUser(KeyEvent event) {
+	}
 
-    @FXML
-    private void taskClicked(MouseEvent event) {
-    }
+	@FXML
+	private void userClicked(MouseEvent event) {
+	}
 
-    @FXML
-    private void enterPressedChat(KeyEvent event) {
-    }
+	@FXML
+	private void enterPressedTask(KeyEvent event) {
+	}
 
-    @FXML
-    private void gifClicked(ActionEvent event) {
-    }
- @FXML
-    private void attaPressed(ActionEvent event) {
-//        client = new Client("localhost", 8080, "Taha", this);
-    }
-    @FXML
-    private void attachmentClicked(ActionEvent event) {
-        
-    }
+	@FXML
+	private void taskClicked(MouseEvent event) {
+	}
 
-    @FXML
-    private void translatePressed(ActionEvent event) {
-    }
+	@FXML
+	private void enterPressedChat(KeyEvent event) {
+	}
 
-    @FXML
-    private void sendPressed(ActionEvent event) {
-//        client.sendMessage(new ChatMessage(ChatMessage.MESSAGE, chatBox.getText()));
-        chatBox.setText("");
-    }
+	@FXML
+	private void gifClicked(ActionEvent event) {
+	}
+	@FXML
+	private void attaPressed(ActionEvent event) {
+		//        client = new Client("localhost", 8080, "Taha", this);
+	}
+	@FXML
+	private void attachmentClicked(ActionEvent event) {
 
-//    @Override
-//    public void setScreenParent(ScreensController screenPage) {
-//myController = screenPage;      }
-////    public void appendText(String string) {
-////       chatView.appendText(string + "\n");
-////    }
-    void append(String str) {
-        chatView.appendText("\n"+ str);
-        chatView.selectPositionCaret(chatView.getText().length()-1);
-    }
-    
-    void connectionFailed() {
-        connected=false;
-    }
+	}
 
-    @FXML
-    private void activePressed(ActionEvent event) {
-        
-    }
-    
+	@FXML
+	private void translatePressed(ActionEvent event) {
+	}
 
-// to start the whole thing the server
+	@FXML
+	private void sendPressed(ActionEvent event) {
+		//        client.sendMessage(new ChatMessage(ChatMessage.MESSAGE, chatBox.getText()));
+		chatBox.setText("");
+	}
+
+	//    @Override
+	//    public void setScreenParent(ScreensController screenPage) {
+	//myController = screenPage;      }
+	////    public void appendText(String string) {
+	////       chatView.appendText(string + "\n");
+	////    }
+	void append(String str) {
+		chatView.appendText("\n"+ str);
+		chatView.selectPositionCaret(chatView.getText().length()-1);
+	}
+
+	void connectionFailed() {
+		connected=false;
+	}
+
+	@FXML
+	private void activePressed(ActionEvent event) {
+
+	}
+
+
+	// to start the whole thing the server
 	public static void main(String[] args) {
-		
+
 	}
 
 }

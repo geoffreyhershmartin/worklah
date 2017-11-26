@@ -94,7 +94,7 @@
             </ListView>
          </children>
       </AnchorPane>
-      <TextField fx:id="chatBox" layoutX="224.0" layoutY="478.0" onKeyPressed="#enterPressedChat" prefHeight="27.0" prefWidth="283.0" promptText="Type message...." style="-fx-background-color: light grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="224.0" AnchorPane.rightAnchor="120.0" />
+      <TextField fx:id="chatBox" layoutX="224.0" layoutY="478.0" onKeyPressed="#enterPressedChat" prefHeight="27.0" prefWidth="283.0" promptText="Type message...." style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="224.0" AnchorPane.rightAnchor="120.0" />
       <Button fx:id="attachButton" layoutX="104.0" layoutY="462.0" mnemonicParsing="false" onAction="#attaPressed" prefHeight="17.0" prefWidth="120.0" text="Attach" AnchorPane.bottomAnchor="0.0">
          <contextMenu>
             <ContextMenu>
