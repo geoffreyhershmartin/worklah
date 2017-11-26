@@ -23,7 +23,7 @@ public class ReadingThread extends Thread
 			{
 				System.out.println("I received the following message: " + inc);
 				this.clientThread.sendConfirmation();
-				this.clientThread.broadcastMessageToOtherClients(inc);
+				this.clientThread.broadcastMessageToGroup(inc);
 			}
 		}
 		catch (IOException e)
@@ -33,8 +33,9 @@ public class ReadingThread extends Thread
 		System.out.println("Connection was closed!");
 
 	}
-	
+
 	public void closeThread(Thread t){
         t = null;
     }
+
 }

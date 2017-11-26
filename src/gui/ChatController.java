@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import client.ChatClient;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -75,15 +76,20 @@ public class ChatController implements Initializable {
 
     @FXML
     private void sendPressed(MouseEvent event) {
+        client.broadcastMessageToGroup(chatBox.getText());
+		append(chatBox.getText());
+        chatBox.setText("");
     }
 
     @FXML
-    private void enterPressedChat(KeyEvent event) {
-    	
+    private void enterPressedChat(ActionEvent event) {
+    		client.broadcastMessageToGroup(chatBox.getText());
+		append(chatBox.getText());
+        chatBox.setText("");
     }
     
     void append(String str) {
-        chatView.appendText("\n"+ str);
+        chatView.appendText(str + "\n");
         chatView.selectPositionCaret(chatView.getText().length()-1);
     }
     

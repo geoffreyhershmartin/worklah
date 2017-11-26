@@ -4,6 +4,7 @@ import java.net.*;
 import java.util.ArrayList;
 
 import client.ClientThread;
+import client.Group;
 
 public class ChatServer
 {
@@ -32,7 +33,7 @@ public class ChatServer
 				ClientThread th = new ClientThread(c, this);
 				th.start();
 				clients.add(th);
-				System.out.println("Just accepted a client. Going to the next iteration");
+				System.out.println("Client Accepted.");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -46,12 +47,14 @@ public class ChatServer
 		serv.acceptClientLoop();
 	}
 
-	public void broadcastMessage(String message, ClientThread sender) {
-		for (ClientThread c : this.clients) {
-		    if (!c.equals(sender)) {
-		    		c.pw.println(message);
-		    		c.pw.flush();
-		    }
-		} 
+	public void broadcastMessage(String message, Group clientGroup, ClientThread sender) {
+		synchronized(this) {
+			for (ClientThread c : clientGroup.groupMembers) {
+			    if (!c.equals(sender)) {
+			    		c.pw.println(message);
+			    		c.pw.flush();
+			    }
+			} 
+		}
 	}
 }
