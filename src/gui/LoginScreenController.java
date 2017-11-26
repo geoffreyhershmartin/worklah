@@ -24,47 +24,46 @@ import javafx.stage.Stage;
  * @author student
  */
 public class LoginScreenController implements Initializable {
+Stage prevStage;
+    @FXML
+    private TextField Username;
+    @FXML
+    private Button loginButton;
+//	protected Client client;
+//	protected String userID;
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }    
 
-	Stage prevStage;
-	@FXML
-	private TextField Username;
-	@FXML
-	private Button loginButton;
-	//protected Client client;
-
-	protected String userID;
-	/**
-	 * Initializes the controller class.
-	 */
-
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
-	}    
-
-	@FXML
-	private void loginPressed(ActionEvent event) throws IOException {
-
+    @FXML
+    private void loginPressed(ActionEvent event) throws IOException {
+        
 //        String userID = Username.getText().trim();
 //        if (userID.length() == 0)
 //            return;
 //        int port = 8080;
 //        String server= "localhost";
 //        client = new Client(server, port, userID);
-		Stage stage = new Stage();
-		Pane myPane = null;
-		myPane = FXMLLoader.load(getClass().getResource("Screen2.fxml"));
-		Scene scene = new Scene(myPane);
-		stage.setScene(scene);
-		prevStage.close();
+        Stage stage = new Stage();
+        Pane myPane = null;
+        myPane = FXMLLoader.load(getClass().getResource("Screen2.fxml"));
+        Scene scene = new Scene(myPane);
+        stage.setScene(scene);
+        prevStage.close();
+        
+        stage.show();
+    }
 
-		stage.show();
-	}
+    
 
-	void setPrevStage(Stage stage) {
-		this.prevStage = stage;
-	}
+    void setPrevStage(Stage stage) {
+this.prevStage = stage;
+    }
 
-
-
+   
+    
 }

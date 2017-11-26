@@ -26,7 +26,7 @@ import javafx.scene.control.CheckBox;
  *
  * @author student
  */
-public class ChatScreenController implements Initializable {
+public class Screen2Controller implements Initializable {
 ScreensController myController;
     @FXML
     private Button exitButton;
@@ -54,18 +54,13 @@ ScreensController myController;
     private MenuItem translateButton;
     @FXML
     private TextArea chatView;
-    
     public TextField primaryTextField;
-    
-    //private Client client;
-    private boolean connected;
-    
+//private Client client;
+private boolean connected;
     @FXML
     private CheckBox Active;
-    
     @FXML
     private TextArea nameView;
-    
     /**
      * Initializes the controller class.
      */
@@ -86,7 +81,7 @@ ScreensController myController;
     @FXML
     private void logoutButtonPressed(ActionEvent event) {
 //        client.sendMessage(new ChatMessage(ChatMessage.LOGOUT, ""));
-          myController.setScreen(GuiLauncher.screen1ID);
+          myController.setScreen(ChatAppFX.screen1ID);
     }
 
     @FXML
@@ -112,12 +107,10 @@ ScreensController myController;
     @FXML
     private void gifClicked(ActionEvent event) {
     }
-    
-    @FXML
+ @FXML
     private void attaPressed(ActionEvent event) {
 //        client = new Client("localhost", 8080, "Taha", this);
     }
-    
     @FXML
     private void attachmentClicked(ActionEvent event) {
         
@@ -135,13 +128,10 @@ ScreensController myController;
 
 //    @Override
 //    public void setScreenParent(ScreensController screenPage) {
-//    		myController = screenPage;      
-//    }
-
-//    public void appendText(String string) {
-//    		chatView.appendText(string + "\n");
-//    }
-    
+//myController = screenPage;      }
+////    public void appendText(String string) {
+////       chatView.appendText(string + "\n");
+////    }
     void append(String str) {
         chatView.appendText("\n"+ str);
         chatView.selectPositionCaret(chatView.getText().length()-1);
