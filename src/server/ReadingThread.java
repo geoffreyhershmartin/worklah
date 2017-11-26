@@ -21,9 +21,7 @@ public class ReadingThread extends Thread
 		try {
 			while((inc = this.incomingText.readLine()) != null)
 			{
-				System.out.println("I received the following message: " + inc);
-				this.clientThread.sendConfirmation();
-				this.clientThread.broadcastMessageToOtherClients(inc);
+				this.clientThread.broadcastMessageToGroup(inc);
 			}
 		}
 		catch (IOException e)

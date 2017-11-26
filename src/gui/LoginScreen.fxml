@@ -29,7 +29,7 @@
                   <Insets left="55.0" />
                </VBox.margin>
             </Text>
-            <TextField fx:id="Username" promptText="Username">
+            <TextField fx:id="Username" onAction="#loginPressed" promptText="Username">
                <font>
                   <Font size="10.0" />
                </font>
@@ -42,7 +42,7 @@
                   <Insets left="55.0" />
                </VBox.margin>
             </Text>
-            <PasswordField prefHeight="10.0" prefWidth="167.0" />
+            <PasswordField fx:id="passwordField" onAction="#loginPressed" prefHeight="10.0" prefWidth="167.0" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Port" textAlignment="CENTER">
                <font>
                   <Font name="Source Sans Pro" size="12.0" />
