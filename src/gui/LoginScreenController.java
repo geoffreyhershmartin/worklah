@@ -66,12 +66,15 @@ public class LoginScreenController implements Initializable {
 		Scene scene = new Scene(root); 
 		stage.setScene(scene);
 		stage.show();
+                Stage stage1 = (Stage)prevStage.getScene().getWindow();
+                stage1.close();
 		
 	}
 
 
 	void setPrevStage(Stage stage) {
 		this.prevStage = stage;
+              
 	}
 
 

@@ -76,6 +76,9 @@ public class ChatController implements Initializable {
 
     @FXML
     private void sendPressed(MouseEvent event) {
+        client.sendMessageToServer(chatBox.getText());
+		append(chatBox.getText());
+        chatBox.setText("");
     }
 
     @FXML

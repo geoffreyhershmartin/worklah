@@ -11,17 +11,18 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ChatController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ChatController">
    <children>
       <ButtonBar layoutX="268.0" layoutY="116.0" prefHeight="17.0" prefWidth="14.0" />
       <AnchorPane layoutY="53.0" prefHeight="495.0" prefWidth="190.0" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="53.0">
          <children>
-            <ListView fx:id="userList" layoutY="1.0" onMouseClicked="#userClicked" prefHeight="495.0" prefWidth="190.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="1.0">
+            <ListView fx:id="userList" layoutY="1.0" onMouseClicked="#userClicked" prefHeight="495.0" prefWidth="190.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                <effect>
                   <Blend opacity="0.35" />
                </effect>
@@ -32,27 +33,15 @@
             <Line endX="100.0" layoutX="86.0" startX="-100.0" stroke="#d3f5d3" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="811.0" layoutY="52.0" prefHeight="495.0" prefWidth="190.0" style="-fx-background-color: rgb(56,220,200);" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="811.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="53.0">
-         <children>
-            <ListView fx:id="taskList" onMouseClicked="#taskClicked" onMouseDragged="#taskDragged" opacity="0.54" prefHeight="494.0" prefWidth="190.0" style="-fx-background-color: #736C6C;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <effect>
-                  <Blend opacity="0.35" />
-               </effect>
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-            </ListView>
-         </children>
-      </AnchorPane>
       <TextArea fx:id="chatView" editable="false" layoutX="190.0" layoutY="53.0" prefHeight="495.0" prefWidth="621.0" text="Geoffrey: Hey Taha!&#10;Me: Hey Geoffrey!" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="189.0" AnchorPane.topAnchor="53.0" />
       <Line endX="100.0" layoutX="190.0" layoutY="102.0" rotate="90.0" scaleX="0.25" startX="-100.0" stroke="#d3f5d3" AnchorPane.bottomAnchor="497.5" AnchorPane.leftAnchor="89.5" AnchorPane.topAnchor="25.0" />
       <Line endX="100.0" layoutX="811.0" layoutY="95.0" rotate="-90.0" startX="-100.0" stroke="#d3f5d3" AnchorPane.bottomAnchor="504.5" AnchorPane.rightAnchor="88.5" AnchorPane.topAnchor="94.5" />
-      <Text layoutX="55.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WorkLAH" wrappingWidth="119.99999409914017">
+      <Text layoutX="55.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WorkLAH" wrappingWidth="80.93797601759434">
          <font>
             <Font name="Avenir Roman" size="18.0" />
          </font>
       </Text>
-      <HBox layoutX="200.0" layoutY="5.0">
+      <HBox layoutX="207.0" layoutY="9.0">
          <children>
             <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -74,7 +63,7 @@
             </Text>
          </children>
       </HBox>
-      <Text layoutX="876.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tasks" wrappingWidth="80.12195348739624" AnchorPane.bottomAnchor="565.4120006561279" AnchorPane.rightAnchor="43.87804651260376" AnchorPane.topAnchor="10.0">
+      <Text layoutX="882.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tasks" wrappingWidth="48.121957302093506" AnchorPane.bottomAnchor="561.0" AnchorPane.rightAnchor="69.8780426979065" AnchorPane.topAnchor="12.0">
          <font>
             <Font name="Avenir Roman" size="18.0" />
          </font>
@@ -108,6 +97,14 @@
          </image>
       </ImageView>
       <Ellipse fill="#22cd61" layoutX="55.0" layoutY="574.0" radiusX="7.0" radiusY="9.0" scaleY="0.8" smooth="false" stroke="#eeeeee" strokeType="INSIDE" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="48.0" />
+      <Pane layoutX="812.0" layoutY="53.0" prefHeight="494.0" prefWidth="190.0" AnchorPane.bottomAnchor="53.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0" />
+      <ListView fx:id="taskList" layoutX="485.0" layoutY="-27.0" onMouseClicked="#taskClicked" onMouseDragged="#taskDragged" opacity="0.5" prefHeight="494.0" prefWidth="190.0" style="-fx-background-color: rgb(56,218,198);" AnchorPane.bottomAnchor="53.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
+         <effect>
+            <Blend opacity="0.35" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </ListView>
    </children>
 </AnchorPane>
-
