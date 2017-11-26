@@ -79,11 +79,14 @@ public class ChatController implements Initializable {
 
     @FXML
     private void enterPressedChat(KeyEvent event) {
+    	
     }
-     void append(String str) {
+    
+    void append(String str) {
         chatView.appendText("\n"+ str);
         chatView.selectPositionCaret(chatView.getText().length()-1);
     }
+    
      void connectionFailed() {
 //        boolean connected = false;
     }
