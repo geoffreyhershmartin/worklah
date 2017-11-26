@@ -6,6 +6,7 @@
 package chatappfx;
 
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -25,12 +26,12 @@ public class ChatAppFX extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader myLoader = new FXMLLoader(getClass().getResource(screen2ID));
+        FXMLLoader myLoader = new FXMLLoader(getClass().getResource("Login Screen.fxml"));
         Pane myPane = (Pane)myLoader.load();
         
         LoginScreenController controller = (LoginScreenController) myLoader.getController();
         
-        controller.setPrevStage(myPane);
+        controller.setPrevStage(primaryStage);
         
         Scene myScene = new Scene(myPane);
         primaryStage.setScene(myScene);
@@ -42,15 +43,15 @@ public class ChatAppFX extends Application {
 //        
 //        
 //        mainContainer.setScreen(ChatAppFX.screen1ID);
-Group root = new Group();
-root.getChildren().addAll(mainContainer);
+//Group root = new Group();
+//root.getChildren().addAll(mainContainer);
 
 //        Parent root = FXMLLoader.load(getClass().getResource("Login Screen.fxml"));
 //        
-        Scene scene = new Scene(root);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setScene(scene);
-        stage.show();
+//        Scene scene = new Scene(root);
+//        stage.initStyle(StageStyle.UNDECORATED);
+//        stage.setScene(scene);
+//        stage.show();
 //        scene.setRoot(root);
 //        stage.setScene(scene);
 //        stage.show();
