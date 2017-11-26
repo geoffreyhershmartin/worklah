@@ -31,4 +31,8 @@ public class ReadingThread extends Thread
 		System.out.println("Connection was closed!");
 
 	}
+	
+	public void closeThread(Thread t){
+        t = null;
+    }
 }
