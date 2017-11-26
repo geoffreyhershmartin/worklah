@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Users/student/NetBeansProjects/ChatAppFX/src/chatappfx/ScreensController.java</file>
-            <file>file:/Users/student/NetBeansProjects/ChatAppFX/src/chatappfx/ChatAppFX.java</file>
-            <file>file:/Users/student/NetBeansProjects/ChatAppFX/src/chatappfx/Server.java</file>
-            <file>file:/Users/student/NetBeansProjects/ChatAppFX/src/chatappfx/LoginScreenController.java</file>
-            <file>file:/Users/student/NetBeansProjects/ChatAppFX/src/chatappfx/ClientGUI.java</file>
-            <file>file:/Users/student/NetBeansProjects/ChatAppFX/src/chatappfx/ServerGUI.java</file>
-            <file>file:/Users/student/NetBeansProjects/ChatAppFX/src/chatappfx/Screen2Controller.java</file>
-            <file>file:/Users/student/NetBeansProjects/ChatAppFX/src/chatappfx/ControlledScreen.java</file>
-            <file>file:/Users/student/NetBeansProjects/ChatAppFX/src/chatappfx/Client.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
