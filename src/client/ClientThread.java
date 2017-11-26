@@ -11,7 +11,7 @@ public class ClientThread extends Thread {
 
 	private Socket client;
 	private ReadingThread reading;
-	protected PrintWriter pw;
+	public PrintWriter pw;
 	private BufferedReader br;
 	private Group currentGroup;
 	

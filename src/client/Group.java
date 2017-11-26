@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Group {
 	
 	protected String groupName;
-	protected ArrayList <ClientThread> groupMembers;
+	public ArrayList <ClientThread> groupMembers;
 	
 	public Group(String _groupName) {
 		this.groupName = _groupName;

@@ -4,6 +4,7 @@ import java.net.*;
 import java.util.ArrayList;
 
 import client.ClientThread;
+import client.Group;
 
 public class ChatServer
 {
