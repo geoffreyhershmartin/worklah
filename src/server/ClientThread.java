@@ -40,6 +40,10 @@ public class ClientThread extends Thread {
 		this.pw.flush();
 	}
 	
+	protected void printMessage(String message) {
+		guiController.append(message);
+	}
+	
 	public synchronized void sendConfirmation()
 	{
 		this.pw.println("Confirmation");

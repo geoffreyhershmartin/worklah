@@ -54,20 +54,20 @@ public class LoginScreenController implements Initializable {
         String userID = Username.getText().trim();
         if (userID.length() == 0)
             return;
-		int port = 8080;
-        String server = "127.0.0.1";
-        client = new ChatClient(server, port);
 		Stage stage = new Stage();
 
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChatScreen.fxml"));     
 		Parent root = (Parent) fxmlLoader.load();          
 		ChatController controller = fxmlLoader.<ChatController>getController();
+		int port = 8080;
+        String server = "127.0.0.1";
+        client = new ChatClient(server, port);
 		controller.setClient(client);
 		Scene scene = new Scene(root); 
 		stage.setScene(scene);
 		stage.show();
-                Stage stage1 = (Stage)prevStage.getScene().getWindow();
-                stage1.close();
+        Stage stage1 = (Stage)prevStage.getScene().getWindow();
+        stage1.close();
 		
 	}
 
