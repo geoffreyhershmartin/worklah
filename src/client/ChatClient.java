@@ -23,8 +23,6 @@ public class ChatClient {
 			this.connection = new Socket(this.ip, this.port);
 			this.br = new BufferedReader(new InputStreamReader(this.connection.getInputStream()));
 			this.pw = new PrintWriter(this.connection.getOutputStream());
-			
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

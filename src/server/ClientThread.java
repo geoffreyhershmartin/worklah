@@ -10,12 +10,15 @@ public class ClientThread extends Thread {
 	private ReadingThread reading;
 	protected PrintWriter pw;
 	private BufferedReader br;
+	private Group currentGroup;
 	
 	private ChatServer server;
 
 	public ClientThread(Socket c, ChatServer server)
 	{
 		this.server = server;
+		this.currentGroup = new Group("myself");
+		this.currentGroup.addUser(this);
 		this.client = c;
 		try {
 			this.pw = new PrintWriter(this.client.getOutputStream());	
@@ -26,9 +29,9 @@ public class ClientThread extends Thread {
 		}
 	}
 	
-	public void broadcastMessageToOtherClients(String message)
+	public void broadcastMessageToGroup(String message)
 	{
-		this.server.broadcastMessage(message, this);	
+		this.server.broadcastMessage(message, currentGroup, this);
 	}
 	
 	public synchronized void sendMessage(String message)

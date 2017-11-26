@@ -35,7 +35,7 @@ public class LoginScreenController implements Initializable {
 	@FXML
 	private Button loginButton;
 	@FXML
-        private PasswordField passwordField;    
+    private PasswordField passwordField;    
         
 	protected ChatClient client;
 	protected String userID;

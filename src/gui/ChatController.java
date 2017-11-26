@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import client.ChatClient;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -78,8 +79,9 @@ public class ChatController implements Initializable {
     }
 
     @FXML
-    private void enterPressedChat(KeyEvent event) {
-    	
+    private void enterPressedChat(ActionEvent event) {
+    		client.sendMessageToServer(chatBox.getText());
+		append(chatBox.getText());
     }
     
     void append(String str) {
