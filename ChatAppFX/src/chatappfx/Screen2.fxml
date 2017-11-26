@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chatappfx.Screen2Controller">
+   <children>
+      <Pane layoutX="-2.0" prefHeight="512.0" prefWidth="106.0" style="-fx-background-color: #39DCC7;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="73.0" fitWidth="87.0" layoutX="13.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Screen%20Shot%202017-11-25%20at%207.50.03%20PM.png" />
+               </image>
+            </ImageView>
+            <AnchorPane layoutX="19.0" layoutY="440.0" />
+            <Button fx:id="exitButton" layoutX="4.0" layoutY="1.0" mnemonicParsing="false" onAction="#exitButtonPressed" prefHeight="17.0" prefWidth="18.0" scaleX="0.25" scaleY="0.25" scaleZ="0.25" style="-fx-background-color: FF6666;" />
+            <Hyperlink fx:id="logoutButton" layoutX="23.0" layoutY="110.0" onAction="#logoutButtonPressed" onMouseClicked="#logoutPressed" prefHeight="27.0" prefWidth="60.0" text="Logout">
+               <font>
+                  <Font name="Avenir Roman" size="13.0" />
+               </font>
+            </Hyperlink>
+            <CheckBox fx:id="Active" layoutX="10.0" layoutY="156.0" mnemonicParsing="false" onAction="#activePressed" text="Active" />
+         </children>
+      </Pane>
+      <ImageView fitHeight="73.0" fitWidth="63.0" layoutX="19.0" layoutY="436.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="19.0">
+         <image>
+            <Image url="@Screen%20Shot%202017-11-25%20at%201.39.34%20AM.png" />
+         </image>
+      </ImageView>
+      <ButtonBar layoutX="268.0" layoutY="116.0" prefHeight="17.0" prefWidth="14.0" />
+      <TextField editable="false" prefHeight="27.0" prefWidth="60.0" style="-fx-background-color: #39DCC7;" text="Taha" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="15.0">
+         <font>
+            <Font name="Avenir Roman" size="13.0" />
+         </font>
+      </TextField>
+      <AnchorPane layoutX="104.0" prefHeight="486.0" prefWidth="151.0" style="-fx-background-color: #404040;" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="104.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fill="WHITE" layoutX="20.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Users" wrappingWidth="80.12195348739624">
+               <font>
+                  <Font name="Avenir Roman" size="25.0" />
+               </font>
+            </Text>
+            <TextField fx:id="searchUsers" layoutX="7.0" layoutY="470.0" onKeyPressed="#enterPressedUser" prefHeight="29.0" prefWidth="106.0" promptText="Search" style="-fx-background-color: #736C6C;" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="7.0" />
+            <ImageView fitHeight="27.0" fitWidth="32.0" layoutX="87.0" layoutY="438.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="87.0">
+               <image>
+                  <Image url="@icon-ios7-search-strong-128.png" />
+               </image>
+            </ImageView>
+            <ListView fx:id="userList" layoutX="7.0" layoutY="118.0" onMouseClicked="#userClicked" opacity="0.54" prefHeight="303.0" prefWidth="107.0" style="-fx-background-color: #736C6C;" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="118.0">
+               <effect>
+                  <Blend opacity="0.35" />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </ListView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="507.0" prefHeight="486.0" prefWidth="120.0" style="-fx-background-color: #404040;" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="507.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fill="WHITE" layoutX="20.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tasks" wrappingWidth="80.12195348739624" AnchorPane.bottomAnchor="401.0" AnchorPane.rightAnchor="19.87804651260376" AnchorPane.topAnchor="25.0">
+               <font>
+                  <Font name="Avenir Roman" size="25.0" />
+               </font>
+            </Text>
+            <TextField fx:id="searchTask" layoutX="7.0" layoutY="437.0" onKeyPressed="#enterPressedTask" prefHeight="17.0" prefWidth="106.0" promptText="Search" style="-fx-background-color: #736C6C;" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="7.0" />
+            <ImageView fitHeight="27.0" fitWidth="32.0" layoutX="86.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="7.0">
+               <image>
+                  <Image url="@icon-ios7-search-strong-128.png" />
+               </image>
+            </ImageView>
+            <ListView fx:id="taskList" layoutX="7.0" layoutY="117.0" onMouseClicked="#taskClicked" opacity="0.54" prefHeight="303.0" prefWidth="106.0" style="-fx-background-color: #736C6C;" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="117.0">
+               <effect>
+                  <Blend opacity="0.35" />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </ListView>
+         </children>
+      </AnchorPane>
+      <TextField fx:id="chatBox" layoutX="224.0" layoutY="478.0" onKeyPressed="#enterPressedChat" prefHeight="27.0" prefWidth="283.0" promptText="Type message...." style="-fx-background-color: light grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="224.0" AnchorPane.rightAnchor="120.0" />
+      <Button fx:id="attachButton" layoutX="104.0" layoutY="462.0" mnemonicParsing="false" onAction="#attaPressed" prefHeight="17.0" prefWidth="120.0" text="Attach" AnchorPane.bottomAnchor="0.0">
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem fx:id="gifButton" mnemonicParsing="false" onAction="#gifClicked" text="Gif" />
+                  <MenuItem fx:id="attachmentButton" mnemonicParsing="false" onAction="#attachmentClicked" text="Attachment" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </Button>
+      <Button fx:id="sendButton" layoutX="507.0" layoutY="462.0" mnemonicParsing="false" onAction="#sendPressed" prefHeight="27.0" prefWidth="120.0" text="Send" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem fx:id="translateButton" mnemonicParsing="false" onAction="#translatePressed" text="Translate and Send" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </Button>
+      <TextArea fx:id="chatView" editable="false" layoutX="254.0" layoutY="118.0" prefHeight="368.0" prefWidth="253.0" style="-fx-background-color: #404040;" text="Swarnima: Hey Taha!&#10;Me: Hey Swarnie!" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="254.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="118.0" />
+      <TextArea fx:id="nameView" editable="false" layoutX="254.0" prefHeight="118.0" prefWidth="253.0" style="-fx-background-color: #404040;" text="SWARNIMA" AnchorPane.leftAnchor="254.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font name="Avenir Roman" size="32.0" />
+         </font>
+      </TextArea>
+   </children>
+</AnchorPane>
