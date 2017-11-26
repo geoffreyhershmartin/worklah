@@ -37,7 +37,7 @@ public class GuiLauncher extends Application {
 		Scene myScene = new Scene(myPane);
 		primaryStage.setScene(myScene);
 		primaryStage.show();
-//        ScreensController mainContainer = new ScreensController();
+        ScreensController mainContainer = new ScreensController();
 //        mainContainer.loadScreen(ChatAppFX.screen1ID, ChatAppFX.screen1File);
 //        
 //        mainContainer.loadScreen(ChatAppFX.screen2ID, ChatAppFX.screen2File);
@@ -46,7 +46,7 @@ public class GuiLauncher extends Application {
 //        mainContainer.setScreen(ChatAppFX.screen1ID);
 //		  Group root = new Group();
 //		  root.getChildren().addAll(mainContainer);
-
+//
 //        Parent root = FXMLLoader.load(getClass().getResource("Login Screen.fxml"));
 //        
 //        Scene scene = new Scene(root);
