@@ -5,6 +5,7 @@
  */
 package gui;
 
+import client.ChatClient;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,8 +32,8 @@ public class LoginScreenController implements Initializable {
 	private TextField Username;
 	@FXML
 	private Button loginButton;
-	//	protected Client client;
-	//	protected String userID;
+	protected ChatClient client;
+	protected String userID;
 	/**
 	 * Initializes the controller class.
 	 */
@@ -44,19 +45,19 @@ public class LoginScreenController implements Initializable {
 	@FXML
 	private void loginPressed(ActionEvent event) throws IOException {
 
-		//        String userID = Username.getText().trim();
-		//        if (userID.length() == 0)
-		//            return;
-		//        int port = 8080;
-		//        String server= "localhost";
-		//        client = new Client(server, port, userID);
+        String userID = Username.getText().trim();
+        if (userID.length() == 0)
+            return;
+		int port = 8080;
+        String server = "127.0.0.1";
+        client = new ChatClient(server, port);
 		Stage stage = new Stage();
 
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Screen2.fxml"));     
 
 		Parent root = (Parent) fxmlLoader.load();          
 		Screen2Controller controller = fxmlLoader.<Screen2Controller>getController();
-		controller.setClient("asldjlk");
+		controller.setClient(client);
 		Scene scene = new Scene(root); 
 
 		stage.setScene(scene);    

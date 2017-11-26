@@ -21,11 +21,10 @@ public class ChatServer
 
 	public void acceptClientLoop()
 	{
-		
+		clients = new ArrayList <ClientThread>();
 		while (true)
 		{
 			Socket c;
-			clients = new ArrayList <ClientThread>();
 			try {
 				c = this.servSock.accept();
 				ClientThread th = new ClientThread(c, this);
@@ -46,7 +45,11 @@ public class ChatServer
 	}
 
 	public void broadcastMessage(String message, ClientThread sender) {
-//		for each client but the sender, send message
-		
+		for (ClientThread c : this.clients) {
+		    if (!c.equals(sender)) {
+		    		c.pw.println(message);
+		    		c.pw.flush();
+		    }
+		} 
 	}
 }

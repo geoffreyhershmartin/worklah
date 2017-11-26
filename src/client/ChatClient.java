@@ -31,20 +31,10 @@ public class ChatClient {
 		
 	}
 	
-	public void sendMessageToServer()
+	public void sendMessageToServer(String message)
 	{
-		try {
-			for (int i=0; i < 20; i++)
-				{
-					this.pw.println("Hello, how are you?");
-					this.pw.flush();
-
-					Thread.sleep(1500);
-				}
-			this.closeConnection();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		this.pw.println(message);
+		this.pw.flush();
 	}
 	
 	public void closeConnection()
@@ -60,7 +50,11 @@ public class ChatClient {
 	
 	public static void main (String[] args)
 	{
-		ChatClient mc = new ChatClient("127.0.0.1", 1664);
-		mc.sendMessageToServer();
+		ChatClient mc = new ChatClient("127.0.0.1", 8080);
+		mc.sendMessageToServer("HELLO");
+		while(true)
+		{
+			
+		}
 	}
 }

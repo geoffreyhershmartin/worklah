@@ -6,6 +6,7 @@
 package gui;
 
 import java.net.URL;
+import client.ChatClient;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,10 +56,9 @@ public class Screen2Controller implements Initializable {
 	@FXML
 	private TextArea chatView;
 	public TextField primaryTextField;
-	//private Client client;
+	private ChatClient client;
 	private boolean connected;
 
-	String client;
 	@FXML
 	private CheckBox Active;
 	@FXML
@@ -71,8 +71,8 @@ public class Screen2Controller implements Initializable {
 		// TODO
 	}    
 
-	protected void setClient(String client) {
-		client = client;
+	protected void setClient(ChatClient _client) {
+		client = _client;
 		System.out.print(client);
 	}
 

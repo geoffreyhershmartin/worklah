@@ -8,7 +8,7 @@ public class ClientThread extends Thread {
 
 	private Socket client;
 	private ReadingThread reading;
-	private PrintWriter pw;
+	protected PrintWriter pw;
 	private BufferedReader br;
 	
 	private ChatServer server;
