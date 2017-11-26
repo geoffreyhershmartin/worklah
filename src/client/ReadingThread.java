@@ -21,6 +21,8 @@ public class ReadingThread extends Thread
 		try {
 			while((inc = this.incomingText.readLine()) != null)
 			{
+				System.out.println("I received the following message: " + inc);
+				this.clientThread.sendConfirmation();
 				this.clientThread.broadcastMessageToGroup(inc);
 			}
 		}
@@ -31,8 +33,9 @@ public class ReadingThread extends Thread
 		System.out.println("Connection was closed!");
 
 	}
-	
+
 	public void closeThread(Thread t){
         t = null;
     }
+
 }
