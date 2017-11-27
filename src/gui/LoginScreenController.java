@@ -27,20 +27,20 @@ import javafx.stage.Stage;
  * @author student
  */
 public class LoginScreenController implements Initializable {
-	
+
 	Stage prevStage;
-	
+
 	@FXML
 	private TextField Username;
-	
+
 	@FXML
 	private Button loginButton;
 	@FXML
-        private PasswordField passwordField;    
-   
+	private PasswordField passwordField;    
+
 	protected ChatClient client;
 	protected String userID;
-	
+
 	/**
 	 * Initializes the controller class.
 	 */
@@ -52,44 +52,46 @@ public class LoginScreenController implements Initializable {
 	@FXML
 	private void loginPressed(ActionEvent event) throws IOException {
 
-        String userID = Username.getText().trim();
-        if (userID.length() == 0)
-            return;
+		String userID = Username.getText().trim();
+		if (userID.length() == 0)
+			return;
 		Stage stage = new Stage();
 
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChatScreen.fxml"));     
 		Parent root = (Parent) fxmlLoader.load();          
 		ChatController controller = fxmlLoader.<ChatController>getController();
-		
-        // Creates a server/client;
-        int port = 8080;
-        String server = "127.0.0.1";
-        client = new ChatClient(server, port, controller, userID);
-        client.start();
-        
+
+		// Creates a server/client;
+		int port = 8080;
+		String server = "127.0.0.1";
+		client = new ChatClient(server, port, controller, userID);
+		client.start();
+
 		controller.setClient(client);
 		Scene scene = new Scene(root); 
 		stage.setScene(scene);
-                ChatController chatController = new ChatController();
-           
-                chatController.setID(Username.getText().trim());
+		ChatController chatController = new ChatController();
+
+		chatController.setID(Username.getText().trim());
 		stage.show();
-        Stage stage1 = (Stage)prevStage.getScene().getWindow();
-        stage1.close();
-		
+		Stage stage1 = (Stage)prevStage.getScene().getWindow();
+		stage1.close();
+
 	}
 
 
 	void setPrevStage(Stage stage) {
 		this.prevStage = stage;
-              
+
 	}
 
- public String getID(){
-    return this.userID;}
- 
- 
- public void setID(String _userID){
- this.userID=_userID;}
- 
+	public String getID(){
+		return this.userID;
+	}
+
+
+	public void setID(String _userID){
+		this.userID = _userID;
+	}
+
 }

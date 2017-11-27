@@ -43,6 +43,7 @@ public class ChatController implements Initializable {
 	@FXML
 	private TextField chatBox;
 	private ChatClient client;
+	protected String userID;
 
 	/**
 	 * Initializes the controller class.
@@ -118,6 +119,10 @@ public class ChatController implements Initializable {
 		chatView.selectPositionCaret(chatView.getText().length()-1);
 	}
 
+	public void setID(String _userID){
+		this.userID = _userID;
+	}
+	
 	void connectionFailed() {
 		//        boolean connected = false;
 	}
