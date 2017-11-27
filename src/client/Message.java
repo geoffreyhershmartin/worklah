@@ -12,11 +12,10 @@ public class Message implements Serializable {
 	public String type, sender, content, recipient;
 	public Group group;
 
-	public Message(String _type, String _sender, String _content, String _recipient, Group _group) {
+	public Message(String _type, String _sender, String _content, String _recipient) {
 		this.type = _type;
 		this.sender = _sender;
 		this.content = _content;
-		this.group = _group;
 		this.recipient = _recipient;
 	}
 

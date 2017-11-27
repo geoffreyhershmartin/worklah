@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Date;
 import gui.ChatController;
-import server.ClientThread;
 
 public class ChatClient extends Thread {
 
@@ -17,27 +14,42 @@ public class ChatClient extends Thread {
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	private ChatController guiController;
-	private String userID;
-	private Group currentGroup;
-	private ArrayList <ClientThread> otherClients;
-	private ArrayList <Group> allGroups;
+	private String username;
 
-	public ChatClient(String ip, int p, ChatController _guiController, String _userID) throws ClassNotFoundException {
+	public ChatClient(String ip, int p, ChatController _guiController, String _username) throws ClassNotFoundException {
 		this.ip = ip;
 		this.port = p;
 		this.guiController = _guiController;
-		this.currentGroup = new Group("myself");
-		this.userID = _userID;
+		this.username = _username;
+		this.updateUsername(_username);
 		try {
 			this.connection = new Socket(this.ip, port);
 			this.out = new ObjectOutputStream(connection.getOutputStream());
 			this.out.flush();
 			this.in = new ObjectInputStream(connection.getInputStream());
-			this.otherClients = (ArrayList <ClientThread>) in.readObject();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+	}
+	
+	private void updateUsername(String _username) {
+		Message updateUsername = new Message("updateUsername", this.username, _username, "");
+		send(updateUsername);
+	}
+	
+	public void updateGroup(String newGroup) {
+		Message updateGroup = new Message("updateGroup", this.username, newGroup, "");
+		send(updateGroup);
+	}
+	
+	public void sendMessageToGroup(String message) {
+		Message newMessage = new Message("message", this.username, message, "");
+		send(newMessage);
+	}
+	
+	public void sendTaskToGroup(String task) {
+		Message newMessage = new Message("task", this.username, task, "");
+		send(newMessage);
 	}
 
 	@Override
@@ -62,9 +74,7 @@ public class ChatClient extends Thread {
 					this.displayMessage("[" + msg.sender + "] : " + msg.content + "\n");
 				}
 				else if (msg.type.equals("task")) {
-					if (msg.recipient.equals(this.userID)) {
-						guiController.taskList.getItems().add("[" + msg.sender + " > Me] : " + msg.content + "\n");
-					}
+					guiController.taskList.getItems().add("[" + msg.sender + " > Me] : " + msg.content + "\n");
 				}
 			}
 			catch (Exception e) {
@@ -85,27 +95,10 @@ public class ChatClient extends Thread {
 		guiController.append(message);
 	}
 
-	public void broadcastMessageToGroup(String message) {
-		Message newMessage = new Message("message", this.userID, message, "everyone", this.currentGroup);
-		send(newMessage);
-	}
-	
-	public void broadcastTaskToGroup(String task) {
-		Message newMessage = new Message("task", this.userID, task, "everyone", this.currentGroup);
-		send(newMessage);
-	}
-	
-	public void changeGroup(Group newGroup) {
-		this.currentGroup = newGroup;
-	}
-
 	public void send(Message message) {
 		try {
 			out.writeObject(message);
 			out.flush();
-			if (message.type.equals("message") && !message.content.equals(".bye")) {
-				String messageTime = (new Date()).toString();
-			}
 		} 
 		catch (IOException ex) {
 			System.out.println("Exception: send() in ChatClient");

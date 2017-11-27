@@ -13,7 +13,10 @@ public class ClientThread extends Thread {
 	private Socket client;
 	private ChatServer server;
 	private ObjectOutputStream out;
-	private ObjectInputStream in; 
+	private ObjectInputStream in;
+	private Group currentGroup;
+	private ArrayList <ClientThread> otherClients;
+	private ArrayList <Group> allGroups;
 
 	public ClientThread(Socket c, ChatServer server) {
 		this.server = server;
