@@ -29,7 +29,7 @@ public class ChatController implements Initializable {
 	@FXML
 	private ListView<?> userList;
 	@FXML
-	private ListView<String> taskList;
+	public ListView<String> taskList;
 	@FXML
 	private TextArea chatView;
 	@FXML
@@ -42,7 +42,9 @@ public class ChatController implements Initializable {
 	private ImageView sendButton;
 	@FXML
 	private TextField chatBox;
+	
 	private ChatClient client;
+	
 	protected String userID;
 
 	/**
@@ -88,13 +90,11 @@ public class ChatController implements Initializable {
 
 		String message = chatBox.getText();
 		String catchPhrase = "@task";
-		if( message.contains(catchPhrase)){
+		if( message.contains(catchPhrase)) {
 			taskList.getItems().add(message.replace("@task", ""));
 		}
 		client.broadcastMessageToGroup(chatBox.getText());
-
 		chatBox.setText("");
-
 
 	}
 
@@ -102,15 +102,18 @@ public class ChatController implements Initializable {
 	private void enterPressedChat(ActionEvent event) {
 		String message = chatBox.getText();
 		String catchPhrase = "@task";
-		if( message.contains(catchPhrase)){
-			taskList.getItems().add(message.replace("@task", ""));
+		if (message.contains(catchPhrase)) {
+			String task = message.replace("@task", "");
+			taskList.getItems().add(task);
+			client.broadcastTaskToGroup(task);
 		}
-		else{
+		else {
 			client.broadcastMessageToGroup(chatBox.getText());
 			String name;
 			LoginScreenController loginScreenController = new LoginScreenController();
 			name = loginScreenController.getID();
-			append(name + ": " + message);}
+			append(name + ": " + message);
+		}
 		chatBox.setText("");
 	}
 
@@ -122,7 +125,7 @@ public class ChatController implements Initializable {
 	public void setID(String _userID){
 		this.userID = _userID;
 	}
-	
+
 	void connectionFailed() {
 		//        boolean connected = false;
 	}

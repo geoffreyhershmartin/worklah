@@ -12,10 +12,8 @@ public class ChatClient extends Thread {
 	private String ip;
 	private int port;
 	private Socket connection;
-	//	private BufferedReader in;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
-	//	private PrintWriter out;
 	private ChatController guiController;
 	private String userID;
 	private Group currentGroup;
@@ -29,10 +27,8 @@ public class ChatClient extends Thread {
 		try {
 			this.connection = new Socket(this.ip, port);
 			this.out = new ObjectOutputStream(connection.getOutputStream());
-			//			this.out = new PrintWriter(connection.getOutputStream());
 			this.out.flush();
 			this.in = new ObjectInputStream(connection.getInputStream());
-			//			this.in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -60,15 +56,11 @@ public class ChatClient extends Thread {
 				if (msg.type.equals("message")) {
 					this.displayMessage("[" + msg.sender + "] : " + msg.content + "\n");
 				}
-//				if (msg.type.equals("task")) {
-//					if (msg.recipient.equals(gui.username)) {
-//						gui.taskList.append("[" + msg.sender + " > Me] : " + msg.content + "\n");
-//					}
-//					if (!msg.content.equals(".bye")) {
-//						String messageTime = (new Date()).toString();
-//					} 
-//				}
-
+				else if (msg.type.equals("task")) {
+					if (msg.recipient.equals(this.userID)) {
+						guiController.taskList.getItems().add("[" + msg.sender + " > Me] : " + msg.content + "\n");
+					}
+				}
 			}
 			catch (Exception e) {
 				keepRunning = false;
@@ -85,7 +77,12 @@ public class ChatClient extends Thread {
 	}
 
 	public void broadcastMessageToGroup(String message) {
-		Message newMessage = new Message("message", this.userID, message, this.currentGroup);
+		Message newMessage = new Message("message", this.userID, "everyone", message, this.currentGroup);
+		send(newMessage);
+	}
+	
+	public void broadcastTaskToGroup(String task) {
+		Message newMessage = new Message("task", this.userID, task, "everyone", this.currentGroup);
 		send(newMessage);
 	}
 

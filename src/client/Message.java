@@ -9,14 +9,15 @@ public class Message implements Serializable {
 	// if no match is found, then an InvalidClassException
 
 
-	public String type, sender, content;
+	public String type, sender, content, recipient;
 	public Group group;
 
-	public Message(String type, String sender, String content, Group _group) {
-		this.type = type;
-		this.sender = sender;
-		this.content = content;
+	public Message(String _type, String _sender, String _content, String _recipient, Group _group) {
+		this.type = _type;
+		this.sender = _sender;
+		this.content = _content;
 		this.group = _group;
+		this.recipient = _recipient;
 	}
 
 	@Override
