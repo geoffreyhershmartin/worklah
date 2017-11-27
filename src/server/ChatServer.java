@@ -10,7 +10,6 @@ public class ChatServer
 {
 	private ServerSocket servSock;
 	protected ArrayList <ClientThread> clients;
-	private PrintWriter pw;
 
 	public ChatServer(int port) {
 		try {
