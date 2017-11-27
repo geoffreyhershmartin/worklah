@@ -1,8 +1,8 @@
 package server;
 
 import java.net.*;
-
 import client.Group;
+import client.Message;
 
 import java.io.*;
 
@@ -10,33 +10,34 @@ import java.io.*;
 public class ClientThread extends Thread {
 
 	private Socket client;
-	private ReadingThread reading;
 	public PrintWriter pw;
 	private BufferedReader br;
 	private ChatServer server;
+	private ObjectOutputStream out;
+	private ObjectInputStream in; 
 
 	public ClientThread(Socket c, ChatServer server)
 	{
 		this.server = server;
 		this.client = c;
 		try {
-			this.pw = new PrintWriter(this.client.getOutputStream());	
-			this.br = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
-			this.reading = new ReadingThread(this.br, this);
+//			this.pw = new PrintWriter(this.client.getOutputStream());	
+//			this.br = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
+			out = new ObjectOutputStream(this.client.getOutputStream());
+			in = new ObjectInputStream(this.client.getInputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void broadcastMessage(String message) throws IOException
-	{
-		this.server.broadcastMessage(message, this.currentGroup, this);
-	}
-	
-	public synchronized void sendMessage(String message)
-	{
-		this.pw.println(message);
-		this.pw.flush();
+	public void broadcastMessage(Message message) throws IOException {
+		synchronized(this) {
+			for (Socket c : server.clients) {
+				ObjectOutputStream out = new ObjectOutputStream(c.getOutputStream());
+				out.writeObject(message);
+				out.flush();
+			} 
+		}
 	}
 
 	@Override
@@ -53,18 +54,33 @@ public class ClientThread extends Thread {
 	
 	public void read()
 	{
-		String inc = "";
-		try {
-			while((inc = this.br.readLine()) != null)
-			{
-				this.broadcastMessage(inc);
+//		String inc = "";
+//		try {
+//			while((inc = this.br.readLine()) != null)
+//			{
+//				this.broadcastMessage(inc);
+//			}
+//		}
+//		catch (IOException e)
+//		{
+//			e.printStackTrace();
+//		}
+//		System.out.println("Connection was closed!");
+		boolean keepRunning = true;
+
+		while (keepRunning) {
+			try {
+				Message msg = (Message) in.readObject();
+				this.broadcastMessage(msg);
+			}
+			catch (Exception e) {
+				keepRunning = false;
+				System.out.println("Connection Failure");
+				this.cleanConnection();
+				System.out.println("Exception ChatClient sendToServer()");
+				e.printStackTrace();
 			}
 		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		System.out.println("Connection was closed!");
 	}
 
 	public void cleanConnection()

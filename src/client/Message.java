@@ -2,10 +2,10 @@ package client;
 
 import java.io.Serializable;
 
-public class Message implements Serializable{
+public class Message implements Serializable {
 	    
-	    private static final long serialVersionUID = 1L;
-	    // universal version identifier, to make sure that a loaded class corresponds to a serialised object
+		private static final long serialVersionUID = -4398980948410147192L;
+		// universal version identifier, to make sure that a loaded class corresponds to a serialised object
 	    // if no match is found, then an InvalidClassException
 	    
 	    

@@ -1,10 +1,13 @@
 package client;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import server.ClientThread;
 
-public class Group {
+public class Group implements Serializable {
+	
+	private static final long serialVersionUID = 7710781962991992645L;
 	
 	protected String groupName;
 	public ArrayList <ClientThread> groupMembers;
