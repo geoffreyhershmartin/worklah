@@ -6,8 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 
-public class ServerThread extends Thread
-{
+public class ServerThread extends Thread {
+	
 	public ChatServer server = null;
     public Socket connection = null;
     public int id = -1;
@@ -15,17 +15,17 @@ public class ServerThread extends Thread
     public ObjectInputStream in  =  null;
     public ObjectOutputStream out = null;
     
-    public long getId(){
+    public long getId() {
     		return id;
     }
 
-    public ServerThread(ChatServer server, Socket connection){  
+    public ServerThread(ChatServer server, Socket connection) {  
     		id = connection.getPort();
         server = this.server;
         connection = this.connection;
     }
     
-    public synchronized void send(Message msg){
+    public synchronized void send(Message msg) {
         try {
             out.writeObject(msg);
             out.flush();

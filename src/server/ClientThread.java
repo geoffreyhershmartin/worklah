@@ -16,8 +16,7 @@ public class ClientThread extends Thread {
 	private ObjectOutputStream out;
 	private ObjectInputStream in; 
 
-	public ClientThread(Socket c, ChatServer server)
-	{
+	public ClientThread(Socket c, ChatServer server) {
 		this.server = server;
 		this.client = c;
 		try {
@@ -40,8 +39,7 @@ public class ClientThread extends Thread {
 	}
 
 	@Override
-	public void run()
-	{
+	public void run() {
 		Thread reading = new Thread() {
             @Override
             public void run() {
@@ -51,22 +49,8 @@ public class ClientThread extends Thread {
 		reading.start();
 	}
 	
-	public void read()
-	{
-//		String inc = "";
-//		try {
-//			while((inc = this.br.readLine()) != null)
-//			{
-//				this.broadcastMessage(inc);
-//			}
-//		}
-//		catch (IOException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		System.out.println("Connection was closed!");
+	public void read() {
 		boolean keepRunning = true;
-
 		while (keepRunning) {
 			try {
 				Message msg = (Message) in.readObject();
@@ -82,8 +66,7 @@ public class ClientThread extends Thread {
 		}
 	}
 
-	public void cleanConnection()
-	{
+	public void cleanConnection() {
 		System.out.println("Client disconnecting, cleaning the data!");
 		this.pw.close();
 		try {

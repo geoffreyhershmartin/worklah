@@ -12,8 +12,7 @@ public class ChatServer
 	protected ArrayList <ClientThread> clients;
 	private PrintWriter pw;
 
-	public ChatServer(int port)
-	{
+	public ChatServer(int port) {
 		try {
 			this.servSock = new ServerSocket(port);
 		} catch (IOException e) {
@@ -21,11 +20,9 @@ public class ChatServer
 		}
 	}
 
-	public void acceptClientLoop()
-	{
+	public void acceptClientLoop() {
 		clients = new ArrayList <ClientThread>();
-		while (true)
-		{
+		while (true) {
 			Socket c;
 			try {
 				c = this.servSock.accept();
@@ -39,8 +36,7 @@ public class ChatServer
 		}
 	}
 
-	public static void main (String[] args) throws Exception
-	{
+	public static void main (String[] args) throws Exception {
 		ChatServer serv = new ChatServer(8080);
 		serv.acceptClientLoop();
 	}

@@ -74,7 +74,7 @@ public class LoginScreenController implements Initializable {
 
 		chatController.setID(Username.getText().trim());
 		stage.show();
-		Stage stage1 = (Stage)prevStage.getScene().getWindow();
+		Stage stage1 = (Stage) prevStage.getScene().getWindow();
 		stage1.close();
 
 	}
