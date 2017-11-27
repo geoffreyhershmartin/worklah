@@ -4,10 +4,9 @@ import java.io.Serializable;
 
 public class Message implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3926335042007229233L;
 	// universal version identifier, to make sure that a loaded class corresponds to a serialised object
 	// if no match is found, then an InvalidClassException
-
 
 	public String type, sender, content, recipient;
 

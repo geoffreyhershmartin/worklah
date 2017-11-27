@@ -20,20 +20,20 @@ public class GuiStart extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
+
 		FXMLLoader myLoader = new FXMLLoader(getClass().getResource("LoginScreen.fxml"));
 		Pane myPane = (Pane) myLoader.load();
 		LoginScreenController controller = (LoginScreenController) myLoader.getController();
 		controller.setPrevStage(primaryStage);
-                primaryStage.setMinHeight(483);
-                primaryStage.setMinWidth(375);
-                primaryStage.setMaxHeight(483);
-                primaryStage.setMaxWidth(375);
-                primaryStage.initStyle(StageStyle.UNDECORATED);
+		primaryStage.setMinHeight(483);
+		primaryStage.setMinWidth(375);
+		primaryStage.setMaxHeight(483);
+		primaryStage.setMaxWidth(375);
+		primaryStage.initStyle(StageStyle.UNDECORATED);
 		Scene myScene = new Scene(myPane);
 		primaryStage.setScene(myScene);
 		primaryStage.show();
-		
+
 	}
 
 	/**

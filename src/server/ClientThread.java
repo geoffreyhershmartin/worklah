@@ -24,7 +24,6 @@ public class ClientThread extends Thread {
 			out = new ObjectOutputStream(this.client.getOutputStream());
 			out.flush();
 			in = new ObjectInputStream(this.client.getInputStream());
-			this.out.writeObject(server);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -37,7 +36,7 @@ public class ClientThread extends Thread {
 			} 
 		}
 	}
-	
+
 	private void sendTask(Message message) throws IOException {
 		synchronized (this) {
 			for (ClientThread c : currentGroup.groupMembers) {
@@ -47,7 +46,7 @@ public class ClientThread extends Thread {
 			} 
 		}
 	}
-	
+
 	private void updateGroup(Message message) {
 		boolean newGroupCreated = true;
 		for (Group g : allGroups) {
@@ -62,7 +61,7 @@ public class ClientThread extends Thread {
 			this.allGroups.add(newGroup);
 		}
 	}
-	
+
 	private void updateUsername(Message message) {
 		this.username = message.content;
 	}
@@ -77,7 +76,7 @@ public class ClientThread extends Thread {
 		};
 		reading.start();
 	}
-	
+
 	public void read() {
 		boolean keepRunning = true;
 		while (keepRunning) {

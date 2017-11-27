@@ -21,7 +21,6 @@ public class ChatClient extends Thread {
 		this.port = p;
 		this.guiController = _guiController;
 		this.username = _username;
-		this.updateUsername(_username);
 		try {
 			this.connection = new Socket(this.ip, port);
 			this.out = new ObjectOutputStream(connection.getOutputStream());
@@ -31,22 +30,22 @@ public class ChatClient extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void updateUsername(String _username) {
 		Message updateUsername = new Message("updateUsername", this.username, _username, "");
 		send(updateUsername);
 	}
-	
+
 	public void updateGroup(String newGroup) {
 		Message updateGroup = new Message("updateGroup", this.username, newGroup, "");
 		send(updateGroup);
 	}
-	
+
 	public void sendMessageToGroup(String message) {
 		Message newMessage = new Message("message", this.username, message, "");
 		send(newMessage);
 	}
-	
+
 	public void sendTaskToGroup(String task) {
 		Message newMessage = new Message("task", this.username, task, "");
 		send(newMessage);
@@ -90,7 +89,7 @@ public class ChatClient extends Thread {
 	public void displayMessage(String message) {
 		guiController.append(message);
 	}
-	
+
 	public void displayTask(String message) {
 		guiController.append(message);
 	}
