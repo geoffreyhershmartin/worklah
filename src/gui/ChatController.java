@@ -9,15 +9,19 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import client.ChatClient;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -33,6 +37,8 @@ public class ChatController implements Initializable {
 	@FXML
 	private TextArea chatView;
 	@FXML
+        private TextArea chatView2;
+	@FXML
 	private TextField searchTask;
 	@FXML
 	private ImageView searchTasks;
@@ -42,17 +48,22 @@ public class ChatController implements Initializable {
 	private ImageView sendButton;
 	@FXML
 	private TextField chatBox;
-	
+	@FXML
+     
+        private Label time;
+        @FXML
+        private Hyperlink logOut;
 	private ChatClient client;
 	
 	protected String userID;
 
+        Stage prevStage;
 	/**
 	 * Initializes the controller class.
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
+            
 	}    
 
 	protected void setClient(ChatClient _client) {
@@ -70,11 +81,18 @@ public class ChatController implements Initializable {
 	@FXML
 	private void taskClicked(MouseEvent event) {
 	}
-	@FXML
-	private void logOut(MouseEvent event) {
-		System.exit(0);
-	}
-	@FXML
+        
+//	@FXML
+//	private void logOut(MouseEvent event) throws IOException {
+//		
+//	}
+	  
+//        @FXML
+//        void logOffClicked(MouseEvent event) {
+//        System.exit(0);
+//        }
+        
+        @FXML
 	private void enterPressedTask(KeyEvent event) {
 	}
 
@@ -84,7 +102,10 @@ public class ChatController implements Initializable {
 		taskList.getItems().add(a);
 
 	}
-
+          @FXML
+        void logoutPressed(ActionEvent event) {
+        System.exit(0);
+        }
 	@FXML
 	private void sendPressed(MouseEvent event) {
 
@@ -92,6 +113,14 @@ public class ChatController implements Initializable {
 		String catchPhrase = "@task";
 		if( message.contains(catchPhrase)) {
 			taskList.getItems().add(message.replace("@task", ""));
+		}
+                else {
+			client.broadcastMessageToGroup(chatBox.getText());
+			if(message.contains("right")){
+                            append2(message);
+                        }
+                        else
+			append(message);
 		}
 		client.broadcastMessageToGroup(chatBox.getText());
 		chatBox.setText("");
@@ -103,22 +132,34 @@ public class ChatController implements Initializable {
 		String message = chatBox.getText();
 		String catchPhrase = "@task";
 		if (message.contains(catchPhrase)) {
+                    
 			String task = message.replace("@task", "");
 			taskList.getItems().add(task);
-			client.broadcastTaskToGroup(task);
+			
 		}
-		else {
-			client.broadcastMessageToGroup(chatBox.getText());
-			String name;
-			LoginScreenController loginScreenController = new LoginScreenController();
-			name = loginScreenController.getID();
-			append(name + ": " + message);
-		}
+		else if(message.contains("right")){
+                            append2(message);
+                        }
+                else{
+			append(message);
+                }
+                client.broadcastTaskToGroup(message);
 		chatBox.setText("");
 	}
 
+        
+     
+        
 	public void append(String str) {
 		chatView.appendText(str + "\n");
+		chatView.selectPositionCaret(chatView.getText().length()-1);
+                chatView2.appendText("\n");
+		chatView2.selectPositionCaret(chatView2.getText().length()-1);
+	}
+        public void append2(String str) {
+		chatView2.appendText(str + "\n");
+		chatView2.selectPositionCaret(chatView2.getText().length()-1);
+                chatView.appendText("\n");
 		chatView.selectPositionCaret(chatView.getText().length()-1);
 	}
 

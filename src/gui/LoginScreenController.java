@@ -57,6 +57,7 @@ public class LoginScreenController implements Initializable {
 			return;
 		Stage stage = new Stage();
 
+
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChatScreen.fxml"));     
 		Parent root = (Parent) fxmlLoader.load();          
 		ChatController controller = fxmlLoader.<ChatController>getController();
@@ -73,9 +74,12 @@ public class LoginScreenController implements Initializable {
 		ChatController chatController = new ChatController();
 
 		chatController.setID(Username.getText().trim());
+                stage.setMinHeight(600);
+                stage.setMinWidth(1000);
 		stage.show();
 		Stage stage1 = (Stage) prevStage.getScene().getWindow();
 		stage1.close();
+                
 
 	}
 
@@ -86,7 +90,7 @@ public class LoginScreenController implements Initializable {
 	}
 
 	public String getID(){
-		return this.userID;
+		return this.Username.getText();
 	}
 
 
