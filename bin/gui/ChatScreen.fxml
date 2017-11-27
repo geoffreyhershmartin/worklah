@@ -35,7 +35,7 @@
             <Line endX="100.0" layoutX="86.0" startX="-100.0" stroke="#d3f5d3" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
-      <TextArea fx:id="chatView" editable="false" layoutX="190.0" layoutY="53.0" prefHeight="495.0" prefWidth="621.0" text="Geoffrey: Hey Taha!&#10;Me: Hey Geoffrey!" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="189.0" AnchorPane.topAnchor="53.0" />
+      <TextArea fx:id="chatView" editable="false" layoutX="191.0" layoutY="53.0" prefHeight="495.0" prefWidth="310.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="52.0" AnchorPane.topAnchor="53.0" />
       <Line endX="100.0" layoutX="190.0" layoutY="102.0" rotate="90.0" scaleX="0.25" startX="-100.0" stroke="#d3f5d3" AnchorPane.bottomAnchor="497.5" AnchorPane.leftAnchor="89.5" AnchorPane.topAnchor="25.0" />
       <Line endX="100.0" layoutX="811.0" layoutY="95.0" rotate="-90.0" startX="-100.0" stroke="#d3f5d3" AnchorPane.bottomAnchor="504.5" AnchorPane.rightAnchor="88.5" AnchorPane.topAnchor="94.5" />
       <Text layoutX="55.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WorkLAH" wrappingWidth="80.93797601759434">
@@ -107,5 +107,6 @@
                </effect>
             </ListView>
          </children></Pane>
+      <TextArea fx:id="chatView2" editable="false" layoutX="501.0" layoutY="53.0" maxHeight="990.0" maxWidth="620.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="495.0" prefWidth="310.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="52.0" AnchorPane.rightAnchor="189.0" AnchorPane.topAnchor="53.0" />
    </children>
 </AnchorPane>
