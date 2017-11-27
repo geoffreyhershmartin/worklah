@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Date;
 import gui.ChatController;
 
@@ -17,6 +18,7 @@ public class ChatClient extends Thread {
 	private ChatController guiController;
 	private String userID;
 	private Group currentGroup;
+	private ArrayList <Group> allGroups;
 
 	public ChatClient(String ip, int p, ChatController _guiController, String _userID) {
 		this.ip = ip;
@@ -84,6 +86,10 @@ public class ChatClient extends Thread {
 	public void broadcastTaskToGroup(String task) {
 		Message newMessage = new Message("task", this.userID, task, "everyone", this.currentGroup);
 		send(newMessage);
+	}
+	
+	public void changeGroup(Group newGroup) {
+		this.currentGroup = newGroup;
 	}
 
 	public void send(Message message) {

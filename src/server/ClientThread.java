@@ -1,6 +1,7 @@
 package server;
 
 import java.net.*;
+import java.util.ArrayList;
 import client.Group;
 import client.Message;
 
@@ -27,8 +28,9 @@ public class ClientThread extends Thread {
 	}
 	
 	public void broadcastMessage(Message message) throws IOException {
+		ArrayList <ClientThread> targetGroup = message.group.groupMembers;
 		synchronized(this) {
-			for (ClientThread c : server.clients) {
+			for (ClientThread c : targetGroup) {
 				c.out.writeObject(message);
 			} 
 		}
