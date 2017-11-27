@@ -48,6 +48,16 @@ public class ClientThread extends Thread {
 		} 
 	}
 	
+	public void sendUsers() {
+		Message newMessage = new Message("userList", "", "", "");
+		ArrayList <String> userList = new ArrayList <String>();
+		for (ClientThread c : server.clients) {
+			userList.add(c.username);
+		}
+		newMessage.setUserList(userList);
+		send(newMessage, this);
+	}
+	
 	public void send(Message message, ClientThread c) {
 		synchronized (this) {
 			try {
@@ -60,7 +70,7 @@ public class ClientThread extends Thread {
 			}
 		}
 	}
-
+	
 	private void updateGroup(Message message) {
 		boolean newGroupCreated = true;
 		for (Group g : allGroups) {
@@ -106,6 +116,8 @@ public class ClientThread extends Thread {
 					System.out.println(this.currentGroup.groupName);
 				} else if (message.type.equals("task")) {
 					this.sendTask(message);
+				} else if (message.type.equals("getUsers")) {
+					this.sendUsers();
 				} else {
 					this.sendMessage(message);
 				}					

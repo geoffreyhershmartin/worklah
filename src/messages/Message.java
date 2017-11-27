@@ -1,8 +1,7 @@
 package messages;
 
 import java.io.Serializable;
-
-import groups.Group;
+import java.util.ArrayList;
 
 public class Message implements Serializable {
 
@@ -12,19 +11,25 @@ public class Message implements Serializable {
 
 
 	public String type, sender, content, recipient;
-	public Group group;
+	public ArrayList <String> userList;
 
 	public Message(String _type, String _sender, String _content, String _recipient) {
 		this.type = _type;
 		this.sender = _sender;
 		this.content = _content;
 		this.recipient = _recipient;
+		this.userList = new ArrayList <String>();
 	}
 
 	@Override
 	public String toString() {
 		return "{type='"+type+"', sender='"+sender+"', content='"+content+"'}";
 	}
+	
+	public void setUserList(ArrayList <String> _userList) {
+		this.userList = _userList;
+	}
+	
 }
 
 
