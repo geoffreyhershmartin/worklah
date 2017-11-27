@@ -32,12 +32,12 @@ public class ChatClient extends Thread {
 		this.currentGroup = new Group("myself");
 		this.userID = _userID;
 		try {
-			this.connection = new Socket(InetAddress.getByName(this.ip), port);
-			out = new ObjectOutputStream(connection.getOutputStream());
-//			out = new PrintWriter(connection.getOutputStream());
-			out.flush();
-			in = new ObjectInputStream(connection.getInputStream());
-//			in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			this.connection = new Socket(this.ip, port);
+			this.out = new ObjectOutputStream(connection.getOutputStream());
+//			this.out = new PrintWriter(connection.getOutputStream());
+			this.out.flush();
+			this.in = new ObjectInputStream(connection.getInputStream());
+//			this.in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -86,7 +86,7 @@ public class ChatClient extends Thread {
 				 * first, that the username  is saved as username once it is inputted
 				 * second, that there is some textbox/allocated area for the username in the gui
 				 */
-				if (msg.type.equals("chat"))
+				if (msg.type.equals("message"))
 				{
 					this.displayMessage("[" + msg.sender + "] : " + msg.content + "\n");
 				}

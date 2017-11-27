@@ -9,7 +9,7 @@ import client.Message;
 public class ChatServer
 {
 	private ServerSocket servSock;
-	protected ArrayList <Socket> clients;
+	protected ArrayList <ClientThread> clients;
 	private PrintWriter pw;
 
 	public ChatServer(int port)
@@ -23,15 +23,15 @@ public class ChatServer
 
 	public void acceptClientLoop()
 	{
-		clients = new ArrayList <Socket>();
+		clients = new ArrayList <ClientThread>();
 		while (true)
 		{
 			Socket c;
 			try {
 				c = this.servSock.accept();
-				clients.add(c);
 				ClientThread th = new ClientThread(c, this);
 				th.start();
+				clients.add(th);
 				System.out.println("Client Accepted.");
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -24,6 +24,7 @@ public class ClientThread extends Thread {
 //			this.pw = new PrintWriter(this.client.getOutputStream());	
 //			this.br = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
 			out = new ObjectOutputStream(this.client.getOutputStream());
+			out.flush();
 			in = new ObjectInputStream(this.client.getInputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -32,10 +33,8 @@ public class ClientThread extends Thread {
 	
 	public void broadcastMessage(Message message) throws IOException {
 		synchronized(this) {
-			for (Socket c : server.clients) {
-				ObjectOutputStream out = new ObjectOutputStream(c.getOutputStream());
-				out.writeObject(message);
-				out.flush();
+			for (ClientThread c : server.clients) {
+				c.out.writeObject(message);
 			} 
 		}
 	}
