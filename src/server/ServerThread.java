@@ -7,8 +7,7 @@ import java.net.Socket;
 
 
 public class ServerThread extends Thread {
-	
-	public ChatServer server = null;
+    public ChatServer server = null;
     public Socket connection = null;
     public int id = -1;
     public String username = "";
