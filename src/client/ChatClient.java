@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
 import gui.ChatController;
+import server.ClientThread;
 
 public class ChatClient extends Thread {
 
@@ -18,9 +19,10 @@ public class ChatClient extends Thread {
 	private ChatController guiController;
 	private String userID;
 	private Group currentGroup;
+	private ArrayList <ClientThread> otherClients;
 	private ArrayList <Group> allGroups;
 
-	public ChatClient(String ip, int p, ChatController _guiController, String _userID) {
+	public ChatClient(String ip, int p, ChatController _guiController, String _userID) throws ClassNotFoundException {
 		this.ip = ip;
 		this.port = p;
 		this.guiController = _guiController;
@@ -31,6 +33,7 @@ public class ChatClient extends Thread {
 			this.out = new ObjectOutputStream(connection.getOutputStream());
 			this.out.flush();
 			this.in = new ObjectInputStream(connection.getInputStream());
+			this.otherClients = (ArrayList <ClientThread>) in.readObject();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
