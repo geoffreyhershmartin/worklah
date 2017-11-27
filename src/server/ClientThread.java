@@ -10,8 +10,6 @@ import java.io.*;
 public class ClientThread extends Thread {
 
 	private Socket client;
-	public PrintWriter pw;
-	private BufferedReader br;
 	private ChatServer server;
 	private ObjectOutputStream out;
 	private ObjectInputStream in; 
@@ -48,8 +46,7 @@ public class ClientThread extends Thread {
         };
 		reading.start();
 	}
-	
-	public void read() {
+		public void read() {
 		boolean keepRunning = true;
 		while (keepRunning) {
 			try {
@@ -59,22 +56,25 @@ public class ClientThread extends Thread {
 			catch (Exception e) {
 				keepRunning = false;
 				System.out.println("Connection Failure");
-				this.cleanConnection();
-				System.out.println("Exception ChatClient sendToServer()");
-				e.printStackTrace();
+				try {
+					this.cleanConnection();
+				} catch (IOException e1) {
+					System.out.println("Exception ChatClient sendToServer()");
+					e.printStackTrace();
+				}
 			}
 		}
 	}
 
-	public void cleanConnection() {
+	public void cleanConnection() throws IOException
+	{
 		System.out.println("Client disconnecting, cleaning the data!");
-		this.pw.close();
+		this.out.close();
 		try {
-			this.br.close();
+			this.in.close();
 			this.client.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
 }
