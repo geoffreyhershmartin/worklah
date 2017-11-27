@@ -82,6 +82,8 @@ public class LoginScreenController implements Initializable {
               
 	}
 
-
+ public String getID()
+ {
+ return this.userID;}
 
 }

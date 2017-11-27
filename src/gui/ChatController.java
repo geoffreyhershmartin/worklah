@@ -37,6 +37,8 @@ public class ChatController implements Initializable {
     @FXML
     private ImageView searchTasks;
     @FXML
+    private ImageView profileImage;
+    @FXML
     private ImageView sendButton;
     @FXML
     private TextField chatBox;
@@ -65,7 +67,10 @@ public class ChatController implements Initializable {
     @FXML
     private void taskClicked(MouseEvent event) {
     }
-
+  @FXML
+    private void logOut(MouseEvent event) {
+        System.exit(0);
+    }
     @FXML
     private void enterPressedTask(KeyEvent event) {
     }
@@ -99,8 +104,12 @@ public class ChatController implements Initializable {
         if( message.contains(catchPhrase)){
         taskList.getItems().add(message.replace("@task", ""));
         }
+        else{
     		client.broadcastMessageToGroup(chatBox.getText());
-
+                String name;
+                LoginScreenController loginScreenController = new LoginScreenController();
+            name = loginScreenController.getID();
+                append(name + ": " + message);}
         chatBox.setText("");
     }
     
