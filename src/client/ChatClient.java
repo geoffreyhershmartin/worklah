@@ -77,6 +77,10 @@ public class ChatClient extends Thread {
 	public void displayMessage(String message) {
 		guiController.append(message);
 	}
+	
+	public void displayTask(String message) {
+		guiController.append(message);
+	}
 
 	public void broadcastMessageToGroup(String message) {
 		Message newMessage = new Message("message", this.userID, message, "everyone", this.currentGroup);
