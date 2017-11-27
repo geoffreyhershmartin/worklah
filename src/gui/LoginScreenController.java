@@ -50,7 +50,7 @@ public class LoginScreenController implements Initializable {
 	}    
 
 	@FXML
-	private void loginPressed(ActionEvent event) throws IOException {
+	private void loginPressed(ActionEvent event) throws IOException, ClassNotFoundException {
 
 		String userID = Username.getText().trim();
 		if (userID.length() == 0)

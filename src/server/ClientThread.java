@@ -22,6 +22,7 @@ public class ClientThread extends Thread {
 			out = new ObjectOutputStream(this.client.getOutputStream());
 			out.flush();
 			in = new ObjectInputStream(this.client.getInputStream());
+			this.out.writeObject(server);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
