@@ -29,7 +29,7 @@ public class ChatController implements Initializable {
     @FXML
     private ListView<?> userList;
     @FXML
-    private ListView<?> taskList;
+    private ListView<String> taskList;
     @FXML
     private TextArea chatView;
     @FXML
@@ -72,19 +72,35 @@ public class ChatController implements Initializable {
 
     @FXML
     private void searchClicked(MouseEvent event) {
+        String a = searchTask.getText();
+        taskList.getItems().add(a);
+        
     }
 
     @FXML
     private void sendPressed(MouseEvent event) {
-        client.broadcastMessageToGroup(chatBox.getText());
-		this.append(chatBox.getText());
+        
+        String message = chatBox.getText();
+        String catchPhrase = "@task";
+        if( message.contains(catchPhrase)){
+        taskList.getItems().add(message.replace("@task", ""));
+        }
+    		client.broadcastMessageToGroup(chatBox.getText());
+
         chatBox.setText("");
+        
+
     }
 
     @FXML
     private void enterPressedChat(ActionEvent event) {
+        String message = chatBox.getText();
+        String catchPhrase = "@task";
+        if( message.contains(catchPhrase)){
+        taskList.getItems().add(message.replace("@task", ""));
+        }
     		client.broadcastMessageToGroup(chatBox.getText());
-		this.append(chatBox.getText());
+
         chatBox.setText("");
     }
     
