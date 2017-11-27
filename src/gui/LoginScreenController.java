@@ -62,7 +62,7 @@ public class LoginScreenController implements Initializable {
 		ChatController controller = fxmlLoader.<ChatController>getController();
 		int port = 8080;
         String server = "127.0.0.1";
-        client = new ChatClient(server, port, controller);
+        client = new ChatClient(server, port, controller, userID);
         client.start();
 		controller.setClient(client);
 		Scene scene = new Scene(root); 
