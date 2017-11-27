@@ -30,13 +30,7 @@
                   <Font size="10.0" />
                </font>
             </TextField>
-            <Text fill="WHITE" layoutX="82.0" layoutY="181.19200134277344" strokeType="OUTSIDE" strokeWidth="0.0" text="Port" textAlignment="CENTER">
-               <font>
-                  <Font name="Source Sans Pro" size="12.0" />
-               </font>
-            </Text>
-            <PasswordField fx:id="passwordField" layoutX="27.0" layoutY="280.0" onAction="#loginPressed" prefHeight="7.0" prefWidth="133.0" />
-            <Text fill="WHITE" layoutX="69.0" layoutY="260.1919860839844" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+            <Text fill="WHITE" layoutX="80.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Port" textAlignment="CENTER">
                <font>
                   <Font name="Source Sans Pro" size="12.0" />
                </font>
@@ -46,7 +40,13 @@
                   <Font size="10.0" />
                </font>
             </TextField>
-            <Text fill="WHITE" layoutX="68.0" layoutY="218.19198608398438" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+            <PasswordField fx:id="passwordField" layoutX="27.0" layoutY="280.0" onAction="#loginPressed" prefHeight="7.0" prefWidth="133.0" />
+            <Text fill="WHITE" layoutX="67.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+               <font>
+                  <Font name="Source Sans Pro" size="12.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="70.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
                <font>
                   <Font name="Source Sans Pro" size="12.0" />
                </font>

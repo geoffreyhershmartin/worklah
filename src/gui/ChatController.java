@@ -36,7 +36,7 @@ public class ChatController implements Initializable {
 	@FXML
 	private TextArea chatView;
 	@FXML
-        private TextArea chatView2;
+	private TextArea chatView2;
 	@FXML
 	private TextField searchTask;
 	@FXML
@@ -48,21 +48,21 @@ public class ChatController implements Initializable {
 	@FXML
 	private TextField chatBox;
 	@FXML
-     
-        private Label time;
-        @FXML
-        private Hyperlink logOut;
+
+	private Label time;
+	@FXML
+	private Hyperlink logOut;
 	private ChatClient client;
-	
+
 	protected String userID;
 
-        Stage prevStage;
+	Stage prevStage;
 	/**
 	 * Initializes the controller class.
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-            
+
 	}    
 
 	protected void setClient(ChatClient _client) {
@@ -80,18 +80,18 @@ public class ChatController implements Initializable {
 	@FXML
 	private void taskClicked(MouseEvent event) {
 	}
-        
-//	@FXML
-//	private void logOut(MouseEvent event) throws IOException {
-//		
-//	}
-	  
-//        @FXML
-//        void logOffClicked(MouseEvent event) {
-//        System.exit(0);
-//        }
-        
-        @FXML
+
+	//	@FXML
+	//	private void logOut(MouseEvent event) throws IOException {
+	//		
+	//	}
+
+	//        @FXML
+	//        void logOffClicked(MouseEvent event) {
+	//        System.exit(0);
+	//        }
+
+	@FXML
 	private void enterPressedTask(KeyEvent event) {
 	}
 
@@ -101,10 +101,10 @@ public class ChatController implements Initializable {
 		taskList.getItems().add(a);
 
 	}
-          @FXML
-        void logoutPressed(ActionEvent event) {
-        System.exit(0);
-        }
+	@FXML
+	void logoutPressed(ActionEvent event) {
+		System.exit(0);
+	}
 	@FXML
 	private void sendPressed(MouseEvent event) {
 
@@ -113,13 +113,13 @@ public class ChatController implements Initializable {
 		if( message.contains(catchPhrase)) {
 			taskList.getItems().add(message.replace("@task", ""));
 		}
-                else {
+		else {
 			client.sendMessageToGroup(chatBox.getText());
 			if(message.contains("right")){
-                            append2(message);
-                        }
-                        else
-			append(message);
+				append2(message);
+			}
+			else
+				append(message);
 		}
 		client.sendMessageToGroup(chatBox.getText());
 		chatBox.setText("");
@@ -131,34 +131,34 @@ public class ChatController implements Initializable {
 		String message = chatBox.getText();
 		String catchPhrase = "@task";
 		if (message.contains(catchPhrase)) {
-                    
+
 			String task = message.replace("@task", "");
 			taskList.getItems().add(task);
-			
+
 		}
 		else if(message.contains("right")){
-                            append2(message);
-                        }
-                else{
+			append2(message);
+		}
+		else{
 			append(message);
-                }
-                client.sendTaskToGroup(message);
+		}
+		client.sendTaskToGroup(message);
 		chatBox.setText("");
 	}
 
-        
-     
-        
+
+
+
 	public void append(String str) {
 		chatView.appendText(str + "\n");
 		chatView.selectPositionCaret(chatView.getText().length()-1);
-                chatView2.appendText("\n");
+		chatView2.appendText("\n");
 		chatView2.selectPositionCaret(chatView2.getText().length()-1);
 	}
-        public void append2(String str) {
+	public void append2(String str) {
 		chatView2.appendText(str + "\n");
 		chatView2.selectPositionCaret(chatView2.getText().length()-1);
-                chatView.appendText("\n");
+		chatView.appendText("\n");
 		chatView.selectPositionCaret(chatView.getText().length()-1);
 	}
 
