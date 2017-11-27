@@ -1,15 +1,15 @@
-package server;
+package groups;
 
 import java.io.Serializable;
+import messages.Message;
 import java.util.ArrayList;
-
-import client.Message;
+import server.ClientThread;
 
 public class Group implements Serializable {
 
 	private static final long serialVersionUID = 7710781962991992645L;
 
-	protected String groupName;
+	public String groupName;
 	public ArrayList <ClientThread> groupMembers;
 	public ArrayList <Message> chatHistory;
 

@@ -1,6 +1,7 @@
 package client;
 
 import java.io.IOException;
+import messages.Message;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -24,8 +25,8 @@ public class ChatClient extends Thread {
 		try {
 			this.connection = new Socket(this.ip, port);
 			this.out = new ObjectOutputStream(connection.getOutputStream());
-			this.out.flush();
 			this.in = new ObjectInputStream(connection.getInputStream());
+			this.updateGroup("Taha");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -56,16 +57,19 @@ public class ChatClient extends Thread {
 		Thread reading = new Thread() {
 			@Override
 			public void run() {
-				read();
+				try {
+					read();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		};
 		reading.start();
 	}
 
-	private void read() {
-		boolean keepRunning = true;
+	private void read() throws IOException {
 
-		while (keepRunning) {
+		while (true) {
 			try {
 				Message msg = (Message) in.readObject();
 				System.out.println(msg.sender + " : "+ msg.toString());
@@ -77,11 +81,11 @@ public class ChatClient extends Thread {
 				}
 			}
 			catch (Exception e) {
-				keepRunning = false;
 				System.out.println("Connection Failure");
 				this.closeConnection();
 				System.out.println("Exception ChatClient sendToServer()");
 				e.printStackTrace();
+				break;
 			}
 		}
 	}
