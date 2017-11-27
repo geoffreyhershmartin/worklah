@@ -1,7 +1,11 @@
 package server;
 
 import java.net.*;
+import messages.Message;
+import groups.Group;
 import java.util.ArrayList;
+
+import groups.Group;
 
 import java.io.*;
 
@@ -20,9 +24,10 @@ public class ClientThread extends Thread {
 		this.server = server;
 		this.client = c;
 		this.username = "";
+		this.allGroups = new ArrayList <Group>();
+		this.currentGroup = new Group("myself");
 		try {
 			out = new ObjectOutputStream(this.client.getOutputStream());
-			out.flush();
 			in = new ObjectInputStream(this.client.getInputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -33,6 +38,7 @@ public class ClientThread extends Thread {
 		synchronized (this) {
 			for (ClientThread c : currentGroup.groupMembers) {
 				c.out.writeObject(message);
+				c.out.flush();
 			} 
 		}
 	}
@@ -42,6 +48,7 @@ public class ClientThread extends Thread {
 			for (ClientThread c : currentGroup.groupMembers) {
 				if (message.recipient.equals(c.username)) {
 					c.out.writeObject(message);
+					c.out.flush();
 				}
 			} 
 		}
@@ -55,8 +62,8 @@ public class ClientThread extends Thread {
 				newGroupCreated = false;
 			}
 		}
-		if (!newGroupCreated) {
-			Group newGroup = new Group(message.recipient);
+		if (newGroupCreated) {
+			Group newGroup = new Group(message.content);
 			this.currentGroup = newGroup;
 			this.allGroups.add(newGroup);
 		}
@@ -71,21 +78,25 @@ public class ClientThread extends Thread {
 		Thread reading = new Thread() {
 			@Override
 			public void run() {
-				read();
+				try {
+					read();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		};
 		reading.start();
 	}
 
-	public void read() {
-		boolean keepRunning = true;
-		while (keepRunning) {
+	public void read() throws IOException {
+		while (true) {
 			try {
 				Message message = (Message) in.readObject();
 				if (message.type.equals("updateUsername")) {
 					this.updateUsername(message);
 				} else if (message.type.equals("updateGroup")) {
 					this.updateGroup(message);
+					System.out.println(this.currentGroup.groupName);
 				} else if (message.type.equals("task")) {
 					this.sendTask(message);
 				} else {
@@ -93,14 +104,15 @@ public class ClientThread extends Thread {
 				}					
 			}
 			catch (Exception e) {
-				keepRunning = false;
 				System.out.println("Connection Failure");
+				e.printStackTrace();
 				try {
 					this.closeConnection();
 				} catch (IOException e1) {
 					System.out.println("Exception ChatClient sendToServer()");
-					e.printStackTrace();
+					e1.printStackTrace();
 				}
+				break;
 			}
 		}
 	}

@@ -1,8 +1,8 @@
-package client;
+package messages;
 
 import java.io.Serializable;
 
-import server.Group;
+import groups.Group;
 
 public class Message implements Serializable {
 

@@ -2,21 +2,28 @@ package server;
 
 import java.io.Serializable;
 
+import groups.Group;
+
 public class Message implements Serializable {
 
-	private static final long serialVersionUID = 3926335042007229233L;
+	private static final long serialVersionUID = -4398980948410147192L;
 	// universal version identifier, to make sure that a loaded class corresponds to a serialised object
 	// if no match is found, then an InvalidClassException
 
-	public String type, sender, content, recipient;
 
-	public Message(String type, String sender, String content, String recipient) {
-		this.type = type; this.sender = sender; this.content = content; this.recipient = recipient;
+	public String type, sender, content, recipient;
+	public Group group;
+
+	public Message(String _type, String _sender, String _content, String _recipient) {
+		this.type = _type;
+		this.sender = _sender;
+		this.content = _content;
+		this.recipient = _recipient;
 	}
 
 	@Override
-	public String toString(){
-		return "{type='"+type+"', sender='"+sender+"', content='"+content+"', recipient='"+recipient+"'}";
+	public String toString() {
+		return "{type='"+type+"', sender='"+sender+"', content='"+content+"'}";
 	}
 }
 
