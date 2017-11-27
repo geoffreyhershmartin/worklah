@@ -16,12 +16,11 @@ public class ServerThread extends Thread
     public ObjectOutputStream out = null;
     
     public long getId(){
-    	return id;
+    		return id;
     }
 
     public ServerThread(ChatServer server, Socket connection){  
-    	super();
-    	id = connection.getPort();
+    		id = connection.getPort();
         server = this.server;
         connection = this.connection;
     }
@@ -35,7 +34,6 @@ public class ServerThread extends Thread
             System.out.println("Sorry, we were not able to send your message.");
         }
     }
-    
     
     public void openConnection() throws IOException {  
         out = new ObjectOutputStream(connection.getOutputStream());

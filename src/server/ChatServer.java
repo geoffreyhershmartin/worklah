@@ -3,15 +3,13 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
-import client.ClientThread;
 import client.Group;
 
 public class ChatServer
 {
 	private ServerSocket servSock;
-	private Socket client;
+	private ArrayList <Socket> clients;
 	private PrintWriter pw;
-	private ArrayList <ClientThread> clients;
 
 	public ChatServer(int port)
 	{
@@ -24,15 +22,15 @@ public class ChatServer
 
 	public void acceptClientLoop()
 	{
-		clients = new ArrayList <ClientThread>();
+		clients = new ArrayList <Socket>();
 		while (true)
 		{
 			Socket c;
 			try {
 				c = this.servSock.accept();
+				clients.add(c);
 				ClientThread th = new ClientThread(c, this);
 				th.start();
-				clients.add(th);
 				System.out.println("Client Accepted.");
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -47,13 +45,12 @@ public class ChatServer
 		serv.acceptClientLoop();
 	}
 
-	public void broadcastMessage(String message, Group clientGroup, ClientThread sender) {
+	public void broadcastMessage(String message, Group clientGroup, ClientThread sender) throws IOException {
 		synchronized(this) {
-			for (ClientThread c : clientGroup.groupMembers) {
-			    if (!c.equals(sender)) {
-			    		c.pw.println(message);
-			    		c.pw.flush();
-			    }
+			for (Socket c : clients) {
+			    PrintWriter pw = new PrintWriter(c.getOutputStream());
+			    pw.println(message);
+			    pw.flush();
 			} 
 		}
 	}

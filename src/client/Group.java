@@ -2,6 +2,8 @@ package client;
 
 import java.util.ArrayList;
 
+import server.ClientThread;
+
 public class Group {
 	
 	protected String groupName;

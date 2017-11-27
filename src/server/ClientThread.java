@@ -1,8 +1,8 @@
-package client;
+package server;
 
 import java.net.*;
 
-import server.ChatServer;
+import client.Group;
 
 import java.io.*;
 
@@ -21,7 +21,6 @@ public class ClientThread extends Thread {
 	{
 		this.server = server;
 		this.currentGroup = new Group("myself");
-		this.currentGroup.addUser(this);
 		this.client = c;
 		try {
 			this.pw = new PrintWriter(this.client.getOutputStream());	
@@ -32,7 +31,7 @@ public class ClientThread extends Thread {
 		}
 	}
 	
-	public void broadcastMessageToGroup(String message)
+	public void broadcastMessage(String message) throws IOException
 	{
 		this.server.broadcastMessage(message, this.currentGroup, this);
 	}
@@ -42,21 +41,33 @@ public class ClientThread extends Thread {
 		this.pw.println(message);
 		this.pw.flush();
 	}
-	
-	protected void printMessage(String message) {
-		guiController.append(message);
-	}
-	
-	public synchronized void sendConfirmation()
-	{
-		this.pw.println("Confirmation");
-		this.pw.flush();
-	}
 
 	@Override
 	public void run()
 	{
-		this.reading.start();
+		Thread reading = new Thread() {
+            @Override
+            public void run() {
+            		read();
+            }
+        };
+		reading.start();
+	}
+	
+	public void read()
+	{
+		String inc = "";
+		try {
+			while((inc = this.br.readLine()) != null)
+			{
+				this.broadcastMessage(inc);
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		System.out.println("Connection was closed!");
 	}
 
 	public void cleanConnection()
@@ -69,8 +80,6 @@ public class ClientThread extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 	
-
 }
