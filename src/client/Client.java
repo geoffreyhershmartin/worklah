@@ -5,9 +5,11 @@ import messages.Message;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+
 import gui.ChatController;
 
-public class ChatClient extends Thread {
+public class Client extends Thread {
 
 	private String ip;
 	private int port;
@@ -17,7 +19,7 @@ public class ChatClient extends Thread {
 	private ChatController guiController;
 	private String username;
 
-	public ChatClient(String ip, int p, ChatController _guiController, String _username) throws ClassNotFoundException {
+	public Client(String ip, int p, ChatController _guiController, String _username) throws ClassNotFoundException {
 		this.ip = ip;
 		this.port = p;
 		this.guiController = _guiController;
@@ -49,6 +51,11 @@ public class ChatClient extends Thread {
 
 	public void sendTaskToGroup(String task) {
 		Message newMessage = new Message("task", this.username, task, "");
+		send(newMessage);
+	}
+	
+	public void getOnlineUsers() {
+		Message newMessage = new Message("getUsers", this.username, "", "");
 		send(newMessage);
 	}
 
@@ -83,7 +90,7 @@ public class ChatClient extends Thread {
 			catch (Exception e) {
 				System.out.println("Connection Failure");
 				this.closeConnection();
-				System.out.println("Exception ChatClient sendToServer()");
+				System.out.println("Exception Client sendToServer()");
 				e.printStackTrace();
 				break;
 			}
@@ -99,13 +106,15 @@ public class ChatClient extends Thread {
 	}
 
 	public void send(Message message) {
-		try {
-			out.writeObject(message);
-			out.flush();
-		} 
-		catch (IOException ex) {
-			System.out.println("Exception: send() in ChatClient");
-			ex.printStackTrace();
+		synchronized (this) {
+			try {
+				out.writeObject(message);
+				out.flush();
+			} 
+			catch (IOException ex) {
+				System.out.println("Exception: send() in Client");
+				ex.printStackTrace();
+			}
 		}
 	}
 

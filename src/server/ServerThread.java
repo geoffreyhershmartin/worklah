@@ -7,7 +7,7 @@ import java.net.Socket;
 
 
 public class ServerThread extends Thread {
-    public ChatServer server = null;
+    public Server server = null;
     public Socket connection = null;
     public int id = -1;
     public String username = "";
@@ -18,7 +18,7 @@ public class ServerThread extends Thread {
     		return id;
     }
 
-    public ServerThread(ChatServer server, Socket connection) {  
+    public ServerThread(Server server, Socket connection) {  
     		id = connection.getPort();
         server = this.server;
         connection = this.connection;

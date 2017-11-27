@@ -13,14 +13,14 @@ import java.io.*;
 public class ClientThread extends Thread {
 
 	private Socket client;
-	private ChatServer server;
+	private Server server;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	private Group currentGroup;
 	private ArrayList <Group> allGroups;
 	private String username;
 
-	public ClientThread(Socket c, ChatServer server) {
+	public ClientThread(Socket c, Server server) {
 		this.server = server;
 		this.client = c;
 		this.username = "";
@@ -35,22 +35,29 @@ public class ClientThread extends Thread {
 	}
 
 	private void sendMessage(Message message) throws IOException {
-		synchronized (this) {
-			for (ClientThread c : currentGroup.groupMembers) {
-				c.out.writeObject(message);
-				c.out.flush();
-			} 
-		}
+		for (ClientThread c : currentGroup.groupMembers) {
+			send(message, c);
+		} 
 	}
 
 	private void sendTask(Message message) throws IOException {
+		for (ClientThread c : currentGroup.groupMembers) {
+			if (message.recipient.equals(c.username)) {
+				send(message, c);
+			}
+		} 
+	}
+	
+	public void send(Message message, ClientThread c) {
 		synchronized (this) {
-			for (ClientThread c : currentGroup.groupMembers) {
-				if (message.recipient.equals(c.username)) {
-					c.out.writeObject(message);
-					c.out.flush();
-				}
+			try {
+				c.out.writeObject(message);
+				c.out.flush();
 			} 
+			catch (IOException ex) {
+				System.out.println("Exception: send() in ClientThread");
+				ex.printStackTrace();
+			}
 		}
 	}
 

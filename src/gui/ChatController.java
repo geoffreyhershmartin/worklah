@@ -8,7 +8,7 @@ package gui;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import client.ChatClient;
+import client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -52,7 +52,7 @@ public class ChatController implements Initializable {
 	private Label time;
 	@FXML
 	private Hyperlink logOut;
-	private ChatClient client;
+	private Client client;
 
 	protected String userID;
 
@@ -65,7 +65,7 @@ public class ChatController implements Initializable {
 
 	}    
 
-	protected void setClient(ChatClient _client) {
+	protected void setClient(Client _client) {
 		client = _client;
 	}
 

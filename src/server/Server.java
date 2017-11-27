@@ -4,12 +4,12 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
-public class ChatServer
+public class Server
 {
 	private ServerSocket servSock;
 	protected ArrayList <ClientThread> clients;
 
-	public ChatServer(int port) {
+	public Server(int port) {
 		try {
 			this.servSock = new ServerSocket(port);
 		} catch (IOException e) {
@@ -34,7 +34,7 @@ public class ChatServer
 	}
 
 	public static void main (String[] args) throws Exception {
-		ChatServer serv = new ChatServer(8080);
+		Server serv = new Server(8080);
 		serv.acceptClientLoop();
 	}
 

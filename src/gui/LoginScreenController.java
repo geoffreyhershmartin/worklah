@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import client.ChatClient;
+import client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,7 +38,7 @@ public class LoginScreenController implements Initializable {
 	@FXML
 	private PasswordField passwordField;    
 
-	protected ChatClient client;
+	protected Client client;
 	protected String userID;
 
 	/**
@@ -65,7 +65,7 @@ public class LoginScreenController implements Initializable {
 		// Creates a server/client;
 		int port = 8080;
 		String server = "127.0.0.1";
-		client = new ChatClient(server, port, controller, userID);
+		client = new Client(server, port, controller, userID);
 		client.start();
 
 		controller.setClient(client);
