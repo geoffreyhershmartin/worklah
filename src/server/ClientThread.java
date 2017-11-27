@@ -4,11 +4,7 @@ import java.net.*;
 import messages.Message;
 import groups.Group;
 import java.util.ArrayList;
-
-import groups.Group;
-
 import java.io.*;
-
 
 public class ClientThread extends Thread {
 

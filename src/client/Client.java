@@ -5,8 +5,6 @@ import messages.Message;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-
 import gui.ChatController;
 
 public class Client extends Thread {
@@ -28,7 +26,8 @@ public class Client extends Thread {
 			this.connection = new Socket(this.ip, port);
 			this.out = new ObjectOutputStream(connection.getOutputStream());
 			this.in = new ObjectInputStream(connection.getInputStream());
-			this.updateGroup("Taha");
+			updateUsername(this.username);
+			getOnlineUsers();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -86,7 +85,7 @@ public class Client extends Thread {
 				else if (msg.type.equals("task")) {
 					guiController.taskList.getItems().add("[" + msg.sender + " > Me] : " + msg.content + "\n");
 				} else if (msg.type.equals("userList")) {
-					// Use controller list of users
+					System.out.println(msg.userList);
 				}
 			}
 			catch (Exception e) {
