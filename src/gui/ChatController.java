@@ -9,7 +9,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import client.ChatClient;
-import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -115,14 +114,14 @@ public class ChatController implements Initializable {
 			taskList.getItems().add(message.replace("@task", ""));
 		}
                 else {
-			client.broadcastMessageToGroup(chatBox.getText());
+			client.sendMessageToGroup(chatBox.getText());
 			if(message.contains("right")){
                             append2(message);
                         }
                         else
 			append(message);
 		}
-		client.broadcastMessageToGroup(chatBox.getText());
+		client.sendMessageToGroup(chatBox.getText());
 		chatBox.setText("");
 
 	}
@@ -143,7 +142,7 @@ public class ChatController implements Initializable {
                 else{
 			append(message);
                 }
-                client.broadcastTaskToGroup(message);
+                client.sendTaskToGroup(message);
 		chatBox.setText("");
 	}
 

@@ -1,9 +1,9 @@
-package client;
+package server;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import server.ClientThread;
+import client.Message;
 
 public class Group implements Serializable {
 	

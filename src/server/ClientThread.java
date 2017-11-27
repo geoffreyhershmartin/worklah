@@ -2,8 +2,6 @@ package server;
 
 import java.net.*;
 import java.util.ArrayList;
-import client.Group;
-import client.Message;
 
 import java.io.*;
 
@@ -15,12 +13,13 @@ public class ClientThread extends Thread {
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	private Group currentGroup;
-	private ArrayList <ClientThread> otherClients;
 	private ArrayList <Group> allGroups;
+	private String username;
 
 	public ClientThread(Socket c, ChatServer server) {
 		this.server = server;
 		this.client = c;
+		this.username = "";
 		try {
 			out = new ObjectOutputStream(this.client.getOutputStream());
 			out.flush();
@@ -30,38 +29,75 @@ public class ClientThread extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
-	public void broadcastMessage(Message message) throws IOException {
-		ArrayList <ClientThread> targetGroup = message.group.groupMembers;
-		synchronized(this) {
-			for (ClientThread c : targetGroup) {
+
+	private void sendMessage(Message message) throws IOException {
+		synchronized (this) {
+			for (ClientThread c : currentGroup.groupMembers) {
 				c.out.writeObject(message);
 			} 
 		}
+	}
+	
+	private void sendTask(Message message) throws IOException {
+		synchronized (this) {
+			for (ClientThread c : currentGroup.groupMembers) {
+				if (message.recipient.equals(c.username)) {
+					c.out.writeObject(message);
+				}
+			} 
+		}
+	}
+	
+	private void updateGroup(Message message) {
+		boolean newGroupCreated = true;
+		for (Group g : allGroups) {
+			if (g.groupName.equals(message.content)) {
+				this.currentGroup = g;
+				newGroupCreated = false;
+			}
+		}
+		if (!newGroupCreated) {
+			Group newGroup = new Group(message.recipient);
+			this.currentGroup = newGroup;
+			this.allGroups.add(newGroup);
+		}
+	}
+	
+	private void updateUsername(Message message) {
+		this.username = message.content;
 	}
 
 	@Override
 	public void run() {
 		Thread reading = new Thread() {
-            @Override
-            public void run() {
-            		read();
-            }
-        };
+			@Override
+			public void run() {
+				read();
+			}
+		};
 		reading.start();
 	}
-		public void read() {
+	
+	public void read() {
 		boolean keepRunning = true;
 		while (keepRunning) {
 			try {
-				Message msg = (Message) in.readObject();
-				this.broadcastMessage(msg);
+				Message message = (Message) in.readObject();
+				if (message.type.equals("updateUsername")) {
+					this.updateUsername(message);
+				} else if (message.type.equals("updateGroup")) {
+					this.updateGroup(message);
+				} else if (message.type.equals("task")) {
+					this.sendTask(message);
+				} else {
+					this.sendMessage(message);
+				}					
 			}
 			catch (Exception e) {
 				keepRunning = false;
 				System.out.println("Connection Failure");
 				try {
-					this.cleanConnection();
+					this.closeConnection();
 				} catch (IOException e1) {
 					System.out.println("Exception ChatClient sendToServer()");
 					e.printStackTrace();
@@ -70,7 +106,7 @@ public class ClientThread extends Thread {
 		}
 	}
 
-	public void cleanConnection() throws IOException
+	public void closeConnection() throws IOException
 	{
 		System.out.println("Client disconnecting, cleaning the data!");
 		this.out.close();

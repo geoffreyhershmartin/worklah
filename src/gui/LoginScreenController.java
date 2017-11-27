@@ -67,6 +67,7 @@ public class LoginScreenController implements Initializable {
 		String server = "127.0.0.1";
 		client = new ChatClient(server, port, controller, userID);
 		client.start();
+		client.updateUsername(userID);
 
 		controller.setClient(client);
 		Scene scene = new Scene(root); 

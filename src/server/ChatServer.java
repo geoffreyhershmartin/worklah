@@ -1,10 +1,8 @@
 package server;
+
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
-
-import client.Group;
-import client.Message;
 
 public class ChatServer
 {

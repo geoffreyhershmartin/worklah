@@ -32,7 +32,7 @@ public class ChatClient extends Thread {
 		}
 	}
 	
-	private void updateUsername(String _username) {
+	public void updateUsername(String _username) {
 		Message updateUsername = new Message("updateUsername", this.username, _username, "");
 		send(updateUsername);
 	}

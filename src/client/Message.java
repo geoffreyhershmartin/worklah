@@ -2,6 +2,8 @@ package client;
 
 import java.io.Serializable;
 
+import server.Group;
+
 public class Message implements Serializable {
 
 	private static final long serialVersionUID = -4398980948410147192L;
