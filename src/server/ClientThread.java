@@ -13,14 +13,11 @@ public class ClientThread extends Thread {
 	private ReadingThread reading;
 	public PrintWriter pw;
 	private BufferedReader br;
-	private Group currentGroup;
-	
 	private ChatServer server;
 
 	public ClientThread(Socket c, ChatServer server)
 	{
 		this.server = server;
-		this.currentGroup = new Group("myself");
 		this.client = c;
 		try {
 			this.pw = new PrintWriter(this.client.getOutputStream());	
