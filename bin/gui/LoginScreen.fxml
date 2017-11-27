@@ -16,7 +16,7 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="1000.0" pickOnBounds="true">
          <image>
-            <Image url="@background.jpg" />
+            <Image url="@assets/background.jpg" />
          </image>
       </ImageView>
       <VBox layoutX="417.0" layoutY="223.0">
@@ -68,7 +68,7 @@
       </VBox>
       <ImageView fitHeight="175.0" fitWidth="222.0" layoutX="404.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="387.0" AnchorPane.leftAnchor="404.0" AnchorPane.rightAnchor="403.9268341064453" AnchorPane.topAnchor="38.0">
          <image>
-            <Image url="@logo.png" />
+            <Image url="@assets/logo.png" />
          </image>
       </ImageView>
    </children>
