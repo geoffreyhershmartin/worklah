@@ -70,6 +70,9 @@ public class LoginScreenController implements Initializable {
 		controller.setClient(client);
 		Scene scene = new Scene(root); 
 		stage.setScene(scene);
+                ChatController chatController = new ChatController();
+           
+                chatController.setID(Username.getText().trim());
 		stage.show();
         Stage stage1 = (Stage)prevStage.getScene().getWindow();
         stage1.close();
@@ -82,8 +85,11 @@ public class LoginScreenController implements Initializable {
               
 	}
 
- public String getID()
- {
- return this.userID;}
-
+ public String getID(){
+    return this.userID;}
+ 
+ 
+ public void setID(String _userID){
+ this.userID=_userID;}
+ 
 }

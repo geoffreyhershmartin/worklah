@@ -12,6 +12,7 @@ import client.ChatClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import static javafx.geometry.NodeOrientation.RIGHT_TO_LEFT;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -33,6 +34,8 @@ public class ChatController implements Initializable {
     @FXML
     private TextArea chatView;
     @FXML
+    private TextArea chatView2;
+    @FXML
     private TextField searchTask;
     @FXML
     private ImageView searchTasks;
@@ -43,7 +46,7 @@ public class ChatController implements Initializable {
     @FXML
     private TextField chatBox;
     private ChatClient client;
-
+    private String userID; 
     /**
      * Initializes the controller class.
      */
@@ -106,19 +109,41 @@ public class ChatController implements Initializable {
         }
         else{
     		client.broadcastMessageToGroup(chatBox.getText());
-                String name;
-                LoginScreenController loginScreenController = new LoginScreenController();
-            name = loginScreenController.getID();
-                append(name + ": " + message);}
+                if(message.contains("left")){
+                    appendLeft(userID + ": " + message);
+                }
+                else {appendRight(userID + ": " + message);}
+                
+                
+        }
         chatBox.setText("");
     }
     
-    public void append(String str) {
+    public void appendLeft(String str) {
         chatView.appendText(str + "\n");
         chatView.selectPositionCaret(chatView.getText().length()-1);
+        chatView2.appendText("\n");
+        chatView2.selectPositionCaret(chatView2.getText().length()-1);
     }
     
-     void connectionFailed() {
+     public void appendRight(String str) {
+        chatView2.appendText(str + "\n");
+        chatView2.selectPositionCaret(chatView2.getText().length()-1);
+        chatView.appendText("\n");
+        chatView.selectPositionCaret(chatView.getText().length()-1);
+    }
+   
+    
+    void connectionFailed() {
 //        boolean connected = false;
     }
+    public String getID(){
+        return this.userID;
+    }
+ 
+ 
+    public void setID(String _userID){
+        this.userID=_userID;
+    }
+ 
 }
