@@ -77,7 +77,7 @@ public class ChatClient extends Thread {
 	}
 
 	public void broadcastMessageToGroup(String message) {
-		Message newMessage = new Message("message", this.userID, "everyone", message, this.currentGroup);
+		Message newMessage = new Message("message", this.userID, message, "everyone", this.currentGroup);
 		send(newMessage);
 	}
 	

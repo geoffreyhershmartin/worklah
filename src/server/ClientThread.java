@@ -18,8 +18,6 @@ public class ClientThread extends Thread {
 		this.server = server;
 		this.client = c;
 		try {
-//			this.pw = new PrintWriter(this.client.getOutputStream());	
-//			this.br = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
 			out = new ObjectOutputStream(this.client.getOutputStream());
 			out.flush();
 			in = new ObjectInputStream(this.client.getInputStream());
