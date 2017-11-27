@@ -4,11 +4,12 @@ import java.net.*;
 import java.util.ArrayList;
 
 import client.Group;
+import client.Message;
 
 public class ChatServer
 {
 	private ServerSocket servSock;
-	private ArrayList <Socket> clients;
+	protected ArrayList <Socket> clients;
 	private PrintWriter pw;
 
 	public ChatServer(int port)
@@ -41,17 +42,7 @@ public class ChatServer
 	public static void main (String[] args) throws Exception
 	{
 		ChatServer serv = new ChatServer(8080);
-
 		serv.acceptClientLoop();
 	}
 
-	public void broadcastMessage(String message, Group clientGroup, ClientThread sender) throws IOException {
-		synchronized(this) {
-			for (Socket c : clients) {
-			    PrintWriter pw = new PrintWriter(c.getOutputStream());
-			    pw.println(message);
-			    pw.flush();
-			} 
-		}
-	}
 }

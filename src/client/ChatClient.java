@@ -9,11 +9,10 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Date;
-
 import gui.ChatController;
 
 public class ChatClient extends Thread {
-
+	
 	private String ip;
 	private int port;
 	private Socket connection;
@@ -51,19 +50,14 @@ public class ChatClient extends Thread {
 		Thread reading = new Thread() {
             @Override
             public void run() {
-            		this.readMessage();
+            		read();
             }
-
-			private void readMessage() {
-				// TODO Auto-generated method stub
-				
-			}
         };
 		reading.start();
 	}
 	
-//	public void read()
-//	{
+	private void read()
+	{
 //		String inc = "";
 //		try {
 //			System.out.print("HERE");
@@ -78,15 +72,6 @@ public class ChatClient extends Thread {
 //			e.printStackTrace();
 //		}
 //		System.out.println("Connection was closed!");
-//	}
-	
-	public void displayMessage(String message) {
-		guiController.append(message);
-	}
-
-	// previously called sendMessageToServer
-	public void readMessage()
-	{
 		boolean keepRunning = true;
 
 		while (keepRunning) {
@@ -94,7 +79,7 @@ public class ChatClient extends Thread {
 				
 				Message msg = (Message) in.readObject();
 				// identifying sender of message
-				System.out.println(msg.sender+" : "+msg.toString());
+				System.out.println(msg.sender + " : "+ msg.toString());
 
 				/* 
 				 * this is based on certain assumptions regarding the gui:
@@ -103,13 +88,13 @@ public class ChatClient extends Thread {
 				 */
 				if (msg.type.equals("chat"))
 				{
-					this.displayMessage("["+msg.sender+"] : " + msg.content + "\n");
+					this.displayMessage("[" + msg.sender + "] : " + msg.content + "\n");
 				}
 
 //				if (msg.type.equals("task"))
 //				{
 //					if (msg.recipient.equals(gui.username)){
-//						gui.taskList.append("["+msg.sender +" > Me] : " + msg.content + "\n");
+//						gui.taskList.append("[" + msg.sender + " > Me] : " + msg.content + "\n");
 //					}
 //
 //					// inserting time stamp of message
@@ -130,6 +115,10 @@ public class ChatClient extends Thread {
 			}
 		}
 	}
+	
+	public void displayMessage(String message) {
+		guiController.append(message);
+	}
 
 	public void broadcastMessageToGroup(String message) {
 		Message newMessage = new Message("message", this.userID, message, this.currentGroup);
@@ -147,6 +136,7 @@ public class ChatClient extends Thread {
 		} 
 		catch (IOException ex) {
 			System.out.println("Exception: send() in ChatClient");
+			ex.printStackTrace();
 		}
 	}
 

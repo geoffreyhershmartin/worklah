@@ -24,7 +24,7 @@ public class GuiStart extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		
 		FXMLLoader myLoader = new FXMLLoader(getClass().getResource("LoginScreen.fxml"));
-		Pane myPane = (Pane)myLoader.load();
+		Pane myPane = (Pane) myLoader.load();
 		LoginScreenController controller = (LoginScreenController) myLoader.getController();
 		controller.setPrevStage(primaryStage);
 		Scene myScene = new Scene(myPane);
