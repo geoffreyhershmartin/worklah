@@ -21,6 +21,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -32,11 +33,10 @@ public class PopupController implements Initializable {
   @FXML
     private ListView<String> onlineList;
   @FXML
-    private Button tester;
-  @FXML
     private Button button2;
     public Client client;
     public ListView<String> primaryUserList;
+    private Stage prevStage;
   @FXML
     void onlineUserSelected(MouseEvent event) {
 //    chatController.populateUserList("taha");
@@ -48,7 +48,8 @@ public class PopupController implements Initializable {
         String listString = String.join(", ", showing);
         primaryUserList.getItems().add(listString);
         client.updateGroup(new ArrayList<String>(showing));
-        
+//        Stage stage1 = (Stage) prevStage.getScene().getWindow();
+//		stage1.close();
 
     }
   
@@ -57,12 +58,12 @@ public class PopupController implements Initializable {
   	    this.client.setPopupController(this);
   	}
   
-  @FXML
-    void addRandomElement(ActionEvent event) {
-        Random rand = new Random ();
-    onlineList.getItems().add(Integer.toString(rand.nextInt(50)));
-
-    }
+//  @FXML
+//    void addRandomElement(ActionEvent event) {
+//        Random rand = new Random ();
+//    onlineList.getItems().add(Integer.toString(rand.nextInt(50)));
+//
+//    }
   
   public void addUserElement(String _user) {
 	  onlineList.getItems().add(_user);
@@ -77,5 +78,9 @@ public class PopupController implements Initializable {
      onlineList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
     
+    void setPrevStage(Stage stage) {
+		this.prevStage = stage;
+
+	}
     
 }
