@@ -35,7 +35,6 @@ public class Client extends Thread {
 			this.out = new ObjectOutputStream(connection.getOutputStream());
 			this.in = new ObjectInputStream(connection.getInputStream());
 			setUser(_username);
-			getOnlineUsers();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -91,13 +90,15 @@ public class Client extends Thread {
 		while (true) {
 			try {
 				Message msg = (Message) in.readObject();
-				System.out.println(msg.sender + " : "+ msg.toString());
 				if (msg.type.equals("message")) {
 					this.displayMessage("[" + msg.sender + "] : " + msg.content + "\n");
 				} else if (msg.type.equals("task")) {
 					guiController.taskList.getItems().add("[" + msg.sender + " > Me] : " + msg.content + "\n");
 				} else if (msg.type.equals("userList")) {
-					// POPULATE USER LIST
+					System.out.println(msg.userList);
+					for (String _username : msg.userList) {
+						this.popupController.addUserElement(_username);
+					}
 				} else if (msg.type.equals("chatHistory")) {
 					// TODO PRINT CHAT HISTORY
 				} else if (msg.type.equals("loadUserData")) {

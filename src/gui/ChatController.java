@@ -122,9 +122,10 @@ public class ChatController implements Initializable {
 		AnchorPane frame = fxmlLoader.load();          
 		PopupController controller = (PopupController)fxmlLoader.getController();
                 controller.primaryUserList = userList;
+                controller.setClient(this.client);
 		
-		
-		
+    		client.getOnlineUsers();
+
                 scene = new Scene(frame); 
 		stage.setScene(scene);
 		PopupController popupController;
