@@ -4,6 +4,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -21,7 +22,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="1000.0" prefHeight="742.0" prefWidth="1257.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ChatController">
    <children>
-      <Button fx:id="attachButton2" layoutX="1056.0" layoutY="701.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="48.0" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="153.0" />
+      <Button layoutX="1012.0" layoutY="701.0" mnemonicParsing="false" onMouseClicked="#attachButtonPressed" prefHeight="34.0" prefWidth="48.0" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="197.0" />
       <ButtonBar layoutX="268.0" layoutY="116.0" prefHeight="17.0" prefWidth="14.0" />
       <AnchorPane layoutY="59.0" prefHeight="631.0" prefWidth="190.0" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="59.0">
          <children>
@@ -55,14 +56,6 @@
                   <Insets left="5.0" top="10.0" />
                </HBox.margin>
             </Ellipse>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Geoffrey Martin">
-               <font>
-                  <Font name="Avenir Roman" size="13.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="5.0" top="10.0" />
-               </HBox.margin>
-            </Text>
          </children>
       </HBox>
       <Text layoutX="882.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tasks" wrappingWidth="48.121957302093506" AnchorPane.bottomAnchor="561.0" AnchorPane.rightAnchor="69.8780426979065" AnchorPane.topAnchor="12.0">
@@ -71,18 +64,12 @@
          </font>
       </Text>
       <HBox layoutX="14.0" layoutY="556.0" />
-      <TextField fx:id="searchTask" layoutX="818.0" layoutY="556.0" onKeyPressed="#enterPressedTask" prefHeight="34.0" prefWidth="134.0" promptText="Search" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="6.0" />
-      <ImageView fx:id="searchTasks" fitHeight="27.0" fitWidth="32.0" layoutX="955.0" layoutY="560.0" onMouseClicked="#searchClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="13.0" AnchorPane.rightAnchor="18.0">
-         <image>
-            <Image url="@assets/icon-ios7-search-strong-128.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="21.0" fitWidth="34.0" layoutX="1070.0" layoutY="708.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="13.0" AnchorPane.rightAnchor="166.0">
+      <ImageView fx:id="attachButton" fitHeight="21.0" fitWidth="34.0" layoutX="1026.0" layoutY="708.0" onMouseClicked="#attachButtonPressed" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="13.0" AnchorPane.rightAnchor="210.0">
          <image>
             <Image url="@assets/attachment.png" />
          </image>
       </ImageView>
-      <TextField fx:id="chatBox" layoutX="191.0" layoutY="695.0" onAction="#enterPressedChat" prefHeight="41.0" prefWidth="799.0" promptText="Type message...." AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="267.0" />
+      <TextField fx:id="chatBox" layoutX="201.0" layoutY="695.0" onAction="#enterPressedChat" prefHeight="41.0" prefWidth="747.0" promptText="Type message...." AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="201.0" AnchorPane.rightAnchor="309.0" />
       <Text layoutX="64.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Taha Tehseen" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="64.0">
          <font>
             <Font name="Avenir Roman" size="13.0" />
@@ -94,26 +81,34 @@
          </image>
       </ImageView>
       <Ellipse fill="#22cd61" layoutX="55.0" layoutY="574.0" radiusX="7.0" radiusY="9.0" scaleY="0.8" smooth="false" stroke="#eeeeee" strokeType="INSIDE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="48.0" />
-      <TextArea fx:id="chatView2" editable="false" layoutX="609.0" layoutY="55.0" maxHeight="990.0" maxWidth="620.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="637.0" prefWidth="464.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="184.0" AnchorPane.topAnchor="55.0" />
+      <TextArea fx:id="chatView2" editable="false" layoutX="609.0" layoutY="55.0" maxHeight="990.0" maxWidth="620.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="637.0" prefWidth="464.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="609.0" AnchorPane.rightAnchor="184.0" AnchorPane.topAnchor="55.0" />
       <Line endX="100.0" layoutX="684.0" layoutY="57.0" scaleX="20.0" startX="-100.0" stroke="#efefef" strokeWidth="2.0" AnchorPane.bottomAnchor="684.0" AnchorPane.leftAnchor="583.0" AnchorPane.rightAnchor="472.0" AnchorPane.topAnchor="56.0" />
-      <Label fx:id="time" layoutX="903.0" layoutY="18.0" prefHeight="25.0" prefWidth="81.0" AnchorPane.rightAnchor="273.0" AnchorPane.topAnchor="18.0" />
+      <Label fx:id="time" layoutX="963.0" layoutY="18.0" prefHeight="25.0" prefWidth="81.0" AnchorPane.rightAnchor="204.0" AnchorPane.topAnchor="17.0" />
       <Hyperlink layoutX="48.0" layoutY="721.0" onAction="#logoutPressed" text="Logout" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" />
       <Line endX="100.0" layoutX="190.0" layoutY="717.0" rotate="90.0" scaleX="0.2" startX="-100.0" stroke="#efefef" AnchorPane.bottomAnchor="24.5" />
       <Line endX="100.0" layoutX="1068.0" layoutY="715.0" rotate="90.0" scaleX="0.2" startX="-100.0" stroke="#efefef" AnchorPane.bottomAnchor="24.5" AnchorPane.rightAnchor="88.5" />
-      <Button fx:id="sendButton2" layoutX="996.0" layoutY="700.0" mnemonicParsing="false" onMouseClicked="#sendPressed" prefHeight="34.0" prefWidth="48.0" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="213.0" />
-      <ImageView fx:id="sendButton" fitHeight="27.0" fitWidth="21.0" layoutX="1010.0" layoutY="708.0" onMouseClicked="#sendPressed" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="13.0" AnchorPane.rightAnchor="226.0">
+      <Button fx:id="sendButton2" layoutX="960.0" layoutY="701.0" mnemonicParsing="false" onMouseClicked="#sendPressed" prefHeight="34.0" prefWidth="48.0" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="249.0" />
+      <ImageView fx:id="sendButton" fitHeight="27.0" fitWidth="21.0" layoutX="974.0" layoutY="708.0" onMouseClicked="#sendPressed" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="13.0" AnchorPane.rightAnchor="262.0">
          <image>
             <Image url="@assets/1015742-200.png" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="1071.0" layoutY="56.0" prefHeight="637.0" prefWidth="182.0" style="-fx-background-color: rgb(56,218,198);" AnchorPane.rightAnchor="4.0">
+      <AnchorPane layoutX="1071.0" layoutY="58.0" prefHeight="638.0" prefWidth="190.0" style="-fx-background-color: rgb(56,218,198);" AnchorPane.bottomAnchor="46.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
          <children>
-            <ListView fx:id="taskList" onMouseClicked="#taskClicked" onMouseDragged="#taskDragged" opacity="0.3" prefHeight="637.0" prefWidth="182.0">
+            <ListView fx:id="taskList" onMouseClicked="#taskClicked" onMouseDragged="#taskDragged" opacity="0.3" prefHeight="639.0" prefWidth="190.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <effect>
                   <Blend opacity="0.35" />
                </effect>
             </ListView>
          </children>
       </AnchorPane>
+      <Button fx:id="newChat" layoutX="1019.0" layoutY="17.0" mnemonicParsing="false" onAction="#newChatPressed" prefHeight="27.0" prefWidth="34.0" AnchorPane.rightAnchor="204.0" AnchorPane.topAnchor="17.0" />
+      <TextField fx:id="conversantName" editable="false" layoutX="268.0" layoutY="13.0" prefHeight="27.0" prefWidth="149.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="264.0" AnchorPane.topAnchor="13.0" />
+      <DatePicker fx:id="dateSelector" layoutX="1127.0" layoutY="704.0" onAction="#dateSelected" prefHeight="27.0" prefWidth="101.0" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="14.0" />
+      <ImageView fitHeight="27.0" fitWidth="28.0" layoutX="1023.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="207.0" AnchorPane.topAnchor="17.0">
+         <image>
+            <Image url="@assets/NewChat.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

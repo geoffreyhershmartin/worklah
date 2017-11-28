@@ -51,7 +51,10 @@ public class ClientThread extends Thread {
 	public void sendUsers() {
 		Message newMessage = new Message("userList", "", "", "");
 		ArrayList <String> userList = new ArrayList <String>();
+		System.out.println("HERE RIGHT NOW");
 		for (User user : server.users) {
+			System.out.println("HERE RIGHT NOW");
+
 			userList.add(user.username);
 		}
 		newMessage.setUserList(userList);
@@ -112,6 +115,7 @@ public class ClientThread extends Thread {
 		this.user = new User(message.content, this);
 		Message loadUserData = new Message("loadUserData", "", "", "");
 		loadUserData.setUserData(user.allGroups);
+		loadUserData.setTaskList(user.tasks);
 		send(loadUserData, this);
 	}
 

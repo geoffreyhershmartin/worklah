@@ -9,6 +9,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
+
+import client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,7 +33,7 @@ public class PopupController implements Initializable {
     private Button tester;
   @FXML
     private Button button2;
-    
+    public Client client;
     public ListView<String> primaryUserList;
   @FXML
     void onlineUserSelected(MouseEvent event) {
@@ -45,12 +47,24 @@ public class PopupController implements Initializable {
         primaryUserList.getItems().add(listString);
 
     }
+  
+  	void setClient(Client _client) {
+  		this.client = _client;
+  	    this.client.setPopupController(this);
+  	}
+  
   @FXML
     void addRandomElement(ActionEvent event) {
         Random rand = new Random ();
     onlineList.getItems().add(Integer.toString(rand.nextInt(50)));
 
     }
+  
+  public void addUserElement(String _user) {
+	  onlineList.getItems().add(_user);
+
+  }
+  
     /**
      * Initializes the controller class.
      */

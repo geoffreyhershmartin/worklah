@@ -7,8 +7,8 @@ import java.util.Date;
 
 public class Task {
 	
-	private String task;
-	private Date deadline;
+	public String task;
+	public Date deadline;
 	
 	public Task(String task) {
 		this.task = task;

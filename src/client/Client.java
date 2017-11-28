@@ -2,12 +2,16 @@ package client;
 
 import java.io.IOException;
 import messages.Message;
+import tasks.Task;
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import groups.Group;
 import gui.ChatController;
+import gui.PopupController;
 
 public class Client extends Thread {
 
@@ -17,6 +21,7 @@ public class Client extends Thread {
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	private ChatController guiController;
+	private PopupController popupController;
 	private String username;
 
 	public Client(String ip, int p, ChatController _guiController, String _username) throws ClassNotFoundException {
@@ -24,15 +29,19 @@ public class Client extends Thread {
 		this.port = p;
 		this.guiController = _guiController;
 		this.username = _username;
+		this.popupController = null;
 		try {
 			this.connection = new Socket(this.ip, port);
 			this.out = new ObjectOutputStream(connection.getOutputStream());
 			this.in = new ObjectInputStream(connection.getInputStream());
 			setUser(_username);
-			getOnlineUsers();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void setPopupController(PopupController _popupController) {
+		this.popupController = _popupController;
 	}
 
 	public void setUser(String _username) {
@@ -81,17 +90,23 @@ public class Client extends Thread {
 		while (true) {
 			try {
 				Message msg = (Message) in.readObject();
-				System.out.println(msg.sender + " : "+ msg.toString());
 				if (msg.type.equals("message")) {
 					this.displayMessage("[" + msg.sender + "] : " + msg.content + "\n");
 				} else if (msg.type.equals("task")) {
 					guiController.taskList.getItems().add("[" + msg.sender + " > Me] : " + msg.content + "\n");
 				} else if (msg.type.equals("userList")) {
-					// TODO PRINT USER LIST
+					for (String _username : msg.userList) {
+						this.popupController.addUserElement(_username);
+					}
 				} else if (msg.type.equals("chatHistory")) {
 					// TODO PRINT CHAT HISTORY
 				} else if (msg.type.equals("loadUserData")) {
-					// TODO PRINT ALL USER DATA
+					for (Group group : msg.groups) {
+						guiController.populateUserList(group.groupName);
+					}
+					for (Task task : msg.taskList) {
+						guiController.populateTaskList(task.task + " due by " + task.deadline.toString());
+					}
 				}
 			}
 			catch (Exception e) {
