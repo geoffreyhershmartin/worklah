@@ -60,6 +60,11 @@ public class ClientThread extends Thread {
 		send(newMessage, this);
 	}
 	
+	public void sendNotification(Message message) {
+		message.type = "notifyUser";
+		send(message, this);
+	}
+	
 	public void send(Message message, ClientThread c) {
 		synchronized (this) {
 			try {
@@ -147,7 +152,16 @@ public class ClientThread extends Thread {
 				} else if (message.type.equals("getUsers")) {
 					this.sendUsers();
 				} else if (message.type.equals("message")) {
-					this.sendMessage(message);
+					if (message.sender == this.user.username) {
+						message.setGroup(this.user.currentGroup.groupName);
+						this.sendMessage(message);
+					}
+					else if (message.group != this.user.currentGroup.groupName) {
+						this.sendNotification(message);
+					} else {
+						message.setGroup(this.user.currentGroup.groupName);
+						this.sendMessage(message);
+					}
 				}
 			}
 			catch (Exception e) {
