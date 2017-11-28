@@ -95,7 +95,6 @@ public class Client extends Thread {
 				} else if (msg.type.equals("task")) {
 					guiController.taskList.getItems().add("[" + msg.sender + " > Me] : " + msg.content + "\n");
 				} else if (msg.type.equals("userList")) {
-					System.out.println(msg.userList);
 					for (String _username : msg.userList) {
 						this.popupController.addUserElement(_username);
 					}
