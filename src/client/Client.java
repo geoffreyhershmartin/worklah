@@ -89,25 +89,27 @@ public class Client extends Thread {
 
 		while (true) {
 			try {
-				Message msg = (Message) in.readObject();
-				if (msg.type.equals("message")) {
-					System.out.println(msg);
-					this.displayMessage("[" + msg.sender + "] : " + msg.content + "\n");
-				} else if (msg.type.equals("task")) {
-					guiController.taskList.getItems().add("[" + msg.sender + " > Me] : " + msg.content + "\n");
-				} else if (msg.type.equals("userList")) {
-					for (String _username : msg.userList) {
+				Message message = (Message) in.readObject();
+				System.out.println(message);
+				if (message.type.equals("message")) {
+					this.displayMessage("[" + message.sender + "] : " + message.content + "\n");
+				} else if (message.type.equals("task")) {
+					guiController.taskList.getItems().add("[" + message.sender + " > Me] : " + message.content + "\n");
+				} else if (message.type.equals("userList")) {
+					for (String _username : message.userList) {
 						this.popupController.addUserElement(_username);
 					}
-				} else if (msg.type.equals("chatHistory")) {
+				} else if (message.type.equals("chatHistory")) {
 					// TODO PRINT CHAT HISTORY
-				} else if (msg.type.equals("loadUserData")) {
-					for (Group group : msg.groups) {
+				} else if (message.type.equals("loadUserData")) {
+					for (Group group : message.groups) {
 						guiController.populateUserList(group.groupName);
 					}
-					for (Task task : msg.taskList) {
+					for (Task task : message.taskList) {
 						guiController.populateTaskList(task.task + " due by " + task.deadline.toString());
 					}
+				} else if (message.type.equals("notifyUser")) {
+					this.notifyUser(message);
 				}
 			}
 			catch (Exception e) {
@@ -118,6 +120,10 @@ public class Client extends Thread {
 				break;
 			}
 		}
+	}
+	
+	public void notifyUser(Message message) {
+		// TODO append user list of users to chat bar and notify
 	}
 
 	public void displayMessage(String message) {

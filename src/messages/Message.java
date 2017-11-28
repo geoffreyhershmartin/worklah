@@ -14,6 +14,7 @@ public class Message implements Serializable {
 	public ArrayList <Task> taskList;
 	public ArrayList <Message> chatHistory;
 	public ArrayList <Group> groups;
+	public String group;
 
 	public Message(String _type, String _sender, String _content, String _recipient) {
 		this.type = _type;
@@ -23,6 +24,7 @@ public class Message implements Serializable {
 		this.userList = null;
 		this.taskList = null;
 		this.chatHistory = null;
+		this.group = null;
 		this.groups = null;
 	}
 
@@ -49,6 +51,10 @@ public class Message implements Serializable {
 	
 	public void setUserData(ArrayList <Group> _groups) {
 		this.groups = _groups;
+	}
+	
+	public void setGroup(String group) {
+		this.group = group;
 	}
 	
 }
