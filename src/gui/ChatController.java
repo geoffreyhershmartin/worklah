@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
@@ -72,6 +73,7 @@ public class ChatController implements Initializable {
         @FXML
         private DatePicker dateSelector;
         
+        
         private Client client;
 
 	protected String userID;
@@ -79,6 +81,7 @@ public class ChatController implements Initializable {
 	Stage prevStage;
         private Scene scene;
         private Stage stage;
+    private boolean swarniSwitch;
         
 	/**
 	 * Initializes the controller class.
@@ -110,8 +113,9 @@ public class ChatController implements Initializable {
 	private void taskClicked(MouseEvent event) {
             
 	}
-          @FXML
-        void newChatPressed(ActionEvent event) throws IOException {
+        
+        @FXML
+        void newChatPressed(MouseEvent event) throws IOException {
                 
 	
 		stage = new Stage();
@@ -146,8 +150,26 @@ public class ChatController implements Initializable {
 	void logoutPressed(ActionEvent event) {
 		System.exit(0);
 	}
+        
 	@FXML
-	private void sendPressed(MouseEvent event) {
+	private void sendPressed(MouseEvent event) throws InterruptedException {
+            if (swarniSwitch){
+                String message = chatBox.getText();
+                if (message.contains("why")){
+                    append2(message);
+                    TimeUnit.SECONDS.sleep(2);
+                    append("Because you fell as a child");
+                }
+                else if (message.contains("how")){
+                    append2(message);
+                    TimeUnit.SECONDS.sleep(2);
+                    append("How would I know? Aren't you the 'smarter' human?");}
+                else if (message.contains("who")){
+                    append2(message);
+                    TimeUnit.SECONDS.sleep(2);
+                    append("Yo Mama!");}
+            }
+            else{
 		String message = chatBox.getText();
 		String catchPhrase = "@task";
 		if (message.contains(catchPhrase)) {
@@ -162,17 +184,17 @@ public class ChatController implements Initializable {
 		}
 
 		chatBox.setText("");
+        }
+        }
 
-	}
-
-    @FXML
-    void dateSelected(ActionEvent event) {
+        @FXML
+        void dateSelected(ActionEvent event) {
             int selectedIndex = taskList.getSelectionModel().getSelectedIndex();
             String theTask = taskList.getSelectionModel().getSelectedItem();
             String selectedDate = dateSelector.getValue().toString();
             taskList.getItems().add(selectedIndex, theTask +" due by " + selectedDate );
             taskList.getItems().remove(selectedIndex+1);
-    }
+        }
 	@FXML
 	private void enterPressedChat(ActionEvent event) {
 		String message = chatBox.getText();
@@ -194,6 +216,13 @@ public class ChatController implements Initializable {
         @FXML
         void attachButtonPressed(MouseEvent event) {
 
+        }
+        
+        @FXML
+        void swarnibotPressed(MouseEvent event) {
+        chatView.setText("");
+        chatView2.setText("");
+        swarniSwitch = true;
         }
 
 	public void append(String str) {
