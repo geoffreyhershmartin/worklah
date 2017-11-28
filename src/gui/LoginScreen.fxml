@@ -20,11 +20,6 @@
                   <Image url="@assets/logo.png" />
                </image>
             </ImageView>
-            <Button fx:id="loginButton" contentDisplay="CENTER" layoutX="48.0" layoutY="315.0" mnemonicParsing="false" onAction="#loginPressed" prefHeight="27.0" prefWidth="91.0" text="Login" textAlignment="CENTER">
-               <effect>
-                  <Blend />
-               </effect>
-            </Button>
             <TextField layoutX="27.0" layoutY="202.0" prefHeight="21.0" prefWidth="133.0" text="8080">
                <font>
                   <Font size="10.0" />
@@ -44,6 +39,11 @@
                <font>
                   <Font size="10.0" />
                </font></PasswordField>
+            <Button fx:id="loginButton" contentDisplay="CENTER" layoutX="48.0" layoutY="315.0" mnemonicParsing="false" onAction="#loginPressed" prefHeight="27.0" prefWidth="91.0" text="Login" textAlignment="CENTER">
+               <effect>
+                  <Blend />
+               </effect>
+            </Button>
             <Text fill="WHITE" layoutX="67.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
                <font>
                   <Font name="Source Sans Pro" size="12.0" />

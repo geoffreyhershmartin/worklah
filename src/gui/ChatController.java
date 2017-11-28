@@ -12,6 +12,7 @@ import client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -21,6 +22,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 
 /**
  * FXML Controller class
@@ -47,11 +52,16 @@ public class ChatController implements Initializable {
 	private ImageView sendButton;
 	@FXML
 	private TextField chatBox;
-	@FXML
-
-	private Label time;
+        @FXML
+        private Button sendButton2;
+        @FXML
+        private Button newChat;
 	@FXML
 	private Hyperlink logOut;
+        @FXML
+        private Button attachButton2;
+        @FXML
+        private ImageView attachButton;
 	private Client client;
 
 	protected String userID;
@@ -76,20 +86,14 @@ public class ChatController implements Initializable {
 	@FXML
 	private void taskDragged(MouseEvent event) {
 	}
-
+        
 	@FXML
 	private void taskClicked(MouseEvent event) {
 	}
+          @FXML
+        void newChatPressed(ActionEvent event) {
 
-	//	@FXML
-	//	private void logOut(MouseEvent event) throws IOException {
-	//		
-	//	}
-
-	//        @FXML
-	//        void logOffClicked(MouseEvent event) {
-	//        System.exit(0);
-	//        }
+        }
 
 	@FXML
 	private void enterPressedTask(KeyEvent event) {
@@ -107,21 +111,22 @@ public class ChatController implements Initializable {
 	}
 	@FXML
 	private void sendPressed(MouseEvent event) {
-
 		String message = chatBox.getText();
 		String catchPhrase = "@task";
-		if( message.contains(catchPhrase)) {
-			taskList.getItems().add(message.replace("@task", ""));
+		if (message.contains(catchPhrase)) {
+
+			String task = message.replace("@task", "");
+			taskList.getItems().add(task);
+                        chatBox.setText("");
 		}
-		else {
-			client.sendMessageToGroup(chatBox.getText());
-			if(message.contains("right")){
-				append2(message);
-			}
-			else
-				append(message);
+		else if(message.contains("right")){
+			append2(message);
+                        
 		}
-		client.sendMessageToGroup(chatBox.getText());
+		else{
+			append(message);
+		}
+		client.sendTaskToGroup(message);
 		chatBox.setText("");
 
 	}
@@ -134,10 +139,11 @@ public class ChatController implements Initializable {
 
 			String task = message.replace("@task", "");
 			taskList.getItems().add(task);
-
+                        chatBox.setText("");
 		}
 		else if(message.contains("right")){
 			append2(message);
+                        
 		}
 		else{
 			append(message);
@@ -145,21 +151,32 @@ public class ChatController implements Initializable {
 		client.sendTaskToGroup(message);
 		chatBox.setText("");
 	}
+        @FXML
+        void attachButtonPressed(MouseEvent event) {
+
+        }
+
 
 
 
 
 	public void append(String str) {
-		chatView.appendText(str + "\n");
+            String timeStamp;
+            timeStamp = new SimpleDateFormat("HH:mm ").format(Calendar.getInstance().getTime());
+		chatView.appendText(timeStamp + " " + str  +  "\n");
 		chatView.selectPositionCaret(chatView.getText().length()-1);
 		chatView2.appendText("\n");
 		chatView2.selectPositionCaret(chatView2.getText().length()-1);
+                chatBox.setText("");
 	}
 	public void append2(String str) {
-		chatView2.appendText(str + "\n");
+            String timeStamp;
+            timeStamp = new SimpleDateFormat("HH:mm ").format(Calendar.getInstance().getTime());
+		chatView2.appendText(str + " " + timeStamp+ "\n");
 		chatView2.selectPositionCaret(chatView2.getText().length()-1);
 		chatView.appendText("\n");
 		chatView.selectPositionCaret(chatView.getText().length()-1);
+                chatBox.setText("");
 	}
 
 	public void setID(String _userID){
