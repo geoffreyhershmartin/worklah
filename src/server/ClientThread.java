@@ -112,6 +112,7 @@ public class ClientThread extends Thread {
 		this.user = new User(message.content, this);
 		Message loadUserData = new Message("loadUserData", "", "", "");
 		loadUserData.setUserData(user.allGroups);
+		loadUserData.setTaskList(user.tasks);
 		send(loadUserData, this);
 	}
 
