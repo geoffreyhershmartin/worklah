@@ -2,6 +2,8 @@ package server;
 
 import java.net.*;
 import messages.Message;
+import tasks.Task;
+import users.User;
 import groups.Group;
 import java.util.ArrayList;
 import java.io.*;
@@ -12,16 +14,12 @@ public class ClientThread extends Thread {
 	private Server server;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
-	private Group currentGroup;
-	private ArrayList <Group> allGroups;
-	private String username;
+	private User user;
 
 	public ClientThread(Socket c, Server server) {
 		this.server = server;
 		this.client = c;
-		this.username = "";
-		this.allGroups = new ArrayList <Group>();
-		this.currentGroup = new Group("myself");
+		this.user = null;
 		try {
 			out = new ObjectOutputStream(this.client.getOutputStream());
 			in = new ObjectInputStream(this.client.getInputStream());
@@ -31,15 +29,21 @@ public class ClientThread extends Thread {
 	}
 
 	private void sendMessage(Message message) throws IOException {
-		for (ClientThread c : currentGroup.groupMembers) {
-			send(message, c);
-		} 
+		for (User user : this.user.getGroupMembers()) {
+			send(message, user.getClientThread());
+		}
+		this.user.currentGroup.chatHistory.add(message);
 	}
 
-	private void sendTask(Message message) throws IOException {
-		for (ClientThread c : currentGroup.groupMembers) {
-			if (message.recipient.equals(c.username)) {
-				send(message, c);
+	private void handleTask(Message message) throws IOException {
+		if (message.recipient.equals(this.user.username)) {
+			Task newTask = new Task(message.content);
+			this.user.tasks.add(newTask);
+			return;
+		}
+		for (User user : this.user.getGroupMembers()) {
+			if (message.recipient.equals(this.user.username)) {
+				send(message, user.getClientThread());
 			}
 		} 
 	}
@@ -47,8 +51,8 @@ public class ClientThread extends Thread {
 	public void sendUsers() {
 		Message newMessage = new Message("userList", "", "", "");
 		ArrayList <String> userList = new ArrayList <String>();
-		for (ClientThread c : server.clients) {
-			userList.add(c.username);
+		for (User user : server.users) {
+			userList.add(user.username);
 		}
 		newMessage.setUserList(userList);
 		send(newMessage, this);
@@ -69,21 +73,46 @@ public class ClientThread extends Thread {
 	
 	private void updateGroup(Message message) {
 		boolean newGroupCreated = true;
-		for (Group g : allGroups) {
+		for (Group g : this.user.allGroups) {
 			if (g.groupName.equals(message.content)) {
-				this.currentGroup = g;
+				this.user.currentGroup = g;
 				newGroupCreated = false;
 			}
 		}
 		if (newGroupCreated) {
 			Group newGroup = new Group(message.content);
-			this.currentGroup = newGroup;
-			this.allGroups.add(newGroup);
+			for (String user : message.userList) {
+				newGroup.addUser(getUser(user));
+			}
+			this.user.currentGroup = newGroup;
+			this.user.allGroups.add(newGroup);
+			server.groups.add(newGroup);
 		}
+		Message chatHistory = new Message("chatHistory", "", "", "");
+		chatHistory.setUserChatHistory(this.user.currentGroup.chatHistory);
+		send(chatHistory, this);
+	}
+	
+	private User getUser(String _user) {
+		for (User user : server.users) {
+			if (_user.equals(user.username)) {
+				return(user);
+			}
+		}
+		return(null);
 	}
 
-	private void updateUsername(Message message) {
-		this.username = message.content;
+	private void setUser(Message message) {
+		for (User user : server.users) {
+			if (message.content.equals(user.username)) {
+				this.user = user;
+				return;
+			}
+		}
+		this.user = new User(message.content, this);
+		Message loadUserData = new Message("loadUserData", "", "", "");
+		loadUserData.setUserData(user.allGroups);
+		send(loadUserData, this);
 	}
 
 	@Override
@@ -105,18 +134,17 @@ public class ClientThread extends Thread {
 		while (true) {
 			try {
 				Message message = (Message) in.readObject();
-				if (message.type.equals("updateUsername")) {
-					this.updateUsername(message);
+				if (message.type.equals("setUser")) {
+					this.setUser(message);
 				} else if (message.type.equals("updateGroup")) {
 					this.updateGroup(message);
-					System.out.println(this.currentGroup.groupName);
 				} else if (message.type.equals("task")) {
-					this.sendTask(message);
+					this.handleTask(message);
 				} else if (message.type.equals("getUsers")) {
 					this.sendUsers();
-				} else {
+				} else if (message.type.equals("message")) {
 					this.sendMessage(message);
-				}					
+				}
 			}
 			catch (Exception e) {
 				System.out.println("Connection Failure");

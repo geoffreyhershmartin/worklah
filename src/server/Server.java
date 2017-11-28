@@ -4,10 +4,15 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
+import groups.Group;
+import users.User;
+
 public class Server
 {
 	private ServerSocket servSock;
 	protected ArrayList <ClientThread> clients;
+	protected ArrayList <User> users;
+	protected ArrayList <Group> groups;
 
 	public Server(int port) {
 		try {
@@ -18,7 +23,9 @@ public class Server
 	}
 
 	public void acceptClientLoop() {
+		groups = new ArrayList <Group>();
 		clients = new ArrayList <ClientThread>();
+		users = new ArrayList <User>();
 		while (true) {
 			Socket c;
 			try {

@@ -5,6 +5,8 @@ import messages.Message;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+
 import gui.ChatController;
 
 public class Client extends Thread {
@@ -26,20 +28,21 @@ public class Client extends Thread {
 			this.connection = new Socket(this.ip, port);
 			this.out = new ObjectOutputStream(connection.getOutputStream());
 			this.in = new ObjectInputStream(connection.getInputStream());
-			updateUsername(this.username);
+			setUser(_username);
 			getOnlineUsers();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void updateUsername(String _username) {
-		Message updateUsername = new Message("updateUsername", this.username, _username, "");
-		send(updateUsername);
+	public void setUser(String _username) {
+		Message setUser = new Message("setUser", this.username, _username, "");
+		send(setUser);
 	}
 
-	public void updateGroup(String newGroup) {
-		Message updateGroup = new Message("updateGroup", this.username, newGroup, "");
+	public void updateGroup(ArrayList <String> newGroup) {
+		Message updateGroup = new Message("updateGroup", this.username, String.join(",", newGroup), "");
+		updateGroup.userList = newGroup;
 		send(updateGroup);
 	}
 
@@ -57,7 +60,7 @@ public class Client extends Thread {
 		Message newMessage = new Message("getUsers", this.username, "", "");
 		send(newMessage);
 	}
-
+	
 	@Override
 	public void run() {
 		Thread reading = new Thread() {
@@ -81,11 +84,14 @@ public class Client extends Thread {
 				System.out.println(msg.sender + " : "+ msg.toString());
 				if (msg.type.equals("message")) {
 					this.displayMessage("[" + msg.sender + "] : " + msg.content + "\n");
-				}
-				else if (msg.type.equals("task")) {
+				} else if (msg.type.equals("task")) {
 					guiController.taskList.getItems().add("[" + msg.sender + " > Me] : " + msg.content + "\n");
 				} else if (msg.type.equals("userList")) {
-					System.out.println(msg.userList);
+					// TODO PRINT USER LIST
+				} else if (msg.type.equals("chatHistory")) {
+					// TODO PRINT CHAT HISTORY
+				} else if (msg.type.equals("loadUserData")) {
+					// TODO PRINT ALL USER DATA
 				}
 			}
 			catch (Exception e) {
