@@ -50,10 +50,6 @@ public class ChatController implements Initializable {
 	@FXML
 	private TextArea chatView2;
 	@FXML
-	private TextField searchTask;
-	@FXML
-	private ImageView searchTasks;
-	@FXML
 	private ImageView profileImage;
 	@FXML
 	private ImageView sendButton;
@@ -101,10 +97,16 @@ public class ChatController implements Initializable {
 
 	@FXML
 	private void taskDragged(MouseEvent event) {
+            int selectedIndex = taskList.getSelectionModel().getSelectedIndex();
+            String theTask= taskList.getItems().get(selectedIndex);
+            taskList.getSelectionModel().clearSelection();
+            taskList.getItems().remove(theTask);
+//            taskList.getItems().remove(selectedIndex+1);
 	}
         
 	@FXML
 	private void taskClicked(MouseEvent event) {
+            
 	}
           @FXML
         void newChatPressed(ActionEvent event) throws IOException {
@@ -134,16 +136,9 @@ public class ChatController implements Initializable {
 		
         }
 
-	@FXML
-	private void enterPressedTask(KeyEvent event) {
-	}
+	
 
-	@FXML
-	private void searchClicked(MouseEvent event) {
-		String a = searchTask.getText();
-		taskList.getItems().add(a);
-
-	}
+	
 	@FXML
 	void logoutPressed(ActionEvent event) {
 		System.exit(0);
@@ -173,8 +168,10 @@ public class ChatController implements Initializable {
     @FXML
     void dateSelected(ActionEvent event) {
             int selectedIndex = taskList.getSelectionModel().getSelectedIndex();
+            String theTask = taskList.getSelectionModel().getSelectedItem();
             String selectedDate = dateSelector.getValue().toString();
-            taskList.getItems().add(selectedIndex, selectedDate);
+            taskList.getItems().add(selectedIndex, theTask +" due at " + selectedDate );
+            taskList.getItems().remove(selectedIndex+1);
     }
 	@FXML
 	private void enterPressedChat(ActionEvent event) {
@@ -220,19 +217,19 @@ public class ChatController implements Initializable {
                 chatBox.setText("");
 	}
 
-	public void setID(String _userID){
-		this.searchTask.setText(_userID);
-	}
+//	public void setID(String _userID){
+//		this.searchTask.setText(_userID);
+//	}
         public void populateUserList(String _user){
-            this.userList.getItems().add(_user);
+            userList.getItems().add(_user);
         }
 
-        public void redirectHome(Stage stage, String name) {
-            stage.setScene(scene);
-            searchTask.setText(name);
-            stage.hide();
-            stage.show();
-        }
+//        public void redirectHome(Stage stage, String name) {
+//            stage.setScene(scene);
+//            searchTask.setText(name);
+//            stage.hide();
+//            stage.show();
+//        }
 	void connectionFailed() {
 		//        boolean connected = false;
 	}
