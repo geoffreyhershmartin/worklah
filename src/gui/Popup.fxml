@@ -14,7 +14,7 @@
             <Font name="Avenir Roman" size="13.0" />
          </font>
       </Text>
-      <Button fx:id="tester" layoutX="216.0" layoutY="374.0" mnemonicParsing="false" onAction="#addRandomElement" text="Button" />
-      <Button fx:id="button2" layoutX="90.0" layoutY="374.0" mnemonicParsing="false" onAction="#button2Listener" text="Button" />
+      <Button fx:id="tester" layoutX="170.0" layoutY="374.0" mnemonicParsing="false" onAction="#addRandomElement" text="Random Generator" />
+      <Button fx:id="button2" layoutX="51.0" layoutY="374.0" mnemonicParsing="false" onAction="#button2Listener" prefHeight="27.0" prefWidth="98.0" text="Button" />
    </children>
 </AnchorPane>
