@@ -68,6 +68,8 @@ public class ChatController implements Initializable {
         @FXML
         private TextField conversantName;
         @FXML
+        private ImageView newChatIcon;
+        @FXML
         private DatePicker dateSelector;
         
         private Client client;
@@ -170,7 +172,7 @@ public class ChatController implements Initializable {
             int selectedIndex = taskList.getSelectionModel().getSelectedIndex();
             String theTask = taskList.getSelectionModel().getSelectedItem();
             String selectedDate = dateSelector.getValue().toString();
-            taskList.getItems().add(selectedIndex, theTask +" due at " + selectedDate );
+            taskList.getItems().add(selectedIndex, theTask +" due by " + selectedDate );
             taskList.getItems().remove(selectedIndex+1);
     }
 	@FXML
@@ -209,7 +211,8 @@ public class ChatController implements Initializable {
 	}
 	public void append2(String str) {
             String timeStamp;
-            timeStamp = new SimpleDateFormat("HH:mm ").format(Calendar.getInstance().getTime());
+            timeStamp = new SimpleDateFormat("HH:m"
+                    + "m ").format(Calendar.getInstance().getTime());
 		chatView2.appendText(str + " " + timeStamp+ "\n");
 		chatView2.selectPositionCaret(chatView2.getText().length()-1);
 		chatView.appendText("\n");
@@ -223,6 +226,11 @@ public class ChatController implements Initializable {
         public void populateUserList(String _user){
             userList.getItems().add(_user);
         }
+        
+         public void populateTaskList(String _task){
+            taskList.getItems().add(_task);
+        }
+
 
 //        public void redirectHome(Stage stage, String name) {
 //            stage.setScene(scene);
