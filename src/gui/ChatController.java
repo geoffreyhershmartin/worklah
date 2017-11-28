@@ -158,6 +158,7 @@ public class ChatController implements Initializable {
 		}
 		else{
 			client.sendMessageToGroup(message);
+                        append2(chatBox.getText());
 		}
 
 		chatBox.setText("");
@@ -184,6 +185,7 @@ public class ChatController implements Initializable {
 		}
 		else{
 			client.sendMessageToGroup(message);
+                        append2(chatBox.getText());
 		}
 
 		chatBox.setText("");
@@ -218,6 +220,10 @@ public class ChatController implements Initializable {
 //		this.searchTask.setText(_userID);
 //	}
         public void populateUserList(String _user){
+            if(userList.getItems().contains(_user)){
+            String notification = _user;
+            userList.getItems().remove(_user);
+            userList.getItems().add(_user+"Read Please!");}
             userList.getItems().add(_user);
         }
         

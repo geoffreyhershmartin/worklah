@@ -29,7 +29,7 @@ import javafx.stage.Stage;
  */
 public class LoginScreenController implements Initializable {
 
-	Stage prevStage;
+	
 
 	@FXML
 	private TextField Username;
@@ -44,7 +44,7 @@ public class LoginScreenController implements Initializable {
         private Stage stage;
         private Scene scene;
         private ChatController chatController;
-	
+	Stage prevStage;
 	/**
 	 * Initializes the controller class.
 	 */
