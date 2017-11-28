@@ -52,9 +52,9 @@ public class ClientThread extends Thread {
 		Message newMessage = new Message("userList", "", "", "");
 		ArrayList <String> userList = new ArrayList <String>();
 		for (User user : server.users) {
-			System.out.println("HERE RIGHT NOW");
-
-			userList.add(user.username);
+			if (user.username != this.user.username) {
+				userList.add(user.username);
+			}
 		}
 		newMessage.setUserList(userList);
 		send(newMessage, this);

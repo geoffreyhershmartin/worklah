@@ -91,6 +91,7 @@ public class Client extends Thread {
 			try {
 				Message msg = (Message) in.readObject();
 				if (msg.type.equals("message")) {
+					System.out.println(msg);
 					this.displayMessage("[" + msg.sender + "] : " + msg.content + "\n");
 				} else if (msg.type.equals("task")) {
 					guiController.taskList.getItems().add("[" + msg.sender + " > Me] : " + msg.content + "\n");
@@ -130,6 +131,7 @@ public class Client extends Thread {
 	public void send(Message message) {
 		synchronized (this) {
 			try {
+				System.out.println(message);
 				out.writeObject(message);
 				out.flush();
 			} 

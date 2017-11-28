@@ -151,19 +151,15 @@ public class ChatController implements Initializable {
 		String message = chatBox.getText();
 		String catchPhrase = "@task";
 		if (message.contains(catchPhrase)) {
-
 			String task = message.replace("@task", "");
 			taskList.getItems().add(task);
-                        chatBox.setText("");
-		}
-		else if(message.contains("right")){
-			append2(message);
-                        
+            chatBox.setText("");
+            client.sendTaskToGroup(message);
 		}
 		else{
-			append(message);
+			client.sendMessageToGroup(message);
 		}
-		client.sendTaskToGroup(message);
+
 		chatBox.setText("");
 
 	}
@@ -181,20 +177,17 @@ public class ChatController implements Initializable {
 		String message = chatBox.getText();
 		String catchPhrase = "@task";
 		if (message.contains(catchPhrase)) {
-
 			String task = message.replace("@task", "");
 			taskList.getItems().add(task);
-                        chatBox.setText("");
-		}
-		else if(message.contains("right")){
-			append2(message);
-                        
+            chatBox.setText("");
+            client.sendTaskToGroup(message);
 		}
 		else{
-			append(message);
+			client.sendMessageToGroup(message);
 		}
-		client.sendTaskToGroup(message);
+
 		chatBox.setText("");
+
 	}
         @FXML
         void attachButtonPressed(MouseEvent event) {

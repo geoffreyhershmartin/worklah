@@ -6,6 +6,8 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -45,6 +47,8 @@ public class PopupController implements Initializable {
         List<String> showing = onlineList.getSelectionModel().getSelectedItems();
         String listString = String.join(", ", showing);
         primaryUserList.getItems().add(listString);
+        client.updateGroup(new ArrayList<String>(showing));
+        
 
     }
   
