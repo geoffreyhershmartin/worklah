@@ -15,5 +15,6 @@
          </font>
       </Text>
       <Button fx:id="tester" layoutX="216.0" layoutY="374.0" mnemonicParsing="false" onAction="#addRandomElement" text="Button" />
+      <Button fx:id="button2" layoutX="90.0" layoutY="374.0" mnemonicParsing="false" onAction="#button2Listener" text="Button" />
    </children>
 </AnchorPane>

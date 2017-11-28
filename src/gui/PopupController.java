@@ -6,6 +6,7 @@
 package gui;
 
 import java.net.URL;
+import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 
@@ -27,12 +29,21 @@ public class PopupController implements Initializable {
     private ListView<String> onlineList;
   @FXML
     private Button tester;
+  @FXML
+    private Button button2;
     
     public ListView<String> primaryUserList;
   @FXML
     void onlineUserSelected(MouseEvent event) {
 //    chatController.populateUserList("taha");
-primaryUserList.getItems().add(onlineList.getSelectionModel().getSelectedItem());
+    }
+  @FXML
+    void button2Listener(ActionEvent event) {
+        
+        List<String> showing = onlineList.getSelectionModel().getSelectedItems();
+        String listString = String.join(", ", showing);
+        primaryUserList.getItems().add(listString);
+
     }
   @FXML
     void addRandomElement(ActionEvent event) {
@@ -45,7 +56,7 @@ primaryUserList.getItems().add(onlineList.getSelectionModel().getSelectedItem())
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+     onlineList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
     
     

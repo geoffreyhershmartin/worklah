@@ -4,6 +4,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -55,14 +56,6 @@
                   <Insets left="5.0" top="10.0" />
                </HBox.margin>
             </Ellipse>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Geoffrey Martin">
-               <font>
-                  <Font name="Avenir Roman" size="13.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="5.0" top="10.0" />
-               </HBox.margin>
-            </Text>
          </children>
       </HBox>
       <Text layoutX="882.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tasks" wrappingWidth="48.121957302093506" AnchorPane.bottomAnchor="561.0" AnchorPane.rightAnchor="69.8780426979065" AnchorPane.topAnchor="12.0">
@@ -71,7 +64,7 @@
          </font>
       </Text>
       <HBox layoutX="14.0" layoutY="556.0" />
-      <TextField fx:id="searchTask" layoutX="1076.0" layoutY="701.0" onKeyPressed="#enterPressedTask" prefHeight="34.0" prefWidth="172.0" promptText="Search" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="9.0" />
+      <TextField fx:id="searchTask" layoutX="1076.0" layoutY="701.0" onKeyPressed="#enterPressedTask" prefHeight="34.0" prefWidth="81.0" promptText="Search" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="9.0" />
       <ImageView fx:id="searchTasks" fitHeight="27.0" fitWidth="32.0" layoutX="1209.0" layoutY="705.0" onMouseClicked="#searchClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="21.0">
          <image>
             <Image url="@assets/icon-ios7-search-strong-128.png" />
@@ -116,5 +109,7 @@
          </children>
       </AnchorPane>
       <Button fx:id="newChat" layoutX="979.0" layoutY="17.0" mnemonicParsing="false" onAction="#newChatPressed" text="Button" AnchorPane.rightAnchor="219.0" AnchorPane.topAnchor="17.0" />
+      <TextField fx:id="conversantName" editable="false" layoutX="268.0" layoutY="13.0" prefHeight="27.0" prefWidth="149.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="264.0" AnchorPane.topAnchor="13.0" />
+      <DatePicker fx:id="dateSelector" layoutX="1073.0" layoutY="704.0" onAction="#dateSelected" prefHeight="27.0" prefWidth="88.0" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="96.0" />
    </children>
 </AnchorPane>

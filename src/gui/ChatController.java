@@ -15,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -24,15 +23,17 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Calendar;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
@@ -68,13 +69,19 @@ public class ChatController implements Initializable {
         private Button attachButton2;
         @FXML
         private ImageView attachButton;
-	private Client client;
+        @FXML
+        private TextField conversantName;
+        @FXML
+        private DatePicker dateSelector;
+        
+        private Client client;
 
 	protected String userID;
 
 	Stage prevStage;
-    private Scene scene;
-    private Stage stage;
+        private Scene scene;
+        private Stage stage;
+        
 	/**
 	 * Initializes the controller class.
 	 */
@@ -89,6 +96,7 @@ public class ChatController implements Initializable {
 
 	@FXML
 	private void userClicked(MouseEvent event) {
+            conversantName.setText(userList.getSelectionModel().getSelectedItem());
 	}
 
 	@FXML
@@ -162,6 +170,12 @@ public class ChatController implements Initializable {
 
 	}
 
+    @FXML
+    void dateSelected(ActionEvent event) {
+            int selectedIndex = taskList.getSelectionModel().getSelectedIndex();
+            String selectedDate = dateSelector.getValue().toString();
+            taskList.getItems().add(selectedIndex, selectedDate);
+    }
 	@FXML
 	private void enterPressedChat(ActionEvent event) {
 		String message = chatBox.getText();
