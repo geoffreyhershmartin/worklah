@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -40,7 +41,10 @@ public class LoginScreenController implements Initializable {
 
 	protected Client client;
 	protected String userID;
-
+        private Stage stage;
+        private Scene scene;
+        private ChatController chatController;
+	
 	/**
 	 * Initializes the controller class.
 	 */
@@ -55,7 +59,7 @@ public class LoginScreenController implements Initializable {
 		String userID = Username.getText().trim();
 		if (userID.length() == 0)
 			return;
-		Stage stage = new Stage();
+		stage = new Stage();
 
 
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChatScreen.fxml"));     
@@ -69,11 +73,11 @@ public class LoginScreenController implements Initializable {
 		client.start();
 
 		controller.setClient(client);
-		Scene scene = new Scene(root); 
+		scene = new Scene(root); 
 		stage.setScene(scene);
-		ChatController chatController = new ChatController();
-
-		chatController.setID(Username.getText().trim());
+		chatController = new ChatController();
+//		chatController.redirectHome(stage, this.Username.getText().trim());
+//              chatController.setID(this.Username.getText().trim());
 		stage.setMinHeight(600);
 		stage.setMinWidth(1000);
 		stage.show();
