@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-
+import messages.Message;
 
 public class ServerThread extends Thread {
     public Server server = null;

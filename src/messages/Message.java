@@ -6,9 +6,6 @@ import java.util.ArrayList;
 public class Message implements Serializable {
 
 	private static final long serialVersionUID = -4398980948410147192L;
-	// universal version identifier, to make sure that a loaded class corresponds to a serialised object
-	// if no match is found, then an InvalidClassException
-
 
 	public String type, sender, content, recipient;
 	public ArrayList <String> userList;
@@ -23,7 +20,11 @@ public class Message implements Serializable {
 
 	@Override
 	public String toString() {
-		return "{type='"+type+"', sender='"+sender+"', content='"+content+"'}";
+		return "{" + "\n" +
+				"\ttype : " + type + "\n" +
+				"\tsender : " + sender + "\n" +
+				"\tcontent : " + content + "\n" +
+				"}";
 	}
 	
 	public void setUserList(ArrayList <String> _userList) {
