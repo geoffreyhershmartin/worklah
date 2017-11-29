@@ -11,11 +11,13 @@ public class User {
 	public ArrayList <Group> allGroups;
 	public String username;
 	public ArrayList <Task> tasks;
-	private boolean onlineStatus;
+	public boolean onlineStatus;
 	private ClientThread clientThread;
+	public String password;
 	
-	public User(String _username, ClientThread _clientThread) {
+	public User(String _username, String _password, ClientThread _clientThread) {
 		this.username = _username;
+		this.password = _password;
 		this.allGroups = new ArrayList <Group>();
 		this.tasks = new ArrayList <Task>();
 		this.currentGroup = new Group();
