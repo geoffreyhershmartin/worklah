@@ -6,10 +6,15 @@
 package gui;
 
 import sassibot.Answers;
+import server.Download;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import client.Client;
+
+import java.awt.Component;
+import java.io.File;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,12 +27,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
+
+import javax.swing.JFileChooser;
+
+import messages.Message;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
@@ -47,6 +58,7 @@ import javafx.stage.Stage;
  */
 public class ChatController implements Initializable {
 
+	private static final File file = null;
 	@FXML
 	private ListView<String> userList;
 	@FXML
@@ -61,30 +73,30 @@ public class ChatController implements Initializable {
 	private ImageView sendButton;
 	@FXML
 	private TextField chatBox;
-        @FXML
-        private Button sendButton2;
-        @FXML
-        private Button newChat;
-        @FXML
-        private CheckBox botCheckBox;
-        @FXML
-	private Hyperlink logOut;
-        @FXML
-        private Button attachButton2;
-        @FXML
-        private ImageView attachButton;
-        @FXML
-        private TextField conversantName;
-        @FXML
-        private TextField userName;
-        @FXML
-        private ImageView newChatIcon;
-        @FXML
-        private DatePicker dateSelector;
-        @FXML
-        private ImageView conversantImage;
-         @FXML
-        private Ellipse greenCircle;
+    @FXML
+    private Button sendButton2;
+    @FXML
+    private Button newChat;
+    @FXML
+    private CheckBox botCheckBox;
+    @FXML
+    private Hyperlink logOut;
+    @FXML
+    private Component attachButton2;
+    @FXML
+    private ImageView attachButton;
+    @FXML
+    private TextField conversantName;
+    @FXML
+    private TextField userName;
+    @FXML
+    private ImageView newChatIcon;
+    @FXML
+    private DatePicker dateSelector;
+    @FXML
+    private ImageView conversantImage;
+     @FXML
+    private Ellipse greenCircle;
 
         
         private Client client;
@@ -245,6 +257,7 @@ public class ChatController implements Initializable {
             taskList.getItems().add(selectedIndex, theTask +" due by " + selectedDate );
             taskList.getItems().remove(selectedIndex+1);
         }
+        
 	@FXML
 	private void enterPressedChat(ActionEvent event) throws InterruptedException {
 		String message = chatBox.getText();
@@ -282,7 +295,7 @@ public class ChatController implements Initializable {
 
 		chatBox.setText("");
 
-	}
+        }
         }
         @FXML
         void attachButtonPressed(MouseEvent event) {
@@ -294,21 +307,21 @@ public class ChatController implements Initializable {
 	public void append(String str) {
             String timeStamp;
             timeStamp = new SimpleDateFormat("HH:mm ").format(Calendar.getInstance().getTime());
-		chatView.appendText(timeStamp + " " + str  +  "\n");
-		chatView.selectPositionCaret(chatView.getText().length()-1);
-		chatView2.appendText("\n");
-		chatView2.selectPositionCaret(chatView2.getText().length()-1);
-                chatBox.setText("");
+			chatView.appendText(timeStamp + " " + str  +  "\n");
+			chatView.selectPositionCaret(chatView.getText().length()-1);
+			chatView2.appendText("\n");
+			chatView2.selectPositionCaret(chatView2.getText().length()-1);
+            chatBox.setText("");
 	}
+	
 	public void append2(String str) {
             String timeStamp;
-            timeStamp = new SimpleDateFormat("HH:m"
-                    + "m ").format(Calendar.getInstance().getTime());
-		chatView2.appendText(str + " " + timeStamp+ "\n");
-		chatView2.selectPositionCaret(chatView2.getText().length()-1);
-		chatView.appendText("\n");
-		chatView.selectPositionCaret(chatView.getText().length()-1);
-                chatBox.setText("");
+            timeStamp = new SimpleDateFormat("HH:mm ").format(Calendar.getInstance().getTime());
+			chatView2.appendText(str + " " + timeStamp+ "\n");
+			chatView2.selectPositionCaret(chatView2.getText().length()-1);
+			chatView.appendText("\n");
+			chatView.selectPositionCaret(chatView.getText().length()-1);
+			chatBox.setText("");
 	}
 
 //	public void setID(String _userID){
@@ -324,6 +337,25 @@ public class ChatController implements Initializable {
             userList.getItems().add(_user);
         }
         }
+        
+        private void attachButtonIsPressed(ActionEvent event) {
+        	JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setMultiSelectionEnabled(true);
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            int result = fileChooser.showDialog(attachButton2, "Select File");
+            if(result == JFileChooser.APPROVE_OPTION) {
+            	 File file = fileChooser.getSelectedFile();
+            }
+        }
+            	// textField.setText(file.getAbsolutePath());
+            	 
+            	 //Thread th = new Thread(download);
+            	 //th.start();
+            	 //client.sendMessageToGroup(new Message("upload", message.sender);());
+            
+            
+        
+  
         
         public void populateTaskList(String _task){
             taskList.getItems().add(_task);
@@ -366,3 +398,4 @@ public class ChatController implements Initializable {
 //            
 //        }
 }
+a
