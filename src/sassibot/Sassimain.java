@@ -19,24 +19,20 @@ public class Sassimain {
 		this.answer = answer;
 		this.message = message;
 	}
-	
-	public String getResponse() {
 
+	public String getResponse() {
 		if (message.contains("why")){
 			return (answer.getWhy()); 
-	    }
-		
-	    else if (message.contains("how")){
-	    	return (answer.getHow());
-	    }
-	    else if (message.contains("what")){
-	    	return (answer.getWhat());
-	    }
-		
-	    else {
+		}
+		else if (message.contains("how")){
+			return (answer.getHow());
+		}
+		else if (message.contains("what")){
+			return (answer.getWhat());
+		}
+		else {
 			return ("Have a good day. But not too good.");
-	    }
+		}
 	}
-	    
     
 }
