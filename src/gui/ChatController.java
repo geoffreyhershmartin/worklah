@@ -151,7 +151,10 @@ public class ChatController implements Initializable {
 
 	@FXML
         void botChecked(ActionEvent event) {
-
+            chatView.setText("");
+                chatView2.setText("");
+//        swarniSwitch = true;
+//        System.out.print("set to true");
         }
 
 	
@@ -162,7 +165,8 @@ public class ChatController implements Initializable {
         
 	@FXML
 	private void sendPressed(MouseEvent event) throws InterruptedException {
-            if (swarniSwitch){
+            if (botCheckBox.isSelected()){
+                
                 String message = chatBox.getText();
                 if (message.contains("why")){
                     append2(message);
