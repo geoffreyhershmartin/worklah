@@ -65,8 +65,6 @@ public class ChatController implements Initializable {
         @FXML
         private CheckBox botCheckBox;
         @FXML
-	private ToggleButton botButton;
-	@FXML
 	private Hyperlink logOut;
         @FXML
         private Button attachButton2;
@@ -87,7 +85,7 @@ public class ChatController implements Initializable {
 	Stage prevStage;
         private Scene scene;
         private Stage stage;
-        private boolean sassySwitch;
+        private boolean sassiSwitch;
         
 	/**
 	 * Initializes the controller class.
@@ -165,10 +163,9 @@ public class ChatController implements Initializable {
         
 	@FXML
 	private void sendPressed(MouseEvent event) throws InterruptedException {
+            String message = chatBox.getText();
             if (botCheckBox.isSelected()){
                 
-
-                String message = chatBox.getText();
                 if (message.contains("why")){
                     append2(message);
                     TimeUnit.SECONDS.sleep(1);
@@ -177,14 +174,13 @@ public class ChatController implements Initializable {
                 else if (message.contains("how")){
                     append2(message);
                     TimeUnit.SECONDS.sleep(1);
-                    append("How would I know? Aren't you the 'smarter' human?");}
+                    append("How would I know? Aren't you the 'smarter' one, human?");}
                 else if (message.contains("who")){
                     append2(message);
                     TimeUnit.SECONDS.sleep(1);
                     append("Yo Mama!");}
             }
             else{
-		String message = chatBox.getText();
 		String catchPhrase = "@task";
 		if (message.contains(catchPhrase)) {
 			String task = message.replace("@task", "");
@@ -210,8 +206,25 @@ public class ChatController implements Initializable {
             taskList.getItems().remove(selectedIndex+1);
         }
 	@FXML
-	private void enterPressedChat(ActionEvent event) {
+	private void enterPressedChat(ActionEvent event) throws InterruptedException {
 		String message = chatBox.getText();
+                if (botCheckBox.isSelected()){
+                
+                if (message.contains("why")){
+                    append2(message);
+                    TimeUnit.SECONDS.sleep(1);
+                    append("Because you fell as a child");
+                }
+                else if (message.contains("how")){
+                    append2(message);
+                    TimeUnit.SECONDS.sleep(1);
+                    append("How would I know? Aren't you the 'smarter' one, human?");}
+                else if (message.contains("who")){
+                    append2(message);
+                    TimeUnit.SECONDS.sleep(1);
+                    append("Yo Mama!");}
+            }
+            else{
 		String catchPhrase = "@task";
 		if (message.contains(catchPhrase)) {
 			String task = message.replace("@task", "");
@@ -227,18 +240,13 @@ public class ChatController implements Initializable {
 		chatBox.setText("");
 
 	}
+        }
         @FXML
         void attachButtonPressed(MouseEvent event) {
 
         }
         
-        @FXML
-        void botSwitchedOn(ActionEvent event) {
-        sassySwitch = true;
-        chatView.setText("");
-        chatView2.setText("");
-        System.out.print("ON");
-        }
+        
 
 	public void append(String str) {
             String timeStamp;

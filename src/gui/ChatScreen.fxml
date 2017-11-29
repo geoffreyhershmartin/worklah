@@ -11,7 +11,6 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -36,7 +35,6 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </ListView>
-            <ToggleButton fx:id="botButton" layoutX="21.0" layoutY="2.0" mnemonicParsing="false" onAction="#botSwitchedOn" prefHeight="27.0" prefWidth="81.0" text="Bot" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="2.0" />
             <CheckBox fx:id="botCheckBox" layoutX="119.0" layoutY="7.0" mnemonicParsing="false" text="BotMode" />
          </children>
       </AnchorPane>
