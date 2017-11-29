@@ -17,7 +17,6 @@ public class Group implements Serializable {
 	public ArrayList <Message> chatHistory;
 	
 	public Group() {
-		this.groupName = null;
 		this.groupMembers = new ArrayList <User>();
 		this.groupMemberNames = new ArrayList <String>();
 		this.chatHistory = new ArrayList <Message>();
@@ -25,7 +24,6 @@ public class Group implements Serializable {
 
 	public void addUser(User newUser) {
 		this.groupMembers.add(newUser);
-		System.out.println(newUser.username);
 		this.groupMemberNames.add(newUser.username);
 	}
 	
