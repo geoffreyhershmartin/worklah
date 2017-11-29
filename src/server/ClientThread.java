@@ -185,8 +185,8 @@ public class ClientThread extends Thread {
 	public void closeConnection() throws IOException
 	{
 		System.out.println("Client disconnecting, cleaning the data!");
-		this.out.close();
 		try {
+			this.out.close();
 			this.in.close();
 			this.client.close();
 		} catch (IOException e) {
