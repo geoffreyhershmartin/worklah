@@ -32,7 +32,9 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 /**
@@ -60,6 +62,10 @@ public class ChatController implements Initializable {
         private Button sendButton2;
         @FXML
         private Button newChat;
+        @FXML
+        private CheckBox botCheckBox;
+        @FXML
+	private ToggleButton botButton;
 	@FXML
 	private Hyperlink logOut;
         @FXML
@@ -81,7 +87,7 @@ public class ChatController implements Initializable {
 	Stage prevStage;
         private Scene scene;
         private Stage stage;
-    private boolean swarniSwitch;
+        private boolean swarniSwitch;
         
 	/**
 	 * Initializes the controller class.
@@ -143,7 +149,10 @@ public class ChatController implements Initializable {
 		
         }
 
-	
+	@FXML
+        void botChecked(ActionEvent event) {
+
+        }
 
 	
 	@FXML
@@ -157,16 +166,16 @@ public class ChatController implements Initializable {
                 String message = chatBox.getText();
                 if (message.contains("why")){
                     append2(message);
-                    TimeUnit.SECONDS.sleep(2);
+                    TimeUnit.SECONDS.sleep(1);
                     append("Because you fell as a child");
                 }
                 else if (message.contains("how")){
                     append2(message);
-                    TimeUnit.SECONDS.sleep(2);
+                    TimeUnit.SECONDS.sleep(1);
                     append("How would I know? Aren't you the 'smarter' human?");}
                 else if (message.contains("who")){
                     append2(message);
-                    TimeUnit.SECONDS.sleep(2);
+                    TimeUnit.SECONDS.sleep(1);
                     append("Yo Mama!");}
             }
             else{
@@ -219,10 +228,11 @@ public class ChatController implements Initializable {
         }
         
         @FXML
-        void swarnibotPressed(MouseEvent event) {
+        void botSwitchedOn(ActionEvent event) {
+        swarniSwitch = true;
         chatView.setText("");
         chatView2.setText("");
-        swarniSwitch = true;
+        System.out.print("ON");
         }
 
 	public void append(String str) {

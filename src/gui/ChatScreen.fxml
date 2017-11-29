@@ -4,12 +4,14 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -34,7 +36,8 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </ListView>
-            <Text layoutX="64.0" layoutY="27.0" onMouseClicked="#swarnibotPressed" strokeType="OUTSIDE" strokeWidth="0.0" text="Swarnibot" AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="14.0" />
+            <ToggleButton fx:id="botButton" layoutX="21.0" layoutY="2.0" mnemonicParsing="false" onAction="#botSwitchedOn" prefHeight="27.0" prefWidth="81.0" text="Bot" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="2.0" />
+            <CheckBox fx:id="botCheckBox" layoutX="119.0" layoutY="7.0" mnemonicParsing="false" text="BotMode" />
          </children>
       </AnchorPane>
       <TextArea fx:id="chatView" editable="false" layoutX="190.0" layoutY="57.0" prefHeight="637.0" prefWidth="419.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="49.0" AnchorPane.topAnchor="55.0" />
