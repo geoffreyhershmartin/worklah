@@ -286,8 +286,11 @@ public class ChatController implements Initializable {
             if(userList.getItems().contains(_user)){
             String notification = _user;
             userList.getItems().remove(_user);
-            userList.getItems().add(_user+"Read Please!");}
+            userList.getItems().add(_user+"Read Please!");
+            }
+            else{
             userList.getItems().add(_user);
+        }
         }
         
         public void populateTaskList(String _task){
