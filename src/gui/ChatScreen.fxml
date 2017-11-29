@@ -28,7 +28,7 @@
       <ButtonBar layoutX="268.0" layoutY="116.0" prefHeight="17.0" prefWidth="14.0" />
       <AnchorPane layoutY="59.0" prefHeight="631.0" prefWidth="190.0" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="59.0">
          <children>
-            <ListView fx:id="userList" layoutY="28.0" onMouseClicked="#userClicked" prefHeight="609.0" prefWidth="190.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="-6.0" AnchorPane.topAnchor="28.0">
+            <ListView fx:id="userList" layoutY="37.0" onMouseClicked="#userClicked" prefHeight="600.0" prefWidth="190.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="-6.0" AnchorPane.topAnchor="37.0">
                <effect>
                   <Blend opacity="0.35" />
                </effect>
@@ -36,7 +36,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </ListView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8f8f8" height="41.0" layoutX="4.0" layoutY="-1.0" stroke="#f3f3f3" strokeType="INSIDE" width="190.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8f8f8" height="41.0" layoutX="4.0" layoutY="-1.0" stroke="#f3f3f3" strokeType="INSIDE" width="190.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-3.0" />
             <CheckBox fx:id="botCheckBox" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onMouseClicked="#botChecked" text="SassiBotMode" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="11.0" />
             <ImageView fitHeight="34.0" fitWidth="28.0" layoutX="144.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="144.0" AnchorPane.topAnchor="5.0">
                <image>
@@ -55,12 +55,12 @@
       </Text>
       <HBox layoutX="207.0" layoutY="9.0">
          <children>
-            <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="conversantImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@assets/geoffrey.jpg" />
                </image>
             </ImageView>
-            <Ellipse fill="#22cd61" radiusX="7.0" radiusY="9.0" scaleY="0.8" smooth="false" stroke="#eeeeee" strokeType="INSIDE">
+            <Ellipse fx:id="greenCircle" fill="#22cd61" radiusX="7.0" radiusY="9.0" scaleY="0.8" smooth="false" stroke="#eeeeee" strokeType="INSIDE" visible="false">
                <HBox.margin>
                   <Insets left="5.0" top="10.0" />
                </HBox.margin>

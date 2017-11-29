@@ -38,6 +38,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
 /**
  * FXML Controller class
@@ -80,7 +81,11 @@ public class ChatController implements Initializable {
         private ImageView newChatIcon;
         @FXML
         private DatePicker dateSelector;
-        
+        @FXML
+        private ImageView conversantImage;
+         @FXML
+        private Ellipse greenCircle;
+
         
         private Client client;
 
@@ -129,6 +134,8 @@ public class ChatController implements Initializable {
             		}
             }
             currentConversation = newConversation;
+            conversantImage.setVisible(true);
+            greenCircle.setVisible(true);
 	}
 
 	@FXML

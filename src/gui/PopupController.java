@@ -13,13 +13,17 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 import client.Client;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -48,9 +52,24 @@ public class PopupController implements Initializable {
         String listString = String.join(", ", showing);
         primaryUserList.getItems().add(listString);
         client.updateGroup(new ArrayList<String>(showing));
-//        Stage stage1 = (Stage) prevStage.getScene().getWindow();
-//		stage1.close();
+        final Node source = (Node) event.getSource();
+        final Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
 
+
+    }
+    
+    @FXML
+    void enterPressed(KeyEvent event) {
+        if(event.getCode()==KeyCode.ENTER){
+             List<String> showing = onlineList.getSelectionModel().getSelectedItems();
+        String listString = String.join(", ", showing);
+        primaryUserList.getItems().add(listString);
+        client.updateGroup(new ArrayList<String>(showing));
+        final Node source = (Node) event.getSource();
+        final Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+        }
     }
   
   	void setClient(Client _client) {
@@ -82,5 +101,5 @@ public class PopupController implements Initializable {
 		this.prevStage = stage;
 
 	}
-    
+ 
 }
