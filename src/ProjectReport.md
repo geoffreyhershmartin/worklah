@@ -1,18 +1,16 @@
 # YSC3232 Object-Oriented Programming: Final Project Report
 
----
+**Group Name: GST **
 
-* Group Name: GST *
+**Project Name: Work Lah!**
 
-Project Name: Work Lah!
-
-Project Members: Geoffrey, Swarnima, and Taha.
+**Project Members: Geoffrey, Swarnima, and Taha.**
 
   
 
 # INTRODUCTION
 
-Outline:
+### Outline:
 
 We succeeded in creating a simple cross-platform client-server chat application that real-time multiple client messaging. As mentioned in our project proposal, the primary way in which we sought to improve existing chat applications was by introducing easy, efficient task management functionality. This—along with the implementation of the chat app itself—was successfully done.
 
@@ -24,7 +22,7 @@ It must, however, be noted that we also some experienced various issues. These c
 
 These have been detailed in this report.
 
-Assignment Specification: 
+### Assignment Specification: 
 
 A chat system that allows users to share data.
 
@@ -33,9 +31,9 @@ A chat system that allows users to share data.
 Specification detailed in Project Proposal
 
 
-CHALLENGES FACED
+## CHALLENGES FACED
 
-Conceptualising (Timeline and Features)
+### Conceptualising (Timeline and Features)
 
 We had a rather warped sense of how much time different parts of the implementation would take. This ultimately resulted in our original timeline being almost completely inaccurate. 
 
@@ -45,7 +43,7 @@ At the time we wrote our project proposal, we thought that we had a lucid, reaso
 
 Owing to our lack of knowledge regarding databases, we were also uncertain about how we would go about setting attributes to messages and users. Ultimately, we settled on the class Message.java which provided us with a useful, quick way of instantiating metadata on a user. This was the first example of a number of implementation issues that we only found out about and then resolved while we were writing the application itself.
 
-Code Integration
+### Code Integration
 
 One of the biggest issues we faced was in integrating our code. We discussed the way we were going to implement our chat app in a detailed manner well in advance, but this caused problems. 
 
@@ -57,7 +55,7 @@ Once we agreed on how the backend would work, Swarnima and Geoffrey were able to
 
 Ultimately, we realised that the one of the best ways in which we should have worked together was to actually employ the plethora of features that GitHub offered in terms of workflow management. In hindsight, flagging and resolving issues using the Issues tab, as well as using the Wiki tab would have served us well.
 
-Group Availability
+### Group Availability
 
 To be efficient, and to be considerate of everyone’s time, we split up the work: Taha would primarily be in charge of the GUI, and Geoffrey and Swarnima would be responsible for the network and feature implementation. 
 
