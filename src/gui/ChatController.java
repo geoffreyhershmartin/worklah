@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import client.Client;
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,7 +39,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import swarnibot.Answers;
+import swarnibot.*;
 /**
  * FXML Controller class
  *
@@ -218,19 +219,19 @@ public class ChatController implements Initializable {
 	private void enterPressedChat(ActionEvent event) throws InterruptedException {
 		String message = chatBox.getText();
                 if (botCheckBox.isSelected()){
-                Answers answer = new Answers();
-                if (message.contains("why")){
+                SwarniMain sassiAnswer = new SwarniMain();
+//                if (message.contains("why")){
                     append2(message);
-                    append(answer.getWhy());
-                }
-                else if (message.contains("how")){
-                    append2(message);
-                    append(answer.getHow());
-                }
-                else if (message.contains("what")){
-                    append2(message);
-                    append("Yo Mama!");
-                    append(answer.getHow());}
+//                    append(sassiAnswer.getResponse());
+//                }
+//                else if (message.contains("how")){
+//                    append2(message);
+//                    append(sassiAnswer.getHow());
+//                }
+//                else if (message.contains("what")){
+//                    append2(message);
+//                    append("Yo Mama!");
+                    append(sassiAnswer.getResponse(message));
             }
             else{
 		String catchPhrase = "@task";
@@ -301,6 +302,16 @@ public class ChatController implements Initializable {
 	void connectionFailed() {
 		//        boolean connected = false;
 	}
+        public void loadHistory (ArrayList<String> string){
+            int size = string.size();
+            for (int i = 0; i<size;i++){
+                if(string.get(i).contains(userID)){
+                    append2(string.get(i));
+                } else{
+                    append(string.get(i));
+                }
+            }
+        }
         
 //        public void loadHistory(ArrayList<String>){
 //            
