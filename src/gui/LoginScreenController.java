@@ -87,7 +87,7 @@ public class LoginScreenController implements Initializable {
 //		chatController.redirectHome(stage, this.Username.getText().trim());
 //              chatController.setID(this.Username.getText().trim());
 		stage.setMinHeight(600);
-		stage.setMinWidth(1000);
+		stage.setMinWidth(1300);
 		stage.show();
 		Stage stage1 = (Stage) prevStage.getScene().getWindow();
 		stage1.close();
