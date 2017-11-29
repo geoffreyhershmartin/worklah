@@ -90,6 +90,7 @@ public class ChatController implements Initializable {
         private Scene scene;
         private Stage stage;
         private boolean sassiSwitch;
+        ArrayList<ArrayList<String>> conversations;
         
 	/**
 	 * Initializes the controller class.
@@ -110,6 +111,7 @@ public class ChatController implements Initializable {
 	@FXML
 	private void userClicked(MouseEvent event) {
             conversantName.setText(userList.getSelectionModel().getSelectedItem());
+            client.updateGroup(newGroup);
 	}
 
 	@FXML
@@ -148,8 +150,10 @@ public class ChatController implements Initializable {
                 popupController = new PopupController();
 
 		
-		stage.setMinHeight(300);
-		stage.setMinWidth(500);
+		stage.setMinHeight(400);
+		stage.setMinWidth(400);
+                stage.setMaxHeight(400);
+		stage.setMaxWidth(400);
 		stage.show();
                 
 		
@@ -299,6 +303,13 @@ public class ChatController implements Initializable {
         
         public void populateTaskList(String _task){
             taskList.getItems().add(_task);
+        }
+        
+        public void activeGroups (ArrayList<ArrayList<String>> conversations){
+            this.conversations = conversations;
+            for (ArrayList<String> group:conversations){
+                populateUserList(String.join(",", group));
+            }
         }
 
 
