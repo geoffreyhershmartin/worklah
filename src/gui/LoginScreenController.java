@@ -91,7 +91,6 @@ public class LoginScreenController implements Initializable {
 		Stage stage1 = (Stage) prevStage.getScene().getWindow();
 		stage1.close();
 
-
 	}
 
 
