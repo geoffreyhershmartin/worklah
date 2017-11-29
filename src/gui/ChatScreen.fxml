@@ -45,7 +45,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <TextArea fx:id="chatView" editable="false" layoutX="190.0" layoutY="57.0" prefHeight="637.0" prefWidth="419.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="49.0" AnchorPane.topAnchor="55.0" />
+      <TextArea fx:id="chatView" editable="false" layoutX="190.0" layoutY="57.0" prefHeight="638.0" prefWidth="438.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="49.0" AnchorPane.topAnchor="55.0" />
       <Line endX="100.0" layoutX="190.0" layoutY="102.0" rotate="90.0" scaleX="0.3" startX="-100.0" stroke="#efefef" AnchorPane.bottomAnchor="497.5" AnchorPane.leftAnchor="89.5" AnchorPane.topAnchor="30.0" />
       <Line endX="100.0" layoutX="811.0" layoutY="95.0" rotate="-90.0" startX="-100.0" stroke="#efefef" AnchorPane.bottomAnchor="504.5" AnchorPane.rightAnchor="88.5" AnchorPane.topAnchor="94.5" />
       <Text fill="#73e5d7" layoutX="55.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WorkLAH" wrappingWidth="80.93797601759434">
@@ -78,17 +78,16 @@
             <Image url="@assets/attachment.png" />
          </image>
       </ImageView>
-      <TextField fx:id="chatBox" layoutX="201.0" layoutY="695.0" onAction="#enterPressedChat" prefHeight="41.0" prefWidth="747.0" promptText="Type message...." AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="201.0" AnchorPane.rightAnchor="309.0" />
+      <TextField fx:id="chatBox" layoutX="251.0" layoutY="695.0" onAction="#enterPressedChat" prefHeight="41.0" prefWidth="697.0" promptText="Type message...." AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="251.0" AnchorPane.rightAnchor="309.0" />
       <ImageView fx:id="profileImage" fitHeight="34.0" fitWidth="37.0" layoutX="14.0" layoutY="557.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="14.0">
          <image>
             <Image url="@assets/Screen%20Shot%202017-11-25%20at%201.39.34%20AM.png" />
          </image>
       </ImageView>
       <Ellipse fill="#22cd61" layoutX="55.0" layoutY="574.0" radiusX="7.0" radiusY="9.0" scaleY="0.8" smooth="false" stroke="#eeeeee" strokeType="INSIDE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="48.0" />
-      <TextArea fx:id="chatView2" editable="false" layoutX="609.0" layoutY="55.0" maxHeight="990.0" maxWidth="620.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="637.0" prefWidth="464.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="609.0" AnchorPane.rightAnchor="184.0" AnchorPane.topAnchor="55.0" />
+      <TextArea fx:id="chatView2" editable="false" layoutX="609.0" layoutY="55.0" maxHeight="990.0" maxWidth="620.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="637.0" prefWidth="440.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="609.0" AnchorPane.rightAnchor="184.0" AnchorPane.topAnchor="55.0" />
       <Label fx:id="time" layoutX="963.0" layoutY="18.0" prefHeight="25.0" prefWidth="34.0" AnchorPane.rightAnchor="204.0" AnchorPane.topAnchor="17.0" />
       <Hyperlink layoutX="48.0" layoutY="721.0" onAction="#logoutPressed" text="Logout" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" />
-      <Line endX="100.0" layoutX="191.0" layoutY="369.0" rotate="90.0" scaleX="10.0" startX="-100.0" stroke="#efefef" AnchorPane.bottomAnchor="372.5" AnchorPane.leftAnchor="90.5" AnchorPane.rightAnchor="965.5" />
       <Line endX="100.0" layoutX="1068.0" layoutY="715.0" rotate="90.0" scaleX="0.25" startX="-100.0" stroke="#efefef" AnchorPane.bottomAnchor="24.5" AnchorPane.rightAnchor="88.5" />
       <Button fx:id="sendButton2" layoutX="960.0" layoutY="701.0" mnemonicParsing="false" onMouseClicked="#sendPressed" prefHeight="34.0" prefWidth="48.0" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="249.0" />
       <ImageView fx:id="sendButton" fitHeight="27.0" fitWidth="21.0" layoutX="974.0" layoutY="708.0" onMouseClicked="#sendPressed" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="13.0" AnchorPane.rightAnchor="262.0">
@@ -121,5 +120,29 @@
       <Line endX="100.0" layoutX="113.0" layoutY="58.0" scaleX="4.0" startX="-100.0" stroke="#efefef" AnchorPane.leftAnchor="-200.0" AnchorPane.topAnchor="56.0" />
       <TextField fx:id="userName" editable="false" layoutX="64.0" layoutY="695.0" prefHeight="27.0" prefWidth="124.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="64.0" />
       <Line endX="100.0" layoutX="1078.0" layoutY="725.0" scaleX="1.2" startX="-100.0" stroke="#efefef" AnchorPane.bottomAnchor="45.5" AnchorPane.leftAnchor="-28.5" />
+      <HBox layoutX="190.0" layoutY="673.0" />
+      <HBox layoutX="371.0" layoutY="460.0" prefHeight="36.0" prefWidth="112.0" />
+      <HBox layoutX="538.0" layoutY="374.0" prefHeight="34.0" prefWidth="114.0" AnchorPane.bottomAnchor="334.0" AnchorPane.leftAnchor="538.0" />
+      <ImageView fitHeight="21.0" fitWidth="25.0" layoutX="221.0" layoutY="684.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="221.0">
+         <image>
+            <Image url="@assets/emoji1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="218.0" layoutY="711.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="192.0">
+         <image>
+            <Image url="@assets/emoji4.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="191.0" layoutY="694.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="195.0">
+         <image>
+            <Image url="@assets/emoji3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="21.0" fitWidth="25.0" layoutX="194.0" layoutY="688.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="221.0">
+         <image>
+            <Image url="@assets/emoji2.png" />
+         </image>
+      </ImageView>
+      <Line endX="100.0" layoutX="191.0" layoutY="369.0" rotate="90.0" scaleX="10.0" startX="-100.0" stroke="#efefef" AnchorPane.bottomAnchor="372.5" AnchorPane.leftAnchor="90.5" AnchorPane.rightAnchor="965.5" />
    </children>
 </AnchorPane>

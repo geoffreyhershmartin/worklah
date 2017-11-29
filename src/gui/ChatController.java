@@ -10,6 +10,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import client.Client;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,25 +23,17 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.AnchorPane;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Ellipse;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 /**
  * FXML Controller class
@@ -83,9 +78,11 @@ public class ChatController implements Initializable {
         private DatePicker dateSelector;
         @FXML
         private ImageView conversantImage;
-         @FXML
+        @FXML
         private Ellipse greenCircle;
-
+        @FXML
+        private Button emojiButton;
+        
         
         private Client client;
 
@@ -102,9 +99,13 @@ public class ChatController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-//                userName.setText(userID);
-	}    
 
+        userName.setText(userID);
+//        chatView.setFont(Font.loadFont("file:resources/fonts/OpenSansEmoji.ttf", 10));
+//        chatView.setFont(Font.loadFont("file:resources/fonts/OpenSansEmoji.ttf", 10));
+
+	}    
+        
 	protected void setClient(Client _client) {
 		client = _client;
 	}
@@ -181,7 +182,7 @@ public class ChatController implements Initializable {
 	}
         
 	@FXML
-	private void sendPressed(MouseEvent event) throws InterruptedException {
+	protected void sendPressed(MouseEvent event) throws InterruptedException {
 		String message = chatBox.getText();
                 if (botCheckBox.isSelected()){
                 Answers sassiAnswer = new Answers();
@@ -271,12 +272,11 @@ public class ChatController implements Initializable {
         void attachButtonPressed(MouseEvent event) {
             System.out.print(userID);
         }
-        
-        
-
+       
 	public void append(String str) {
             String timeStamp;
             timeStamp = new SimpleDateFormat("HH:mm ").format(Calendar.getInstance().getTime());
+                chatView.setFont(Font.loadFont("file:resources/fonts/OpenSansEmoji.ttf", 15));
 		chatView.appendText(timeStamp + " " + str  +  "\n");
 		chatView.selectPositionCaret(chatView.getText().length()-1);
 		chatView2.appendText("\n");
@@ -287,6 +287,7 @@ public class ChatController implements Initializable {
             String timeStamp;
             timeStamp = new SimpleDateFormat("HH:m"
                     + "m ").format(Calendar.getInstance().getTime());
+                chatView2.setFont(Font.loadFont("file:resources/fonts/OpenSansEmoji.ttf", 15));
 		chatView2.appendText(str + " " + timeStamp+ "\n");
 		chatView2.selectPositionCaret(chatView2.getText().length()-1);
 		chatView.appendText("\n");
