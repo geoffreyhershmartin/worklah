@@ -73,30 +73,30 @@ public class ChatController implements Initializable {
 	private ImageView sendButton;
 	@FXML
 	private TextField chatBox;
-    @FXML
-    private Button sendButton2;
-    @FXML
-    private Button newChat;
-    @FXML
-    private CheckBox botCheckBox;
-    @FXML
-    private Hyperlink logOut;
-    @FXML
-    private Component attachButton2;
-    @FXML
-    private ImageView attachButton;
-    @FXML
-    private TextField conversantName;
-    @FXML
-    private TextField userName;
-    @FXML
-    private ImageView newChatIcon;
-    @FXML
-    private DatePicker dateSelector;
-    @FXML
-    private ImageView conversantImage;
-     @FXML
-    private Ellipse greenCircle;
+	@FXML
+	private Button sendButton2;
+	@FXML
+	private Button newChat;
+	@FXML
+	private CheckBox botCheckBox;
+	@FXML
+	private Hyperlink logOut;
+	@FXML
+	private Component attachButton2;
+	@FXML
+	private ImageView attachButton;
+	@FXML
+	private TextField conversantName;
+	@FXML
+	private TextField userName;
+	@FXML
+	private ImageView newChatIcon;
+	@FXML
+	private DatePicker dateSelector;
+	@FXML
+	private ImageView conversantImage;
+	@FXML
+	private Ellipse greenCircle;
 
         
         private Client client;
@@ -126,28 +126,28 @@ public class ChatController implements Initializable {
 	protected void setClient(Client _client) {
 		client = _client;
 	}
+	
         protected void setUserID(String _userID) {
-                userName.setText(_userID);
-                
+                userName.setText(_userID);     
 	}
 
 	@FXML
 	private void userClicked(MouseEvent event) {
-			String newConversation = userList.getSelectionModel().getSelectedItem();
-			if (newConversation.equals(this.currentConversation)) {
-				return;
+		String newConversation = userList.getSelectionModel().getSelectedItem();
+		if (newConversation.equals(this.currentConversation)) {
+			return;
+		}	
+		conversantName.setText(userList.getSelectionModel().getSelectedItem());
+		chatView.setText("");
+		chatView2.setText("");
+		for (ArrayList <String> conversation : this.conversations) {
+			if (newConversation.equals(String.join(", ", conversation))) {
+			client.updateGroup(conversation);
 			}
-            conversantName.setText(userList.getSelectionModel().getSelectedItem());
-            chatView.setText("");
-            chatView2.setText("");
-            for (ArrayList <String> conversation : this.conversations) {
-            		if (newConversation.equals(String.join(", ", conversation))) {
-                        client.updateGroup(conversation);
-            		}
-            }
-            currentConversation = newConversation;
-            conversantImage.setVisible(true);
-            greenCircle.setVisible(true);
+		}
+		currentConversation = newConversation;
+		conversantImage.setVisible(true);
+		greenCircle.setVisible(true);
 	}
 
 	@FXML
@@ -156,49 +156,43 @@ public class ChatController implements Initializable {
             String theTask= taskList.getItems().get(selectedIndex);
             taskList.getSelectionModel().clearSelection();
             taskList.getItems().remove(theTask);
-//            taskList.getItems().remove(selectedIndex+1);
+//          taskList.getItems().remove(selectedIndex+1);
 	}
         
 	@FXML
 	private void taskClicked(MouseEvent event) {
-            
+     
 	}
         
         @FXML
         void newChatPressed(MouseEvent event) throws IOException {
-                
-	
 		stage = new Stage();
 
-
 		FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("Popup.fxml"));     
+		fxmlLoader.setLocation(getClass().getResource("Popup.fxml"));     
 		AnchorPane frame = fxmlLoader.load();          
 		PopupController controller = (PopupController)fxmlLoader.getController();
-                controller.primaryUserList = userList;
-                controller.setClient(this.client);
-		
-    		client.getOnlineUsers();
+		controller.primaryUserList = userList;
+		controller.setClient(this.client);
 
-                scene = new Scene(frame); 
+		client.getOnlineUsers();
+
+		scene = new Scene(frame); 
 		stage.setScene(scene);
 		PopupController popupController;
-                popupController = new PopupController();
+		popupController = new PopupController();
 
-		
 		stage.setMinHeight(400);
 		stage.setMinWidth(400);
-                stage.setMaxHeight(400);
+		stage.setMaxHeight(400);
 		stage.setMaxWidth(400);
-		stage.show();
-                
-		
+		stage.show();	
         }
 
 	@FXML
         void botChecked(MouseEvent event) {
-            chatView.setText("");
-                chatView2.setText("");
+		chatView.setText("");
+		chatView2.setText("");
 //        swarniSwitch = true;
 //        System.out.print("set to true");
         }
@@ -212,166 +206,158 @@ public class ChatController implements Initializable {
 	@FXML
 	private void sendPressed(MouseEvent event) throws InterruptedException {
 		String message = chatBox.getText();
-                if (botCheckBox.isSelected()){
-                Answers sassiAnswer = new Answers();
-                if (message.toLowerCase().contains("why")){
-                    append2(message);
-                    append(sassiAnswer.getWhy());
-                }
-                else if (message.toLowerCase().contains("how")){
-                    append2(message);
-                    append(sassiAnswer.getHow());
-                }
-                else if (message.toLowerCase().contains("what")){
-                    append2(message);
-                    append(sassiAnswer.getWhat());}
-                else {
-                        append2(message);
-                        
-                    append("Nice to meet you, but not too nice.");
-            }
-            }
-            else{
+		if (botCheckBox.isSelected()){
+			
+			Answers sassiAnswer = new Answers();
+			if (message.toLowerCase().contains("why")){
+				append2(message);
+				append(sassiAnswer.getWhy());
+			}
+			else if (message.toLowerCase().contains("how")){
+				append2(message);
+				append(sassiAnswer.getHow());
+			}
+			else if (message.toLowerCase().contains("what")){
+				append2(message);
+				append(sassiAnswer.getWhat());}
+			else {
+				append2(message);
+				append("Nice to meet you, but not too nice.");
+			}
+		}
+		else {
 		String catchPhrase = "@task";
 		if (message.contains(catchPhrase)) {
 			String task = message.replace("@task", "");
 			taskList.getItems().add(task);
-            chatBox.setText("");
-            client.sendTaskToGroup(message);
+			chatBox.setText("");
+			client.sendTaskToGroup(message);
 		}
-		else{
+		else {
 			client.sendMessageToGroup(message);
-                        append2(chatBox.getText());
+			append2(chatBox.getText());
 		}
-
 		chatBox.setText("");
-
-	}
+		}
         }
 
         @FXML
         void dateSelected(ActionEvent event) {
-            int selectedIndex = taskList.getSelectionModel().getSelectedIndex();
-            String theTask = taskList.getSelectionModel().getSelectedItem();
-            String selectedDate = dateSelector.getValue().toString();
-            taskList.getItems().add(selectedIndex, theTask +" due by " + selectedDate );
-            taskList.getItems().remove(selectedIndex+1);
+		int selectedIndex = taskList.getSelectionModel().getSelectedIndex();
+		String theTask = taskList.getSelectionModel().getSelectedItem();
+		String selectedDate = dateSelector.getValue().toString();
+		taskList.getItems().add(selectedIndex, theTask +" due by " + selectedDate );
+		taskList.getItems().remove(selectedIndex+1);
         }
         
 	@FXML
 	private void enterPressedChat(ActionEvent event) throws InterruptedException {
 		String message = chatBox.getText();
-                if (botCheckBox.isSelected()){
-                Answers sassiAnswer = new Answers();
-                if (message.toLowerCase().contains("why")){
-                    append2(message);
-                    append(sassiAnswer.getWhy());
-                }
-                else if (message.toLowerCase().contains("how")){
-                    append2(message);
-                    append(sassiAnswer.getHow());
-                }
-                else if (message.toLowerCase().contains("what")){
-                    append2(message);
-                    append(sassiAnswer.getWhat());}
-                else {
-                        append2(message);
-                        
-                    append("Nice to meet you, but not too nice.");
-            }
-            }
-            else{
-		String catchPhrase = "@task";
-		if (message.contains(catchPhrase)) {
-			String task = message.replace("@task", "");
-			taskList.getItems().add(task);
-            chatBox.setText("");
-            client.sendTaskToGroup(message);
+		if (botCheckBox.isSelected()){
+			Answers sassiAnswer = new Answers();
+			if (message.toLowerCase().contains("why")){
+				append2(message);
+				append(sassiAnswer.getWhy());
+				}
+			else if (message.toLowerCase().contains("how")){
+				append2(message);
+				append(sassiAnswer.getHow());
+			}
+			else if (message.toLowerCase().contains("what")){
+				append2(message);
+				append(sassiAnswer.getWhat());}
+			else {
+				append2(message);
+				append("Nice to meet you, but not too nice.");
+			}
 		}
-		else{
-			client.sendMessageToGroup(message);
-                        append2(chatBox.getText());
+		else {
+			String catchPhrase = "@task";
+			if (message.contains(catchPhrase)) {
+				String task = message.replace("@task", "");
+				taskList.getItems().add(task);
+				chatBox.setText("");
+				client.sendTaskToGroup(message);
+			}
+			else{
+				client.sendMessageToGroup(message);
+				append2(chatBox.getText());
 		}
 
 		chatBox.setText("");
 
-        }
-        }
-        @FXML
-        void attachButtonPressed(MouseEvent event) {
-            System.out.print(userID);
-        }
-        
-        
-
-	public void append(String str) {
-            String timeStamp;
-            timeStamp = new SimpleDateFormat("HH:mm ").format(Calendar.getInstance().getTime());
-			chatView.appendText(timeStamp + " " + str  +  "\n");
-			chatView.selectPositionCaret(chatView.getText().length()-1);
-			chatView2.appendText("\n");
-			chatView2.selectPositionCaret(chatView2.getText().length()-1);
-            chatBox.setText("");
+		}
 	}
 	
+        @FXML
+	void attachButtonPressed(MouseEvent event) {
+		System.out.print(userID);
+	}
+		
+	public void append(String str) {
+		String timeStamp;
+		timeStamp = new SimpleDateFormat("HH:mm ").format(Calendar.getInstance().getTime());
+		chatView.appendText(timeStamp + " " + str  +  "\n");
+		chatView.selectPositionCaret(chatView.getText().length()-1);
+		chatView2.appendText("\n");
+		chatView2.selectPositionCaret(chatView2.getText().length()-1);
+		chatBox.setText("");
+	}
+
 	public void append2(String str) {
-            String timeStamp;
-            timeStamp = new SimpleDateFormat("HH:mm ").format(Calendar.getInstance().getTime());
-			chatView2.appendText(str + " " + timeStamp+ "\n");
-			chatView2.selectPositionCaret(chatView2.getText().length()-1);
-			chatView.appendText("\n");
-			chatView.selectPositionCaret(chatView.getText().length()-1);
-			chatBox.setText("");
+		String timeStamp;
+		timeStamp = new SimpleDateFormat("HH:mm ").format(Calendar.getInstance().getTime());
+		chatView2.appendText(str + " " + timeStamp+ "\n");
+		chatView2.selectPositionCaret(chatView2.getText().length()-1);
+		chatView.appendText("\n");
+		chatView.selectPositionCaret(chatView.getText().length()-1);
+		chatBox.setText("");
 	}
 
 //	public void setID(String _userID){
 //		this.searchTask.setText(_userID);
 //	}
-        public void populateUserList(String _user){
-            if(userList.getItems().contains(_user)){
-            String notification = _user;
-            userList.getItems().remove(_user);
-            userList.getItems().add(_user);
-            }
-            else{
-            userList.getItems().add(_user);
-        }
-        }
+	public void populateUserList(String _user){
+		if(userList.getItems().contains(_user)){
+			String notification = _user;
+			userList.getItems().remove(_user);
+			userList.getItems().add(_user);
+		}
+		else{
+			userList.getItems().add(_user);
+		}
+	}
         
         private void attachButtonIsPressed(ActionEvent event) {
-        	JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setMultiSelectionEnabled(true);
-            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            int result = fileChooser.showDialog(attachButton2, "Select File");
-            if(result == JFileChooser.APPROVE_OPTION) {
-            	 File file = fileChooser.getSelectedFile();
-            }
-        }
-            	// textField.setText(file.getAbsolutePath());
-            	 
-            	 //Thread th = new Thread(download);
-            	 //th.start();
-            	 //client.sendMessageToGroup(new Message("upload", message.sender);());
-            
-            
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setMultiSelectionEnabled(true);
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		int result = fileChooser.showDialog(attachButton2, "Select File");
+
+		if(result == JFileChooser.APPROVE_OPTION) {
+			File file = fileChooser.getSelectedFile();
+			//textField.setText(file.getAbsolutePath());
+			//Thread th = new Thread(download);
+			//th.start();
+			//client.sendMessageToGroup(new Message("upload", message.sender);());
+		}
+	}
+
+	public void populateTaskList(String _task){
+		taskList.getItems().add(_task);
+	}
         
-  
+	public void activeGroups (ArrayList<ArrayList<String>> conversations){
+		this.conversations = conversations;
+		for (ArrayList<String> group:conversations){
+			populateUserList(String.join(", ", group));
+		}
+	}
         
-        public void populateTaskList(String _task){
-            taskList.getItems().add(_task);
-        }
-        
-        public void activeGroups (ArrayList<ArrayList<String>> conversations){
-            this.conversations = conversations;
-            for (ArrayList<String> group:conversations){
-                populateUserList(String.join(", ", group));
-            }
-        }
-        
-        public void addConversation(ArrayList <String> conversation) {
-        		conversations.add(conversation);
-        		populateUserList(String.join(", ", conversation));
-        }
+	public void addConversation(ArrayList <String> conversation) {
+		conversations.add(conversation);
+		populateUserList(String.join(", ", conversation));
+	}
 
 
 //        public void redirectHome(Stage stage, String name) {
@@ -380,19 +366,22 @@ public class ChatController implements Initializable {
 //            stage.hide();
 //            stage.show();
 //        }
+	
 	void connectionFailed() {
-		//        boolean connected = false;
+		// boolean connected = false;
 	}
-        public void loadHistory (ArrayList<String> string){
-            int size = string.size();
-            for (int i = 0; i<size;i++){
-                if(string.get(i).contains(userID)){
-                    append2(string.get(i));
-                } else{
-                    append(string.get(i));
-                }
-            }
-        }
+	
+	
+	public void loadHistory (ArrayList<String> string){
+		int size = string.size();
+		for (int i = 0; i<size;i++){
+			if(string.get(i).contains(userID)){
+				append2(string.get(i));
+			} else {
+				append(string.get(i));
+			}
+		}
+	}
         
 //        public void loadHistory(ArrayList<String>){
 //            
