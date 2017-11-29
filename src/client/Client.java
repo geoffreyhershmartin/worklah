@@ -23,12 +23,14 @@ public class Client extends Thread {
 	private ChatController guiController;
 	private PopupController popupController;
 	private String username;
+	private String password;
 
-	public Client(String ip, int p, ChatController _guiController, String _username) throws ClassNotFoundException {
+	public Client(String ip, int p, ChatController _guiController, String _username, String _password) throws ClassNotFoundException {
 		this.ip = ip;
 		this.port = p;
 		this.guiController = _guiController;
 		this.username = _username;
+		this.password = _password;
 		this.popupController = null;
 		try {
 			this.connection = new Socket(this.ip, port);
@@ -45,7 +47,7 @@ public class Client extends Thread {
 	}
 
 	public void setUser(String _username) {
-		Message setUser = new Message("setUser", this.username, _username, "");
+		Message setUser = new Message("setUser", this.username, this.password, "");
 		send(setUser);
 	}
 
@@ -67,6 +69,11 @@ public class Client extends Thread {
 	
 	public void getOnlineUsers() {
 		Message newMessage = new Message("getUsers", this.username, "", "");
+		send(newMessage);
+	}
+	
+	public void goOffline() {
+		Message newMessage = new Message("goOffline", this.username, "", "");
 		send(newMessage);
 	}
 	
@@ -123,7 +130,7 @@ public class Client extends Thread {
 	}
 	
 	public void notifyUser(Message message) {
-		// TODO append user list of users to chat bar and notify
+		guiController.populateUserList(message.group);
 	}
 
 	public void displayMessage(String message) {
