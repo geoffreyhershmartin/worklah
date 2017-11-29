@@ -47,33 +47,33 @@ public class Client extends Thread {
 	}
 
 	public void setUser(String _username) {
-		Message setUser = new Message("setUser", this.username, this.password, "");
+		Message setUser = new Message("setUser", this.username, this.password);
 		send(setUser);
 	}
 
 	public void updateGroup(ArrayList <String> newGroup) {
-		Message updateGroup = new Message("updateGroup", this.username, String.join(",", newGroup), "");
-		updateGroup.userList = newGroup;
+		Message updateGroup = new Message("updateGroup", this.username, null);
+		updateGroup.content = newGroup;
 		send(updateGroup);
 	}
 
 	public void sendMessageToGroup(String message) {
-		Message newMessage = new Message("message", this.username, message, "");
+		Message newMessage = new Message("message", this.username, message);
 		send(newMessage);
 	}
 
 	public void sendTaskToGroup(String task) {
-		Message newMessage = new Message("task", this.username, task, "");
+		Message newMessage = new Message("task", this.username, task);
 		send(newMessage);
 	}
 	
 	public void getOnlineUsers() {
-		Message newMessage = new Message("getUsers", this.username, "", "");
+		Message newMessage = new Message("getUsers", this.username, null);
 		send(newMessage);
 	}
 	
 	public void goOffline() {
-		Message newMessage = new Message("goOffline", this.username, "", "");
+		Message newMessage = new Message("goOffline", this.username, null);
 		send(newMessage);
 	}
 	
@@ -99,20 +99,25 @@ public class Client extends Thread {
 				Message message = (Message) in.readObject();
 				System.out.println(message);
 				if (message.type.equals("message")) {
-					this.displayMessage("[" + message.sender + "] : " + message.content + "\n");
+					this.displayMessage("[" + message.sender + "] : " + (String) message.content + "\n");
 				} else if (message.type.equals("task")) {
-					guiController.taskList.getItems().add("[" + message.sender + " > Me] : " + message.content + "\n");
+					guiController.taskList.getItems().add("[" + message.sender + " > Me] : " + (String) message.content + "\n");
 				} else if (message.type.equals("userList")) {
-					for (String _username : message.userList) {
+					ArrayList <String> userList = (ArrayList <String>) message.content;
+					for (String _username : userList) {
 						this.popupController.addUserElement(_username);
 					}
 				} else if (message.type.equals("chatHistory")) {
-					// TODO PRINT CHAT HISTORY
+					ArrayList <Message> chatHistory = (ArrayList <Message>) message.content;
+					guiController.loadHistory(chatHistory);
 				} else if (message.type.equals("loadUserData")) {
-					for (Group group : message.groups) {
-						guiController.populateUserList(group.groupName);
+					ArrayList <Object> userData = ((ArrayList <Object>) message.content);
+					ArrayList <Group> groupList = (ArrayList<Group>) userData.get(0);
+					ArrayList <Task> taskList = (ArrayList<Task>) userData.get(1);
+					for (Group group : groupList) {
+						guiController.populateUserList(String.join(",", group.groupMemberNames));
 					}
-					for (Task task : message.taskList) {
+					for (Task task : taskList) {
 						guiController.populateTaskList(task.task + " due by " + task.deadline.toString());
 					}
 				} else if (message.type.equals("notifyUser")) {
@@ -130,7 +135,7 @@ public class Client extends Thread {
 	}
 	
 	public void notifyUser(Message message) {
-		guiController.populateUserList(message.group);
+		guiController.populateUserList(String.join(",", message.group));
 	}
 
 	public void displayMessage(String message) {
