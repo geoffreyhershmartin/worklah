@@ -1,6 +1,5 @@
 package client;
 
-import gui.GuiStart;
 import messages.Message;
 
 import java.io.*;
@@ -25,20 +24,41 @@ import gui.ChatController;
  *              	}
  *              }
  *			});
-             
-        	openMultipleButton.setOnAction(
-            new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(final ActionEvent e) {
-                    List<File> list =
-                        fileChooser.showOpenMultipleDialog(stage);
-                    if (list != null) {
-                        for (File file : list) {
-                            openFile(file);
-                        }
-                    }
-                }
-            });
+ *            
+ *      	openMultipleButton.setOnAction(
+ *           new EventHandler<ActionEvent>() {
+ *               @Override
+ *               public void handle(final ActionEvent e) {
+ *                  List<File> list =
+ *                      fileChooser.showOpenMultipleDialog(stage);
+ *                   if (list != null) {
+ *                       for (File file : list) {
+ *                           openFile(file);
+ *                       }
+ *                   }
+ *               }
+ *          });
+ * 
+ * 
+ *	   For the Attachment to work with ClientThread
+ *	    
+ *	    
+ *	    if(message.type.equals("upload")){
+ *                
+ *                JFileChooser fileChooser = new JFileChooser();
+ *                fileChooser.setSelectedFile(new File(msg.content));
+ *                int returnVal = jfileChooser.showSaveDialog(gui);
+ *               
+ *                String saveTo = fileChooser.getSelectedFile().getPath();
+ *               if(saveTo != null && returnVal == JFileChooser.APPROVE_OPTION){
+ *                   Download download = new Download(saveTo, gui);
+ *                  Thread t = new Thread(download);
+ *                 t.start();
+ *                send(new Message("upload", message.sender));
+ *           }
+ *        
+ *      }
+
  * 
  */
 
