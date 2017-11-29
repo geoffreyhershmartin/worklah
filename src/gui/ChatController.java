@@ -183,16 +183,42 @@ public class ChatController implements Initializable {
                 stage.setMaxHeight(400);
 		stage.setMaxWidth(400);
 		stage.show();
-                
+                }
+        @FXML
+        void emoji1selected(MouseEvent event) {
+            String message="\u2615";
+            client.sendMessageToGroup(message);
+            append2(message);
+                }
+            
+        @FXML
+        void emoji2selected(MouseEvent event) {
+            String message="\u263A";
+            client.sendMessageToGroup(message);
+            append2(message);
+                }
+
+        @FXML
+        void emoji3selected(MouseEvent event) {
+            String message="\u26C7";
+            client.sendMessageToGroup(message);
+            append2(message);
+                }
+
+        @FXML
+        void emoji4selected(MouseEvent event) {
+            String message="\u2639";
+            client.sendMessageToGroup(message);
+            append2(message);
+            append
+                }        
 		
-        }
+        
 
 	@FXML
         void botChecked(MouseEvent event) {
             chatView.setText("");
                 chatView2.setText("");
-//        swarniSwitch = true;
-//        System.out.print("set to true");
         }
 
 	

@@ -123,22 +123,22 @@
       <HBox layoutX="190.0" layoutY="673.0" />
       <HBox layoutX="371.0" layoutY="460.0" prefHeight="36.0" prefWidth="112.0" />
       <HBox layoutX="538.0" layoutY="374.0" prefHeight="34.0" prefWidth="114.0" AnchorPane.bottomAnchor="334.0" AnchorPane.leftAnchor="538.0" />
-      <ImageView fitHeight="21.0" fitWidth="25.0" layoutX="221.0" layoutY="684.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="221.0">
+      <ImageView fitHeight="21.0" fitWidth="25.0" layoutX="221.0" layoutY="684.0" onMouseClicked="#emoji2selected" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="221.0">
          <image>
             <Image url="@assets/emoji1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="218.0" layoutY="711.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="192.0">
+      <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="218.0" layoutY="711.0" onMouseClicked="#emoji3selected" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="192.0">
          <image>
             <Image url="@assets/emoji4.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="191.0" layoutY="694.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="195.0">
+      <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="191.0" layoutY="694.0" onMouseClicked="#emoji1selected" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="195.0">
          <image>
             <Image url="@assets/emoji3.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="21.0" fitWidth="25.0" layoutX="194.0" layoutY="688.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="221.0">
+      <ImageView fitHeight="21.0" fitWidth="25.0" layoutX="194.0" layoutY="688.0" onMouseClicked="#emoji2selected" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="221.0">
          <image>
             <Image url="@assets/emoji2.png" />
          </image>
