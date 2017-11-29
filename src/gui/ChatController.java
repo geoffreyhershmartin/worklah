@@ -37,6 +37,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import swarnibot.Answers;
 /**
  * FXML Controller class
  *
@@ -209,20 +210,19 @@ public class ChatController implements Initializable {
 	private void enterPressedChat(ActionEvent event) throws InterruptedException {
 		String message = chatBox.getText();
                 if (botCheckBox.isSelected()){
-                
+                Answers answer = new Answers();
                 if (message.contains("why")){
                     append2(message);
-                    TimeUnit.SECONDS.sleep(1);
-                    append("Because you fell as a child");
+                    append(answer.getWhy());
                 }
                 else if (message.contains("how")){
                     append2(message);
-                    TimeUnit.SECONDS.sleep(1);
-                    append("How would I know? Aren't you the 'smarter' one, human?");}
-                else if (message.contains("who")){
+                    append(answer.getHow());
+                }
+                else if (message.contains("what")){
                     append2(message);
-                    TimeUnit.SECONDS.sleep(1);
-                    append("Yo Mama!");}
+                    append("Yo Mama!");
+                    append(answer.getHow());}
             }
             else{
 		String catchPhrase = "@task";
