@@ -8,6 +8,11 @@ import groups.Group;
 import java.util.ArrayList;
 import java.io.*;
 
+/* 
+ By extending Thread, each newly spawned thread is instantiated as as a unique object associated. 
+ We decided against implementing Runnable, because if we had done so, many threads could share the same object instance. 
+*/
+
 public class ClientThread extends Thread {
 
 	private Socket client;
@@ -15,7 +20,13 @@ public class ClientThread extends Thread {
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	private User user;
-
+		
+	/* Note: Should we change these to buffered input/output streams to be more efficient?
+	 * If we implement Buffered I/O streams,this will optimize input and output 
+	 * by reducing the number of calls to the native API.
+	 */
+	
+	// constructor
 	public ClientThread(Socket c, Server server) {
 		this.server = server;
 		this.client = c;
@@ -120,6 +131,10 @@ public class ClientThread extends Thread {
 		loadUserData.content = userData;
 		send(loadUserData, this);
 	}
+	
+	/* 
+	* Not quite sure why we have separate run() and read() methods.
+	*/
 
 	@Override
 	public void run() {
@@ -135,6 +150,16 @@ public class ClientThread extends Thread {
 		};
 		reading.start();
 	}
+	
+	/*
+	* To make this safer code, I suggest that we use finally to close the output stream, 
+	* so that we still terminate the thread even if the thread is forcibly stopped.
+	* Right now, our code only appears to be handling the case when an IOException occurs.
+	
+	* Related: In the GUI, we do not close the screen immediately.
+	* This is a design choice: a user may not want to close the app completely just because they have lost connection to it.
+	* That is, users going in lifts, or through tunnels.
+	*/
 
 	public void read() throws IOException {
 		while (true) {
