@@ -33,14 +33,6 @@ public class Message implements Serializable {
 		this.content = _userList;
 	}
 	
-	public void setTaskList(ArrayList <Task> _taskList) {
-		this.content = _taskList;
-	}
-	
-	public void setUserChatHistory(ArrayList <Message> _chatHistory) {
-		this.content = _chatHistory;
-	}
-	
 	public void setUserGroups(ArrayList <Group> _groups) {
 		this.content = _groups;
 	}

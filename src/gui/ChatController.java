@@ -95,7 +95,7 @@ public class ChatController implements Initializable {
         private Scene scene;
         private Stage stage;
         private boolean sassiSwitch;
-        ArrayList<ArrayList<String>> conversations;
+        public ArrayList<ArrayList<String>> conversations;
         String currentConversation;
         
 	/**
@@ -133,7 +133,7 @@ public class ChatController implements Initializable {
                         client.updateGroup(conversation);
             		}
             }
-            currentConversation = newConversation;
+            this.currentConversation = newConversation;
             conversantImage.setVisible(true);
             greenCircle.setVisible(true);
 	}
@@ -194,6 +194,7 @@ public class ChatController implements Initializable {
 	
 	@FXML
 	void logoutPressed(ActionEvent event) {
+		client.goOffline();
 		System.exit(0);
 	}
         
@@ -220,12 +221,13 @@ public class ChatController implements Initializable {
             }
             }
             else{
-		String catchPhrase = "@task";
+		String catchPhrase = "@task ";
 		if (message.contains(catchPhrase)) {
-			String task = message.replace("@task", "");
-			taskList.getItems().add(task);
+			String task = message.replace("@task ", "");
+			String arr[] = task.split(" ", 2);
+			taskList.getItems().add("@" + arr[0] + ": " + arr[1] + "\n");
             chatBox.setText("");
-            client.sendTaskToGroup(message);
+            client.sendTaskToGroup(arr[1], arr[0]);
 		}
 		else{
 			client.sendMessageToGroup(message);
@@ -268,12 +270,13 @@ public class ChatController implements Initializable {
             }
             }
             else{
-		String catchPhrase = "@task";
+		String catchPhrase = "@task ";
 		if (message.contains(catchPhrase)) {
-			String task = message.replace("@task", "");
-			taskList.getItems().add(task);
+			String task = message.replace("@task ", "");
+			String arr[] = task.split(" ", 2);
+			taskList.getItems().add("@" + arr[0] + ": " + arr[1] + "\n");
             chatBox.setText("");
-            client.sendTaskToGroup(message);
+            client.sendTaskToGroup(arr[1], arr[0]);
 		}
 		else{
 			client.sendMessageToGroup(message);
@@ -315,14 +318,17 @@ public class ChatController implements Initializable {
 //		this.searchTask.setText(_userID);
 //	}
         public void populateUserList(String _user){
+        	try {
             if(userList.getItems().contains(_user)){
-            String notification = _user;
-            userList.getItems().remove(_user);
-            userList.getItems().add(_user);
+                userList.getItems().remove(_user);
+                userList.getItems().add(_user);
+                }
+                else{
+                userList.getItems().add(_user);
             }
-            else{
-            userList.getItems().add(_user);
-        }
+        	} catch (IllegalStateException e) {
+        		return;
+        	}
         }
         
         public void populateTaskList(String _task){

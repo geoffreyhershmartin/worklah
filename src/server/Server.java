@@ -20,8 +20,7 @@ public class Server
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
+	} 
 	public void acceptClientLoop() {
 		groups = new ArrayList <Group>();
 		clients = new ArrayList <ClientThread>();

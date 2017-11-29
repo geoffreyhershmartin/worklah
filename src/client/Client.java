@@ -53,6 +53,7 @@ public class Client extends Thread {
 
 	public void updateGroup(ArrayList <String> newGroup) {
 		Message updateGroup = new Message("updateGroup", this.username, null);
+		System.out.println("GROUP UPDATED TO:" +  newGroup);
 		updateGroup.content = newGroup;
 		send(updateGroup);
 	}
@@ -62,8 +63,9 @@ public class Client extends Thread {
 		send(newMessage);
 	}
 
-	public void sendTaskToGroup(String task) {
+	public void sendTaskToGroup(String task, String recipient) {
 		Message newMessage = new Message("task", this.username, task);
+		newMessage.content = recipient;
 		send(newMessage);
 	}
 	
@@ -75,6 +77,7 @@ public class Client extends Thread {
 	public void goOffline() {
 		Message newMessage = new Message("goOffline", this.username, null);
 		send(newMessage);
+		closeConnection();
 	}
 	
 	@Override
@@ -97,40 +100,50 @@ public class Client extends Thread {
 		while (true) {
 			try {
 				Message message = (Message) in.readObject();
-				System.out.println(message);
 				if (message.type.equals("message")) {
 					this.displayMessage("[" + message.sender + "] : " + (String) message.content + "\n");
 				} else if (message.type.equals("task")) {
-					guiController.taskList.getItems().add("[" + message.sender + " > Me] : " + (String) message.content + "\n");
+					Task newTask = (Task) message.content;
+					if (newTask.deadline.equals("")) {
+						guiController.taskList.getItems().add("@" + newTask.user + ": " + newTask.task + "\n");
+					} else {
+						guiController.taskList.getItems().add("@" + newTask.user + ": " + newTask.task + " due by " + newTask.deadline.toString() + "\n");
+					}
 				} else if (message.type.equals("userList")) {
 					ArrayList <String> userList = (ArrayList <String>) message.content;
 					for (String _username : userList) {
 						this.popupController.addUserElement(_username);
 					}
-				} else if (message.type.equals("chatHistory")) {
-					ArrayList <Message> chatHistory = (ArrayList <Message>) message.content;
+				} else if (message.type.equals("updateGroup")) {
+					System.out.println(message);
+					ArrayList <Task> taskList = ((Group) message.content).tasks;
+					ArrayList <Message> chatHistory = ((Group) message.content).chatHistory;
 					this.loadHistory(chatHistory);
-				} else if (message.type.equals("loadUserData")) {
-					ArrayList <Object> userData = ((ArrayList <Object>) message.content);
-					ArrayList <Group> groupList = (ArrayList<Group>) userData.get(0);
-					ArrayList <Task> taskList = (ArrayList<Task>) userData.get(1);					
+					this.loadTaskList(taskList);
+				} else if (message.type.equals("loadUserGroups")) {
+					ArrayList <Group> groupList = ((ArrayList <Group>) message.content);
 					for (Group group : groupList) {
 						group.groupMemberNames.remove(this.username);
 						guiController.addConversation(group.groupMemberNames);
-					}
-					for (Task task : taskList) {
-						guiController.populateTaskList(task.task + " due by " + task.deadline.toString());
 					}
 				} else if (message.type.equals("notifyUser")) {
 					this.notifyUser(message);
 				}
 			}
 			catch (Exception e) {
-				System.out.println("Connection Failure");
 				this.closeConnection();
-				System.out.println("Exception Client sendToServer()");
-				e.printStackTrace();
 				break;
+			}
+		}
+	}
+	
+	public void loadTaskList(ArrayList <Task> taskList) {
+		for (Task newTask : taskList) {
+			if (newTask.deadline.equals("")) {
+				guiController.populateTaskList("@" + newTask.user + ": " + newTask.task + "\n");
+
+			} else {
+				guiController.populateTaskList("@" + newTask.user + ": " + newTask.task + " due by " + newTask.deadline.toString() + "\n");
 			}
 		}
 	}
@@ -143,6 +156,10 @@ public class Client extends Thread {
 				guiController.append((String) message.content);
 			}
 		}
+	}
+	
+	public void addConversation(ArrayList <String> newConversation) {
+		guiController.addConversation(newConversation);
 	}
 	
 	public void notifyUser(Message message) {
@@ -161,7 +178,6 @@ public class Client extends Thread {
 	public void send(Message message) {
 		synchronized (this) {
 			try {
-				System.out.println(message);
 				out.writeObject(message);
 				out.flush();
 			} 
@@ -173,8 +189,10 @@ public class Client extends Thread {
 	}
 
 	public void closeConnection() {
+		System.out.println("Client Disconnecting!");
 		try {
-			this.connection.close();
+			this.out.close();
+			this.in.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

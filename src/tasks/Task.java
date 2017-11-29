@@ -1,21 +1,22 @@
 package tasks;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.Serializable;
 
-public class Task {
+public class Task implements Serializable {
 	
+	private static final long serialVersionUID = -254108039420780039L;
+	
+	public String user;
 	public String task;
-	public Date deadline;
+	public String deadline;
 	
-	public Task(String task) {
-		this.task = task;
+	public Task(String _task, String _user) {
+		this.task = _task;
+		this.user = _user;
+		this.deadline = "";
 	}
 	
-	public void setDeadline(String deadline) throws ParseException {
-		DateFormat myDateFormat = new SimpleDateFormat("MM/dd/yyyy"); 
-		this.deadline = myDateFormat.parse(deadline);
+	public void setDeadline(String _deadline) {
+		this.deadline = _deadline;
 	}
 }

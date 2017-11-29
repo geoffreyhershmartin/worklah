@@ -41,16 +41,9 @@ public class ClientThread extends Thread {
 
 	private void handleTask(Message message) throws IOException {
 		String recipient = (String) message.content;
-		if (recipient.equals(this.user.username)) {
-			Task newTask = new Task((String) message.content);
-			this.user.tasks.add(newTask);
-			return;
-		}
-		for (User user : this.user.getGroupMembers()) {
-			if (recipient.equals(user.username)) {
-				send(message, user.getClientThread());
-			}
-		} 
+		Task newTask = new Task((String) message.content, recipient);
+		this.user.currentGroup.tasks.add(newTask);
+		send(message, user.getClientThread());
 	}
 	
 	public void sendUsers() {
@@ -80,13 +73,12 @@ public class ClientThread extends Thread {
 	
 	private void updateGroup(Message message) {
 		ArrayList <String> userList = (ArrayList <String>) message.content;
-		userList.add(this.user.username);
-		System.out.println(this.server.groups);
+		if (!userList.contains(this.user.username)) {
+			userList.add(this.user.username);
+		}
 		boolean newGroupCreated = true;
 		for (Group g : this.server.groups) {
-			System.out.println(g.groupMemberNames);
 			if (g.checkMembers(userList)) {
-				System.out.println("GROUP UPDATED");
 				this.user.currentGroup = g;
 				newGroupCreated = false;
 			}
@@ -97,15 +89,14 @@ public class ClientThread extends Thread {
 				newGroup.addUser(getUser(user));
 			}
 			newGroup.updateGroupName();
-			System.out.println(newGroup.groupMemberNames);
 			this.user.currentGroup = newGroup;
 			this.user.allGroups.add(newGroup);
 			this.server.groups.add(newGroup);
-			System.out.println(this.server.groups);
+			System.out.println("NEW GROUP: " + newGroup.groupMemberNames);
 		}
-		Message chatHistory = new Message("chatHistory", null, null);
-		chatHistory.setUserChatHistory(this.user.currentGroup.chatHistory);
-		send(chatHistory, this);
+		Message updateGroup = new Message("updateGroup", null, null);
+		updateGroup.content = this.user.currentGroup;
+		send(updateGroup, this);
 	}
 	
 	private User getUser(String _user) {
@@ -122,19 +113,20 @@ public class ClientThread extends Thread {
 			if (message.sender.equals(user.username)) {
 				if (message.content.equals(user.password)) {
 					this.user = user;
-					user.goOnline(this);
+					this.user.goOnline(this);
+					Message loadUserGroups = new Message("loadUserGroups", null, null);
+					loadUserGroups.content = this.user.allGroups;
+					send(loadUserGroups, this);
 					return;
 				}
 			}
 		}
 		this.user = new User(message.sender, (String) message.content, this);
 		server.users.add(this.user);
-		Message loadUserData = new Message("loadUserData", null, null);
-		ArrayList <Object> userData = new ArrayList <Object>();
-		userData.add(user.allGroups);
-		userData.add(user.tasks);
-		loadUserData.content = userData;
-		send(loadUserData, this);
+		Message loadUserGroups = new Message("loadUserGroups", null, null);
+		ArrayList <Group> groupList = new ArrayList <Group>();
+		loadUserGroups.content = groupList;
+		send(loadUserGroups, this);
 	}
 	
 	/* 
@@ -182,16 +174,12 @@ public class ClientThread extends Thread {
 				} else if (message.type.equals("getUsers")) {
 					this.sendUsers();
 				} else if (message.type.equals("message")) {
-					if (message.sender == this.user.username) {
-						this.messageHandler(message);
-					}
+					this.messageHandler(message);
 				} else if (message.type.equals("goOffline")) {
 					this.user.goOffline();
 				}
 			}
 			catch (Exception e) {
-				System.out.println("Connection Failure");
-				e.printStackTrace();
 				try {
 					this.closeConnection();
 				} catch (IOException e1) {
@@ -205,6 +193,7 @@ public class ClientThread extends Thread {
 	
 	public void messageHandler(Message message) throws IOException {
 		this.user.currentGroup.chatHistory.add(message);
+		System.out.println(this.user.currentGroup.chatHistory.get(0));
 		for (User user : this.user.getGroupMembers()) {
 			if (!user.currentGroup.checkMembers(this.user.currentGroup.groupMemberNames)) {
 				user.allGroups.add(this.user.currentGroup);
