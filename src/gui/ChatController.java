@@ -24,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 import javafx.fxml.FXMLLoader;
@@ -74,6 +75,8 @@ public class ChatController implements Initializable {
         @FXML
         private TextField conversantName;
         @FXML
+        private TextField userName;
+        @FXML
         private ImageView newChatIcon;
         @FXML
         private DatePicker dateSelector;
@@ -93,11 +96,16 @@ public class ChatController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-
+//                userName.setText(userID);
 	}    
 
 	protected void setClient(Client _client) {
 		client = _client;
+	}
+        protected void setUserID(String _userID) {
+		userID = _userID;
+                userName.setText(userID);
+                
 	}
 
 	@FXML
@@ -243,7 +251,7 @@ public class ChatController implements Initializable {
         }
         @FXML
         void attachButtonPressed(MouseEvent event) {
-
+            System.out.print(userID);
         }
         
         
@@ -279,7 +287,7 @@ public class ChatController implements Initializable {
             userList.getItems().add(_user);
         }
         
-         public void populateTaskList(String _task){
+        public void populateTaskList(String _task){
             taskList.getItems().add(_task);
         }
 
@@ -293,4 +301,8 @@ public class ChatController implements Initializable {
 	void connectionFailed() {
 		//        boolean connected = false;
 	}
+        
+//        public void loadHistory(ArrayList<String>){
+//            
+//        }
 }

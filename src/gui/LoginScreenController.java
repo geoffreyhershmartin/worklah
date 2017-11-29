@@ -45,6 +45,7 @@ public class LoginScreenController implements Initializable {
         private Stage stage;
         private Scene scene;
         private ChatController chatController;
+        public TextField primaryUserName;
 	Stage prevStage;
 	/**
 	 * Initializes the controller class.
@@ -74,6 +75,10 @@ public class LoginScreenController implements Initializable {
 		client.start();
 
 		controller.setClient(client);
+//                controller.userName=primaryUserName;
+                controller.setUserID(userID);
+//                primaryUserName.setText(userID);
+                
 		scene = new Scene(root); 
 		stage.setScene(scene);
 		chatController = new ChatController();
