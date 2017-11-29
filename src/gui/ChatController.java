@@ -87,7 +87,7 @@ public class ChatController implements Initializable {
 	Stage prevStage;
         private Scene scene;
         private Stage stage;
-        private boolean swarniSwitch;
+        private boolean sassySwitch;
         
 	/**
 	 * Initializes the controller class.
@@ -167,6 +167,7 @@ public class ChatController implements Initializable {
 	private void sendPressed(MouseEvent event) throws InterruptedException {
             if (botCheckBox.isSelected()){
                 
+
                 String message = chatBox.getText();
                 if (message.contains("why")){
                     append2(message);
@@ -233,7 +234,7 @@ public class ChatController implements Initializable {
         
         @FXML
         void botSwitchedOn(ActionEvent event) {
-        swarniSwitch = true;
+        sassySwitch = true;
         chatView.setText("");
         chatView2.setText("");
         System.out.print("ON");
