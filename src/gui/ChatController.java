@@ -157,7 +157,7 @@ public class ChatController implements Initializable {
         }
 
 	@FXML
-        void botChecked(ActionEvent event) {
+        void botChecked(MouseEvent event) {
             chatView.setText("");
                 chatView2.setText("");
 //        swarniSwitch = true;
@@ -175,23 +175,23 @@ public class ChatController implements Initializable {
             String message = chatBox.getText();
             if (botCheckBox.isSelected()){
                 
-                if (message.contains("why")){
+                if (message.toLowerCase().contains("why")){
                     append2(message);
                     TimeUnit.SECONDS.sleep(1);
                     append("Because you fell as a child");
                 }
-                else if (message.contains("how")){
+                else if (message.toLowerCase().contains("how")){
                     append2(message);
                     TimeUnit.SECONDS.sleep(1);
                     append("How would I know? Aren't you the 'smarter' one, human?");}
-                else if (message.contains("who")){
+                else if (message.toLowerCase().contains("who")){
                     append2(message);
                     TimeUnit.SECONDS.sleep(1);
                     append("Yo Mama!");}
             }
             else{
 		String catchPhrase = "@task";
-		if (message.contains(catchPhrase)) {
+		if (message.toLowerCase().contains(catchPhrase)) {
 			String task = message.replace("@task", "");
 			taskList.getItems().add(task);
             chatBox.setText("");
@@ -218,19 +218,23 @@ public class ChatController implements Initializable {
 	private void enterPressedChat(ActionEvent event) throws InterruptedException {
 		String message = chatBox.getText();
                 if (botCheckBox.isSelected()){
-                SwarniMain sassiAnswer = new SwarniMain();
-//                if (message.contains("why")){
+                Answers sassiAnswer = new Answers();
+                if (message.toLowerCase().contains("why")){
                     append2(message);
-//                    append(sassiAnswer.getResponse());
-//                }
-//                else if (message.contains("how")){
-//                    append2(message);
-//                    append(sassiAnswer.getHow());
-//                }
-//                else if (message.contains("what")){
-//                    append2(message);
-//                    append("Yo Mama!");
-//                    append(sassiAnswer.getResponse(message));
+                    append(sassiAnswer.getWhy());
+                }
+                else if (message.toLowerCase().contains("how")){
+                    append2(message);
+                    append(sassiAnswer.getHow());
+                }
+                else if (message.toLowerCase().contains("what")){
+                    append2(message);
+                    append(sassiAnswer.getWhat());}
+                else {
+                        append2(message);
+                        
+                    append("Nice to meet you, but not too nice.");
+            }
             }
             else{
 		String catchPhrase = "@task";

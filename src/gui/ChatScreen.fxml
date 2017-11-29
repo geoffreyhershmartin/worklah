@@ -35,7 +35,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </ListView>
-            <CheckBox fx:id="botCheckBox" layoutX="119.0" layoutY="7.0" mnemonicParsing="false" text="BotMode" />
+            <CheckBox fx:id="botCheckBox" layoutX="119.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#botChecked" text="BotMode" />
          </children>
       </AnchorPane>
       <TextArea fx:id="chatView" editable="false" layoutX="190.0" layoutY="57.0" prefHeight="637.0" prefWidth="419.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="49.0" AnchorPane.topAnchor="55.0" />
