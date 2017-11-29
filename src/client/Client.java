@@ -116,7 +116,7 @@ public class Client extends Thread {
 					ArrayList <Task> taskList = (ArrayList<Task>) userData.get(1);					
 					for (Group group : groupList) {
 						group.groupMemberNames.remove(this.username);
-						guiController.populateUserList(String.join(",", group.groupMemberNames));
+						guiController.addConversation(group.groupMemberNames);
 					}
 					for (Task task : taskList) {
 						guiController.populateTaskList(task.task + " due by " + task.deadline.toString());
@@ -147,7 +147,7 @@ public class Client extends Thread {
 	
 	public void notifyUser(Message message) {
 		message.group.remove(this.username);
-		guiController.populateUserList(String.join(",", message.group));
+		guiController.addConversation(message.group);
 	}
 
 	public void displayMessage(String message) {

@@ -91,6 +91,7 @@ public class ChatController implements Initializable {
         private Stage stage;
         private boolean sassiSwitch;
         ArrayList<ArrayList<String>> conversations;
+        String currentConversation;
         
 	/**
 	 * Initializes the controller class.
@@ -99,6 +100,11 @@ public class ChatController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 //                userName.setText(userID);
 	}    
+	
+	protected void initialiseConversations() {
+		this.conversations = new ArrayList<ArrayList<String>>();
+		this.currentConversation = "";
+	}
 
 	protected void setClient(Client _client) {
 		client = _client;
@@ -110,8 +116,19 @@ public class ChatController implements Initializable {
 
 	@FXML
 	private void userClicked(MouseEvent event) {
+			String newConversation = userList.getSelectionModel().getSelectedItem();
+			if (newConversation.equals(this.currentConversation)) {
+				return;
+			}
             conversantName.setText(userList.getSelectionModel().getSelectedItem());
-            client.updateGroup(newGroup);
+            chatView.setText("");
+            chatView2.setText("");
+            for (ArrayList <String> conversation : this.conversations) {
+            		if (newConversation.equals(String.join(", ", conversation))) {
+                        client.updateGroup(conversation);
+            		}
+            }
+            currentConversation = newConversation;
 	}
 
 	@FXML
@@ -294,10 +311,10 @@ public class ChatController implements Initializable {
             if(userList.getItems().contains(_user)){
             String notification = _user;
             userList.getItems().remove(_user);
-            userList.getItems().add(_user+"Read Please!");
+            userList.getItems().add(_user);
             }
             else{
-            userList.getItems().add(_user + "Read Please!");
+            userList.getItems().add(_user);
         }
         }
         
@@ -308,8 +325,13 @@ public class ChatController implements Initializable {
         public void activeGroups (ArrayList<ArrayList<String>> conversations){
             this.conversations = conversations;
             for (ArrayList<String> group:conversations){
-                populateUserList(String.join(",", group));
+                populateUserList(String.join(", ", group));
             }
+        }
+        
+        public void addConversation(ArrayList <String> conversation) {
+        		conversations.add(conversation);
+        		populateUserList(String.join(", ", conversation));
         }
 
 

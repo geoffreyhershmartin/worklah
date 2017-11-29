@@ -80,9 +80,13 @@ public class ClientThread extends Thread {
 	
 	private void updateGroup(Message message) {
 		ArrayList <String> userList = (ArrayList <String>) message.content;
+		userList.add(this.user.username);
+		System.out.println(this.server.groups);
 		boolean newGroupCreated = true;
-		for (Group g : this.user.allGroups) {
+		for (Group g : this.server.groups) {
+			System.out.println(g.groupMemberNames);
 			if (g.checkMembers(userList)) {
+				System.out.println("GROUP UPDATED");
 				this.user.currentGroup = g;
 				newGroupCreated = false;
 			}
@@ -92,11 +96,12 @@ public class ClientThread extends Thread {
 			for (String user : userList) {
 				newGroup.addUser(getUser(user));
 			}
-			newGroup.addUser(this.user);
 			newGroup.updateGroupName();
+			System.out.println(newGroup.groupMemberNames);
 			this.user.currentGroup = newGroup;
 			this.user.allGroups.add(newGroup);
-			server.groups.add(newGroup);
+			this.server.groups.add(newGroup);
+			System.out.println(this.server.groups);
 		}
 		Message chatHistory = new Message("chatHistory", null, null);
 		chatHistory.setUserChatHistory(this.user.currentGroup.chatHistory);
