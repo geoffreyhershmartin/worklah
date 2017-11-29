@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package swarnibot;
+package sassybot;
 
 /**
  *
  * @author student
  */
-public class SwarniMain {
+public class SassyMain {
+    
+    
     
 }
