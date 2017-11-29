@@ -231,7 +231,7 @@ public class ChatController implements Initializable {
 //                else if (message.contains("what")){
 //                    append2(message);
 //                    append("Yo Mama!");
-                    append(sassiAnswer.getResponse(message));
+//                    append(sassiAnswer.getResponse(message));
             }
             else{
 		String catchPhrase = "@task";

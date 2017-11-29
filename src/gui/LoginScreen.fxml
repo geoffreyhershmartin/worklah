@@ -20,7 +20,7 @@
                   <Image url="@assets/logo.png" />
                </image>
             </ImageView>
-            <TextField fx:id="Username" layoutX="36.0" layoutY="238.0" onAction="#loginPressed" prefHeight="21.0" prefWidth="133.0" promptText="Enter username">
+            <TextField fx:id="Username" layoutX="36.0" layoutY="238.0" prefHeight="21.0" prefWidth="133.0" promptText="Enter username">
                <font>
                   <Font size="10.0" />
                </font>

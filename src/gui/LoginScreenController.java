@@ -42,6 +42,7 @@ public class LoginScreenController implements Initializable {
 
 	protected Client client;
 	protected String userID;
+        protected String password;
         private Stage stage;
         private Scene scene;
         private ChatController chatController;
@@ -57,8 +58,8 @@ public class LoginScreenController implements Initializable {
 
 	@FXML
 	private void loginPressed(ActionEvent event) throws IOException, ClassNotFoundException {
-
-		String userID = Username.getText().trim();
+                password= passwordField.getText();
+		userID = Username.getText().trim();
 		if (userID.length() == 0)
 			return;
 		stage = new Stage();
@@ -71,7 +72,7 @@ public class LoginScreenController implements Initializable {
 		// Creates a server/client;
 		int port = 8080;
 		String server = "127.0.0.1";
-		client = new Client(server, port, controller, userID);
+		client = new Client(server, port, controller, userID, password);
 		client.start();
 
 		controller.setClient(client);
