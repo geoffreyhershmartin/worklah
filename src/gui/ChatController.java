@@ -24,16 +24,21 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import swarnibot.Answers;
 /**
  * FXML Controller class
  *
@@ -59,7 +64,9 @@ public class ChatController implements Initializable {
         private Button sendButton2;
         @FXML
         private Button newChat;
-	@FXML
+        @FXML
+        private CheckBox botCheckBox;
+        @FXML
 	private Hyperlink logOut;
         @FXML
         private Button attachButton2;
@@ -68,9 +75,12 @@ public class ChatController implements Initializable {
         @FXML
         private TextField conversantName;
         @FXML
+        private TextField userName;
+        @FXML
         private ImageView newChatIcon;
         @FXML
         private DatePicker dateSelector;
+        
         
         private Client client;
 
@@ -79,17 +89,23 @@ public class ChatController implements Initializable {
 	Stage prevStage;
         private Scene scene;
         private Stage stage;
+        private boolean sassiSwitch;
         
 	/**
 	 * Initializes the controller class.
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-
+//                userName.setText(userID);
 	}    
 
 	protected void setClient(Client _client) {
 		client = _client;
+	}
+        protected void setUserID(String _userID) {
+		userID = _userID;
+                userName.setText(userID);
+                
 	}
 
 	@FXML
@@ -110,8 +126,9 @@ public class ChatController implements Initializable {
 	private void taskClicked(MouseEvent event) {
             
 	}
-          @FXML
-        void newChatPressed(ActionEvent event) throws IOException {
+        
+        @FXML
+        void newChatPressed(MouseEvent event) throws IOException {
                 
 	
 		stage = new Stage();
@@ -139,16 +156,40 @@ public class ChatController implements Initializable {
 		
         }
 
-	
+	@FXML
+        void botChecked(ActionEvent event) {
+            chatView.setText("");
+                chatView2.setText("");
+//        swarniSwitch = true;
+//        System.out.print("set to true");
+        }
 
 	
 	@FXML
 	void logoutPressed(ActionEvent event) {
 		System.exit(0);
 	}
+        
 	@FXML
-	private void sendPressed(MouseEvent event) {
-		String message = chatBox.getText();
+	private void sendPressed(MouseEvent event) throws InterruptedException {
+            String message = chatBox.getText();
+            if (botCheckBox.isSelected()){
+                
+                if (message.contains("why")){
+                    append2(message);
+                    TimeUnit.SECONDS.sleep(1);
+                    append("Because you fell as a child");
+                }
+                else if (message.contains("how")){
+                    append2(message);
+                    TimeUnit.SECONDS.sleep(1);
+                    append("How would I know? Aren't you the 'smarter' one, human?");}
+                else if (message.contains("who")){
+                    append2(message);
+                    TimeUnit.SECONDS.sleep(1);
+                    append("Yo Mama!");}
+            }
+            else{
 		String catchPhrase = "@task";
 		if (message.contains(catchPhrase)) {
 			String task = message.replace("@task", "");
@@ -162,20 +203,36 @@ public class ChatController implements Initializable {
 		}
 
 		chatBox.setText("");
+        }
+        }
 
-	}
-
-    @FXML
-    void dateSelected(ActionEvent event) {
+        @FXML
+        void dateSelected(ActionEvent event) {
             int selectedIndex = taskList.getSelectionModel().getSelectedIndex();
             String theTask = taskList.getSelectionModel().getSelectedItem();
             String selectedDate = dateSelector.getValue().toString();
             taskList.getItems().add(selectedIndex, theTask +" due by " + selectedDate );
             taskList.getItems().remove(selectedIndex+1);
-    }
+        }
 	@FXML
-	private void enterPressedChat(ActionEvent event) {
+	private void enterPressedChat(ActionEvent event) throws InterruptedException {
 		String message = chatBox.getText();
+                if (botCheckBox.isSelected()){
+                Answers answer = new Answers();
+                if (message.contains("why")){
+                    append2(message);
+                    append(answer.getWhy());
+                }
+                else if (message.contains("how")){
+                    append2(message);
+                    append(answer.getHow());
+                }
+                else if (message.contains("what")){
+                    append2(message);
+                    append("Yo Mama!");
+                    append(answer.getHow());}
+            }
+            else{
 		String catchPhrase = "@task";
 		if (message.contains(catchPhrase)) {
 			String task = message.replace("@task", "");
@@ -191,10 +248,13 @@ public class ChatController implements Initializable {
 		chatBox.setText("");
 
 	}
+        }
         @FXML
         void attachButtonPressed(MouseEvent event) {
-
+            System.out.print(userID);
         }
+        
+        
 
 	public void append(String str) {
             String timeStamp;
@@ -227,7 +287,7 @@ public class ChatController implements Initializable {
             userList.getItems().add(_user);
         }
         
-         public void populateTaskList(String _task){
+        public void populateTaskList(String _task){
             taskList.getItems().add(_task);
         }
 
@@ -241,4 +301,8 @@ public class ChatController implements Initializable {
 	void connectionFailed() {
 		//        boolean connected = false;
 	}
+        
+//        public void loadHistory(ArrayList<String>){
+//            
+//        }
 }
