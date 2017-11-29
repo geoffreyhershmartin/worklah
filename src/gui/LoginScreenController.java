@@ -60,7 +60,7 @@ public class LoginScreenController implements Initializable {
 	private void loginPressed(ActionEvent event) throws IOException, ClassNotFoundException {
                 password= passwordField.getText();
 		userID = Username.getText().trim();
-		if (userID.length() == 0)
+		if ((userID.length() == 0)||(password.length()==0))
 			return;
 		stage = new Stage();
 

@@ -171,26 +171,29 @@ public class ChatController implements Initializable {
         
 	@FXML
 	private void sendPressed(MouseEvent event) throws InterruptedException {
-            String message = chatBox.getText();
-            if (botCheckBox.isSelected()){
-                
+		String message = chatBox.getText();
+                if (botCheckBox.isSelected()){
+                Answers sassiAnswer = new Answers();
                 if (message.toLowerCase().contains("why")){
                     append2(message);
-                    TimeUnit.SECONDS.sleep(1);
-                    append("Because you fell as a child");
+                    append(sassiAnswer.getWhy());
                 }
                 else if (message.toLowerCase().contains("how")){
                     append2(message);
-                    TimeUnit.SECONDS.sleep(1);
-                    append("How would I know? Aren't you the 'smarter' one, human?");}
-                else if (message.toLowerCase().contains("who")){
+                    append(sassiAnswer.getHow());
+                }
+                else if (message.toLowerCase().contains("what")){
                     append2(message);
-                    TimeUnit.SECONDS.sleep(1);
-                    append("Yo Mama!");}
+                    append(sassiAnswer.getWhat());}
+                else {
+                        append2(message);
+                        
+                    append("Nice to meet you, but not too nice.");
+            }
             }
             else{
 		String catchPhrase = "@task";
-		if (message.toLowerCase().contains(catchPhrase)) {
+		if (message.contains(catchPhrase)) {
 			String task = message.replace("@task", "");
 			taskList.getItems().add(task);
             chatBox.setText("");
@@ -202,7 +205,8 @@ public class ChatController implements Initializable {
 		}
 
 		chatBox.setText("");
-        }
+
+	}
         }
 
         @FXML
