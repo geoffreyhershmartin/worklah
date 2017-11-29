@@ -204,9 +204,13 @@ public class ClientThread extends Thread {
 			if (!user.currentGroup.checkMembers(this.user.currentGroup.groupMemberNames)) {
 				user.allGroups.add(this.user.currentGroup);
 				message.type = "notifyUser";
-				this.send(message, user.getClientThread());
+				if (!user.equals(this.user)) {
+					this.send(message, user.getClientThread());
+				}
 			} else {
-				this.send(message, user.getClientThread());
+				if (!user.equals(this.user)) {
+					this.send(message, user.getClientThread());
+				}
 			}
 		}
 	}
