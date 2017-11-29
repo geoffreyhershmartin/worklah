@@ -92,13 +92,22 @@ public class ChatController implements Initializable {
         private Scene scene;
         private Stage stage;
         private boolean sassiSwitch;
-        ArrayList<ArrayList<String>> conversations;
+        public ArrayList<ArrayList<String>> conversations;
+        String currentConversation;
         
 	/**
 	 * Initializes the controller class.
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+               userName.setText(userID);
+	}    
+	
+	protected void initialiseConversations() {
+		this.conversations = new ArrayList<ArrayList<String>>();
+		this.currentConversation = "";
+	}
+
 
         userName.setText(userID);
 //        chatView.setFont(Font.loadFont("file:resources/fonts/OpenSansEmoji.ttf", 10));
@@ -116,10 +125,21 @@ public class ChatController implements Initializable {
 
 	@FXML
 	private void userClicked(MouseEvent event) {
+			String newConversation = userList.getSelectionModel().getSelectedItem();
+			if (newConversation.equals(this.currentConversation)) {
+				return;
+			}
             conversantName.setText(userList.getSelectionModel().getSelectedItem());
+            chatView.setText("");
+            chatView2.setText("");
+            for (ArrayList <String> conversation : this.conversations) {
+            		if (newConversation.equals(String.join(", ", conversation))) {
+                        client.updateGroup(conversation);
+            		}
+            }
+            this.currentConversation = newConversation;
             conversantImage.setVisible(true);
             greenCircle.setVisible(true);
-//            client.updateGroup(newGroup);
 	}
 
 	@FXML
@@ -178,6 +198,7 @@ public class ChatController implements Initializable {
 	
 	@FXML
 	void logoutPressed(ActionEvent event) {
+		client.goOffline();
 		System.exit(0);
 	}
         
@@ -204,12 +225,13 @@ public class ChatController implements Initializable {
             }
             }
             else{
-		String catchPhrase = "@task";
+		String catchPhrase = "@task ";
 		if (message.contains(catchPhrase)) {
-			String task = message.replace("@task", "");
-			taskList.getItems().add(task);
+			String task = message.replace("@task ", "");
+			String arr[] = task.split(" ", 2);
+			taskList.getItems().add("@" + arr[0] + ": " + arr[1] + "\n");
             chatBox.setText("");
-            client.sendTaskToGroup(message);
+            client.sendTaskToGroup(arr[1], arr[0]);
 		}
 		else{
 			client.sendMessageToGroup(message);
@@ -252,12 +274,13 @@ public class ChatController implements Initializable {
             }
             }
             else{
-		String catchPhrase = "@task";
+		String catchPhrase = "@task ";
 		if (message.contains(catchPhrase)) {
-			String task = message.replace("@task", "");
-			taskList.getItems().add(task);
+			String task = message.replace("@task ", "");
+			String arr[] = task.split(" ", 2);
+			taskList.getItems().add("@" + arr[0] + ": " + arr[1] + "\n");
             chatBox.setText("");
-            client.sendTaskToGroup(message);
+            client.sendTaskToGroup(arr[1], arr[0]);
 		}
 		else{
 			client.sendMessageToGroup(message);
@@ -299,14 +322,17 @@ public class ChatController implements Initializable {
 //		this.searchTask.setText(_userID);
 //	}
         public void populateUserList(String _user){
+        	try {
             if(userList.getItems().contains(_user)){
-            String notification = _user;
-            userList.getItems().remove(_user);
-            userList.getItems().add(_user+"Read Please!");
+                userList.getItems().remove(_user);
+                userList.getItems().add(_user);
+                }
+                else{
+                userList.getItems().add(_user);
             }
-            else{
-            userList.getItems().add(_user + "Read Please!");
-        }
+        	} catch (IllegalStateException e) {
+        		return;
+        	}
         }
         
         public void populateTaskList(String _task){
@@ -316,8 +342,13 @@ public class ChatController implements Initializable {
         public void activeGroups (ArrayList<ArrayList<String>> conversations){
             this.conversations = conversations;
             for (ArrayList<String> group:conversations){
-                populateUserList(String.join(",", group));
+                populateUserList(String.join(", ", group));
             }
+        }
+        
+        public void addConversation(ArrayList <String> conversation) {
+        		conversations.add(conversation);
+        		populateUserList(String.join(", ", conversation));
         }
 
 

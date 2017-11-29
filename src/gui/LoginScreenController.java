@@ -68,6 +68,7 @@ public class LoginScreenController implements Initializable {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChatScreen.fxml"));     
 		Parent root = (Parent) fxmlLoader.load();          
 		ChatController controller = fxmlLoader.<ChatController>getController();
+		controller.initialiseConversations();
 
 		// Creates a server/client;
 		int port = 8080;

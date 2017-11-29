@@ -52,6 +52,7 @@ public class PopupController implements Initializable {
         String listString = String.join(", ", showing);
         primaryUserList.getItems().add(listString);
         client.updateGroup(new ArrayList<String>(showing));
+        client.addConversation(new ArrayList<String>(showing));
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
@@ -66,6 +67,7 @@ public class PopupController implements Initializable {
         String listString = String.join(", ", showing);
         primaryUserList.getItems().add(listString);
         client.updateGroup(new ArrayList<String>(showing));
+        client.addConversation(new ArrayList<String>(showing));
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         stage.close();

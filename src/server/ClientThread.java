@@ -41,16 +41,22 @@ public class ClientThread extends Thread {
 
 	private void handleTask(Message message) throws IOException {
 		String recipient = (String) message.content;
-		if (recipient.equals(this.user.username)) {
-			Task newTask = new Task((String) message.content);
-			this.user.tasks.add(newTask);
-			return;
-		}
-		for (User user : this.user.getGroupMembers()) {
-			if (recipient.equals(user.username)) {
-				send(message, user.getClientThread());
+		Task newTask = new Task((String) message.content, recipient);
+		this.user.currentGroup.tasks.add(newTask);
+		send(message, user.getClientThread());
+	}
+	
+	public void uploadFile (Message message, ClientThread c) {
+		synchronized (this) {
+			try {
+				c.out.writeObject(message);
+				c.out.flush();
+			} 
+			catch (IOException ex) {
+				System.out.println("Exception: uploadFile in ClientThread");
+				ex.printStackTrace();
 			}
-		} 
+		}
 	}
 	
 	public void sendUsers() {
@@ -80,8 +86,11 @@ public class ClientThread extends Thread {
 	
 	private void updateGroup(Message message) {
 		ArrayList <String> userList = (ArrayList <String>) message.content;
+		if (!userList.contains(this.user.username)) {
+			userList.add(this.user.username);
+		}
 		boolean newGroupCreated = true;
-		for (Group g : this.user.allGroups) {
+		for (Group g : this.server.groups) {
 			if (g.checkMembers(userList)) {
 				this.user.currentGroup = g;
 				newGroupCreated = false;
@@ -92,15 +101,15 @@ public class ClientThread extends Thread {
 			for (String user : userList) {
 				newGroup.addUser(getUser(user));
 			}
-			newGroup.addUser(this.user);
 			newGroup.updateGroupName();
 			this.user.currentGroup = newGroup;
 			this.user.allGroups.add(newGroup);
-			server.groups.add(newGroup);
+			this.server.groups.add(newGroup);
+			System.out.println("NEW GROUP: " + newGroup.groupMemberNames);
 		}
-		Message chatHistory = new Message("chatHistory", null, null);
-		chatHistory.setUserChatHistory(this.user.currentGroup.chatHistory);
-		send(chatHistory, this);
+		Message updateGroup = new Message("updateGroup", null, null);
+		updateGroup.content = this.user.currentGroup;
+		send(updateGroup, this);
 	}
 	
 	private User getUser(String _user) {
@@ -111,25 +120,28 @@ public class ClientThread extends Thread {
 		}
 		return(null);
 	}
+	
+	
 
 	private void setUser(Message message) {
 		for (User user : server.users) {
 			if (message.sender.equals(user.username)) {
 				if (message.content.equals(user.password)) {
 					this.user = user;
-					user.goOnline(this);
+					this.user.goOnline(this);
+					Message loadUserGroups = new Message("loadUserGroups", null, null);
+					loadUserGroups.content = this.user.allGroups;
+					send(loadUserGroups, this);
 					return;
 				}
 			}
 		}
 		this.user = new User(message.sender, (String) message.content, this);
 		server.users.add(this.user);
-		Message loadUserData = new Message("loadUserData", null, null);
-		ArrayList <Object> userData = new ArrayList <Object>();
-		userData.add(user.allGroups);
-		userData.add(user.tasks);
-		loadUserData.content = userData;
-		send(loadUserData, this);
+		Message loadUserGroups = new Message("loadUserGroups", null, null);
+		ArrayList <Group> groupList = new ArrayList <Group>();
+		loadUserGroups.content = groupList;
+		send(loadUserGroups, this);
 	}
 	
 	/* 
@@ -177,16 +189,15 @@ public class ClientThread extends Thread {
 				} else if (message.type.equals("getUsers")) {
 					this.sendUsers();
 				} else if (message.type.equals("message")) {
-					if (message.sender == this.user.username) {
-						this.messageHandler(message);
-					}
+					this.messageHandler(message);
 				} else if (message.type.equals("goOffline")) {
 					this.user.goOffline();
-				}
+				} else if (message.type.equals("uploadFile")) {
+					this.uploadFile(message);
+				} 
+			
 			}
 			catch (Exception e) {
-				System.out.println("Connection Failure");
-				e.printStackTrace();
 				try {
 					this.closeConnection();
 				} catch (IOException e1) {
@@ -200,6 +211,7 @@ public class ClientThread extends Thread {
 	
 	public void messageHandler(Message message) throws IOException {
 		this.user.currentGroup.chatHistory.add(message);
+		System.out.println(this.user.currentGroup.chatHistory.get(0));
 		for (User user : this.user.getGroupMembers()) {
 			if (!user.currentGroup.checkMembers(this.user.currentGroup.groupMemberNames)) {
 				user.allGroups.add(this.user.currentGroup);
@@ -212,6 +224,20 @@ public class ClientThread extends Thread {
 					this.send(message, user.getClientThread());
 				}
 			}
+		}
+	}
+	
+	public void uploadFile (Message message) {
+		this.user.currentGroup.chatHistory.add(message);
+		for (User user : this.user.getGroupMembers()) {
+			if (!user.equals(this.user)) {
+				this.send(message, user.getClientThread());
+			}
+			else {
+				if (!user.equals(this.user)) {
+				this.send(message, user.getClientThread());
+			}
+		}
 		}
 	}
 

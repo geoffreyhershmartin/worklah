@@ -6,7 +6,7 @@ import server.ClientThread;
 import tasks.Task;
 
 public class User {
-	
+		
 	public Group currentGroup;
 	public ArrayList <Group> allGroups;
 	public String username;
