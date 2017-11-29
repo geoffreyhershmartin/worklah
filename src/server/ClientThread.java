@@ -53,6 +53,19 @@ public class ClientThread extends Thread {
 		} 
 	}
 	
+	public void uploadFile (Message message, ClientThread c) {
+		synchronized (this) {
+			try {
+				c.out.writeObject(message);
+				c.out.flush();
+			} 
+			catch (IOException ex) {
+				System.out.println("Exception: uploadFile in ClientThread");
+				ex.printStackTrace();
+			}
+		}
+	}
+	
 	public void sendUsers() {
 		Message newMessage = new Message("userList", null, null);
 		ArrayList <String> userList = new ArrayList <String>();
@@ -116,6 +129,8 @@ public class ClientThread extends Thread {
 		}
 		return(null);
 	}
+	
+	
 
 	private void setUser(Message message) {
 		for (User user : server.users) {
@@ -187,7 +202,10 @@ public class ClientThread extends Thread {
 					}
 				} else if (message.type.equals("goOffline")) {
 					this.user.goOffline();
-				}
+				} else if (message.type.equals("uploadFile")) {
+					this.uploadFile(message);
+				} 
+			
 			}
 			catch (Exception e) {
 				System.out.println("Connection Failure");
@@ -217,6 +235,20 @@ public class ClientThread extends Thread {
 					this.send(message, user.getClientThread());
 				}
 			}
+		}
+	}
+	
+	public void uploadFile (Message message) {
+		this.user.currentGroup.chatHistory.add(message);
+		for (User user : this.user.getGroupMembers()) {
+			if (!user.equals(this.user)) {
+				this.send(message, user.getClientThread());
+			}
+			else {
+				if (!user.equals(this.user)) {
+				this.send(message, user.getClientThread());
+			}
+		}
 		}
 	}
 
