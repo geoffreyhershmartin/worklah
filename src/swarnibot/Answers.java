@@ -19,14 +19,14 @@ public class Answers {
 		    random = new Random();
 		}
 
-		public void getWhy() {
+		public String getWhy() {
 		
 			String[] whyArray = new String[]{"Because the heavens told me to.",
 												"Because I don't like it when you smile.",
 												"Because you're average."};
 			Random random = new Random();
 			int index = random.nextInt(whyArray.length);
-			System.out.println(whyArray[index]);
+			return whyArray[index];
 		}
 	
 	String[] howArray = new String[]{"I'm pretty easygoing, actually.",
