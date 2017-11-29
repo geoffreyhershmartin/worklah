@@ -109,11 +109,11 @@ public class ChatController implements Initializable {
 	}
 
 
-        userName.setText(userID);
+       
 //        chatView.setFont(Font.loadFont("file:resources/fonts/OpenSansEmoji.ttf", 10));
 //        chatView.setFont(Font.loadFont("file:resources/fonts/OpenSansEmoji.ttf", 10));
 
-	}    
+	 
         
 	protected void setClient(Client _client) {
 		client = _client;
