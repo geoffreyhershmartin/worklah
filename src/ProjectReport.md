@@ -1,6 +1,6 @@
 # YSC3232 Object-Oriented Programming: Final Project Report
 
-**Group Name: GST **
+**Group Name: GST**
 
 **Project Name: Work Lah!**
 
