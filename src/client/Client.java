@@ -36,7 +36,7 @@ public class Client extends Thread {
 			this.connection = new Socket(this.ip, port);
 			this.out = new ObjectOutputStream(connection.getOutputStream());
 			this.in = new ObjectInputStream(connection.getInputStream());
-			setUser(_username);
+			setUser();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -46,7 +46,7 @@ public class Client extends Thread {
 		this.popupController = _popupController;
 	}
 
-	public void setUser(String _username) {
+	public void setUser() {
 		Message setUser = new Message("setUser", this.username, this.password);
 		send(setUser);
 	}
@@ -113,12 +113,12 @@ public class Client extends Thread {
 				} else if (message.type.equals("loadUserData")) {
 					ArrayList <Object> userData = ((ArrayList <Object>) message.content);
 					ArrayList <Group> groupList = (ArrayList<Group>) userData.get(0);
-					ArrayList <Task> taskList = (ArrayList<Task>) userData.get(1);
+					ArrayList <Task> taskList = (ArrayList<Task>) userData.get(1);					
 					for (Group group : groupList) {
-						guiController.populateUserList(String.join(",", group.groupMemberNames));
+//						guiController.populateUserList(String.join(",", group.groupMemberNames));
 					}
 					for (Task task : taskList) {
-						guiController.populateTaskList(task.task + " due by " + task.deadline.toString());
+//						guiController.populateTaskList(task.task + " due by " + task.deadline.toString());
 					}
 				} else if (message.type.equals("notifyUser")) {
 					this.notifyUser(message);

@@ -114,8 +114,10 @@ public class ClientThread extends Thread {
 		this.user = new User(message.sender, (String) message.content, this);
 		server.users.add(this.user);
 		Message loadUserData = new Message("loadUserData", null, null);
-		loadUserData.setUserGroups(user.allGroups);
-		loadUserData.setTaskList(user.tasks);
+		ArrayList <Object> userData = new ArrayList <Object>();
+		userData.add(user.allGroups);
+		userData.add(user.tasks);
+		loadUserData.content = userData;
 		send(loadUserData, this);
 	}
 
@@ -138,7 +140,9 @@ public class ClientThread extends Thread {
 		while (true) {
 			try {
 				Message message = (Message) in.readObject();
-				message.setGroup(this.user.currentGroup.groupMemberNames);
+				if (this.user != null) {
+					message.setGroup(this.user.currentGroup.groupMemberNames);
+				}
 				if (message.type.equals("setUser")) {
 					this.setUser(message);
 				} else if (message.type.equals("updateGroup")) {
@@ -185,8 +189,8 @@ public class ClientThread extends Thread {
 	public void closeConnection() throws IOException
 	{
 		System.out.println("Client disconnecting, cleaning the data!");
-		this.out.close();
 		try {
+			this.out.close();
 			this.in.close();
 			this.client.close();
 		} catch (IOException e) {

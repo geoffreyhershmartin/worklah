@@ -103,8 +103,7 @@ public class ChatController implements Initializable {
 		client = _client;
 	}
         protected void setUserID(String _userID) {
-		userID = _userID;
-                userName.setText(userID);
+                userName.setText(_userID);
                 
 	}
 
