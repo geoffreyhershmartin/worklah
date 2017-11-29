@@ -5,10 +5,37 @@
  */
 package swarnibot;
 
-/**
- *
- * @author student
- */
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Answers {
-    
+	
+		private Random random;
+		private ArrayList<Answers> answer;
+
+		public Answers()
+		{ 
+		    ArrayList<Answers> answer = new ArrayList<Answers>();
+		    random = new Random();
+		}
+
+		public void getWhy() {
+		
+			String[] whyArray = new String[]{"Because the heavens told me to.",
+												"Because I don't like it when you smile.",
+												"Because you're average."};
+			Random random = new Random();
+			int index = random.nextInt(whyArray.length);
+			System.out.println(whyArray[index]);
+		}
+	
+	String[] howArray = new String[]{"I'm pretty easygoing, actually.",
+										"I don't need this question in my life",
+										"Bleep bloop I'm a bot."};
+	
+	String[] whatArray = new String[]{"My lawyer says I don't need to answer this question",
+										"Are you really asking me this right now?",
+										"That was underwhelming. Try harder."};
+	
+ 
 }
