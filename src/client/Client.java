@@ -109,7 +109,7 @@ public class Client extends Thread {
 					}
 				} else if (message.type.equals("chatHistory")) {
 					ArrayList <Message> chatHistory = (ArrayList <Message>) message.content;
-					guiController.loadHistory(chatHistory);
+					this.loadHistory(chatHistory);
 				} else if (message.type.equals("loadUserData")) {
 					ArrayList <Object> userData = ((ArrayList <Object>) message.content);
 					ArrayList <Group> groupList = (ArrayList<Group>) userData.get(0);
@@ -130,6 +130,16 @@ public class Client extends Thread {
 				System.out.println("Exception Client sendToServer()");
 				e.printStackTrace();
 				break;
+			}
+		}
+	}
+	
+	public void loadHistory(ArrayList <Message> chatHistory) {
+		for (Message message : chatHistory) {
+			if (message.sender.equals(this.username)) {
+				guiController.append2((String) message.content);
+			} else {
+				guiController.append((String) message.content);
 			}
 		}
 	}
