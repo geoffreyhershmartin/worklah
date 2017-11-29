@@ -37,6 +37,7 @@ public class Client extends Thread {
 			this.out = new ObjectOutputStream(connection.getOutputStream());
 			this.in = new ObjectInputStream(connection.getInputStream());
 			setUser();
+			System.out.println(this.username);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -52,10 +53,10 @@ public class Client extends Thread {
 	}
 
 	public void updateGroup(ArrayList <String> newGroup) {
-		Message updateGroup = new Message("updateGroup", this.username, null);
+		Message updateGroupMessage = new Message("updateGroup", this.username, null);
 		System.out.println("GROUP UPDATED TO:" +  newGroup);
-		updateGroup.content = newGroup;
-		send(updateGroup);
+		updateGroupMessage.content = newGroup;
+		send(updateGroupMessage);
 	}
 
 	public void sendMessageToGroup(String message) {
@@ -115,9 +116,12 @@ public class Client extends Thread {
 						this.popupController.addUserElement(_username);
 					}
 				} else if (message.type.equals("updateGroup")) {
-					System.out.println(message);
+					System.out.println("GOT update");
 					ArrayList <Task> taskList = ((Group) message.content).tasks;
 					ArrayList <Message> chatHistory = ((Group) message.content).chatHistory;
+					for (Message msg : chatHistory) {
+						System.out.println(msg);
+					}
 					this.loadHistory(chatHistory);
 					this.loadTaskList(taskList);
 				} else if (message.type.equals("loadUserGroups")) {

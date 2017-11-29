@@ -107,9 +107,9 @@ public class ClientThread extends Thread {
 			this.server.groups.add(newGroup);
 			System.out.println("NEW GROUP: " + newGroup.groupMemberNames);
 		}
-		Message updateGroup = new Message("updateGroup", null, null);
-		updateGroup.content = this.user.currentGroup;
-		send(updateGroup, this);
+		Message updateGroupMessage = new Message("updateGroup", null, null);
+		updateGroupMessage.content = this.user.currentGroup;
+		send(updateGroupMessage, this);
 	}
 	
 	private User getUser(String _user) {
@@ -211,7 +211,6 @@ public class ClientThread extends Thread {
 	
 	public void messageHandler(Message message) throws IOException {
 		this.user.currentGroup.chatHistory.add(message);
-		System.out.println(this.user.currentGroup.chatHistory.get(0));
 		for (User user : this.user.getGroupMembers()) {
 			if (!user.currentGroup.checkMembers(this.user.currentGroup.groupMemberNames)) {
 				user.allGroups.add(this.user.currentGroup);
