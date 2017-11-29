@@ -5,6 +5,7 @@
  */
 package gui;
 
+import sassibot.Answers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -38,7 +39,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import swarnibot.*;
 /**
  * FXML Controller class
  *
@@ -293,7 +293,7 @@ public class ChatController implements Initializable {
             userList.getItems().add(_user+"Read Please!");
             }
             else{
-            userList.getItems().add(_user);
+            userList.getItems().add(_user + "Read Please!");
         }
         }
         

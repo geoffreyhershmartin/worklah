@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package swarnibot;
+package sassibot;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import messages.Message;
 
-public class SwarniMain {
+public class Sassimain {
 	
 	public Answers answer;
 	public String message;
